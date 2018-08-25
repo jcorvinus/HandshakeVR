@@ -82,6 +82,11 @@ namespace CoordinateSpaceConversion
                 modelManager.leapProvider = customProvider;
                 if (leftInteractionHand) leftInteractionHand.leapProvider = customProvider;
                 if (rightInteractionHand) rightInteractionHand.leapProvider = customProvider;
+
+                for(int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't direct children of the 
+                {
+                    modelManager.transform.GetChild(i).gameObject.SetActive(false);
+                }
             }
 
             modelManager.GraphicsEnabled = isDefault;
