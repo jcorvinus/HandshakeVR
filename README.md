@@ -44,6 +44,7 @@ Go head and open up any of the other scenes and try them out as well. They're ad
 - Locate the /Assets/_LeapControllerCompatibility/Prefabs/LeapRig prefab
 	- Drag it into the scene
 - Locate the /Assets/_LeapControllerCompatibility/Prefabs/Interaction Manager prefab
+	- Drag it into the scene
 - Expand both the LeapRig object and the Interaction Manager object.
 - Select the LeapRig/Custom Provider/ gameobject
 - Drag the left and right interaction hand objects into the 'left interaction hand' and 'right interaction hand' properties on the CustomProvider behavior
