@@ -16,24 +16,12 @@ MonoBehaviour:
   actionSetObjects:
   - {fileID: 11400000, guid: 565b3df7b151f504bbc218268e4c23b3, type: 2}
   actionNames:
-  - __actions_default_in_Move
-  - __actions_default_in_Use
-  - __actions_default_in_InteractUI
-  - __actions_default_in_GrabPinch
-  - __actions_default_in_GrabGrip
   - __actions_default_in_Pose
   - __actions_default_in_SkeletonLeftHand
   - __actions_default_in_SkeletonRightHand
-  - __actions_default_in_Squeeze
   - __actions_default_out_Haptic
   actionObjects:
-  - {fileID: 11400000, guid: 905d8f6fe01a8aa4ab3c872d2f5da120, type: 2}
-  - {fileID: 11400000, guid: 53562bd259f64bb4ba6f539bd0588b86, type: 2}
-  - {fileID: 11400000, guid: c005581822efcba47b4c439298826334, type: 2}
-  - {fileID: 11400000, guid: cceae7d515f14a54887c207847b43397, type: 2}
-  - {fileID: 11400000, guid: f1d3fe4154b2f86468a14df2ccc96bb9, type: 2}
   - {fileID: 11400000, guid: 9cb310d97b6d4c04385ca1b05af7c2fa, type: 2}
   - {fileID: 11400000, guid: e972e42168153a3419f2ef1efc3bc47f, type: 2}
   - {fileID: 11400000, guid: 296d71bb3963c5040941d281768da7e8, type: 2}
-  - {fileID: 11400000, guid: 770a7a6c471bbdf45b55b2a1283bb1c7, type: 2}
   - {fileID: 11400000, guid: 0d64badc805947c418deb51ed022ba76, type: 2}

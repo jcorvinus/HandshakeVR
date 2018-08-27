@@ -17,22 +17,10 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_default_In : Valve.VR.SteamVR_Action_List
     {
         
-        public static Valve.VR.SteamVR_Action_Vector2 Move;
-        
-        public static Valve.VR.SteamVR_Action_Boolean Use;
-        
-        public static Valve.VR.SteamVR_Action_Boolean InteractUI;
-        
-        public static Valve.VR.SteamVR_Action_Boolean GrabPinch;
-        
-        public static Valve.VR.SteamVR_Action_Boolean GrabGrip;
-        
         public static Valve.VR.SteamVR_Action_Pose Pose;
         
         public static Valve.VR.SteamVR_Action_Skeleton SkeletonLeftHand;
         
         public static Valve.VR.SteamVR_Action_Skeleton SkeletonRightHand;
-        
-        public static Valve.VR.SteamVR_Action_Single Squeeze;
     }
 }
