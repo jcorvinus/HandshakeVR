@@ -1,9 +1,9 @@
 # Leap SteamVR Skeleton
 	  
-##What is this?
+## What is this?
 This is a compatibility system that allows VR developers to target both Leap Motion and SteamVR skeletal hand tracking, as well as use Leap Motion's incredibly robust Interaction Engine with SteamVR controllers. All in a single workflow.
 
-##Why would I want to use this?
+## Why would I want to use this?
 If you want:
 - More precise, finger-level interactions than the SteamVR Interaction, VRTK, or other interaction systems (currently) provide.
 - Physical UI controls instead of laser pointers and button presses.
@@ -12,7 +12,7 @@ If you want:
 - If you want to give your users the option of upgrading to higher quality finger tracking than they'll get from the Knuckles controller, with no changes needed to their software. (Seriously people start writing more Leap compatible software)
 - If you're a Interaction Engine developer and want the ability to hold objects behind you, well outside of the Leap Motion's regular FOV.
 
-##Great, how do I start using it?
+## Great, how do I start using it?
 This project is currently set up for Unity version 2017.3.1f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
 
 SteamVR:
@@ -27,7 +27,7 @@ Once you've downloaded the packages, open the project in Unity. Import the asset
         s_provider = value;
       }
 
-#Exploring the project's capabilities	  
+# Exploring the project's capabilities	  
 Now to start testing and exploring the project's capabilities. You'll want the following hardware:
 - Leap Motion controller (Just get one of these, they're inexpesnive and super useful.)
 - Knuckles EV2 (If you can get them - Oculus touch controllers might work in a pinch. Vive wands will not perform well.)
@@ -38,7 +38,7 @@ Open the 'Basic Interaction' scene. Ensure your leap motion is connected, and ma
 
 Go head and open up any of the other scenes and try them out as well. They're adapted versions of the original Leap Motion Interaction Engine samples, with the exception of the 'SteamVRTest' scene, which is a minimal implementation example.
 
-#Setting up a new scene
+# Setting up a new scene
 - Create a new scene
 - Delete the main camera
 - Locate the /Assets/_LeapControllerCompatibility/Prefabs/LeapRig prefab
@@ -50,9 +50,15 @@ Go head and open up any of the other scenes and try them out as well. They're ad
 - save the scene
 - enter play mode
 
-#FAQ:
+# FAQ:
 Q: How do I develop for Interaction Engine?
 A: Head on over to the Interaction Engine documentation: https://leapmotion.github.io/UnityModules/interaction-engine.html
 
+Q: Why does releasing an object sometimes cause it to pop upwards?
+A: I'm not 100% sure but I think it has to do with the colliders of the last few fingers still penetrating the object when the 'grab' is released. This should be fixable by changing the collision behavior. I do plan on fixing this.
+
+Q: Why is the grabbing fiddly for me?
+A: The thumb and index finger are the most important parts of a grab in interaction engine. Make sure to grab objects with those fingers. At some point I'll create customn poses that make this easier, same with pinching.
+
 Q: Why do you switch to the SteamVR thin glove model when in SteamVR mode despite the retargeting being valid for both models?
-A: The leap hand model rigged to the SteamVR skeleton is horrifying. Look!
+A: The leap hand model rigged to the SteamVR skeleton is horrifying.
