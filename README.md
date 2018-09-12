@@ -22,10 +22,12 @@ Leap Core Assets & Interaction Engine:
 https://developer.leapmotion.com/unity/#5436356
 
 Once you've downloaded the packages, open the project in Unity. Import the asset packages. You will get a compile error about Provider being read-only. At the moment, we need to make one small change to the leap motion assets to get things working properly. In HandUtils.cs, after line 82, add the following
-      set
-      {
-        s_provider = value;
-      }
+```
+	set
+	{
+		s_provider = value;
+	}
+```
 
 # Exploring the project's capabilities	  
 Now to start testing and exploring the project's capabilities. You'll want the following hardware:
@@ -44,6 +46,7 @@ Go head and open up any of the other scenes and try them out as well. They're ad
 - Locate the /Assets/_LeapControllerCompatibility/Prefabs/LeapRig prefab
 	- Drag it into the scene
 - Locate the /Assets/_LeapControllerCompatibility/Prefabs/Interaction Manager prefab
+	- Drag it into the scene
 - Expand both the LeapRig object and the Interaction Manager object.
 - Select the LeapRig/Custom Provider/ gameobject
 - Drag the left and right interaction hand objects into the 'left interaction hand' and 'right interaction hand' properties on the CustomProvider behavior
