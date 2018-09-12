@@ -62,6 +62,8 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         bool isLeft;
 
+        public bool IsLeft { get { return isLeft; } }
+
         [Header("Debug vars")]
         [SerializeField]
         bool drawBones = true;
@@ -282,7 +284,7 @@ namespace CoordinateSpaceConversion
             }
         }
 
-        private Vector3 GetPalmPosition()
+        public Vector3 GetPalmPosition()
         {
             return wrist.position + (wrist.TransformDirection(modelPalmFacing) * palmNormalOffset) +
                 (wrist.TransformDirection(modelFingerPointing) * palmForwardOfffset);
@@ -303,7 +305,7 @@ namespace CoordinateSpaceConversion
             return wrist.transform.position;
         }
 
-        private Quaternion GetHandRotation()
+        public Quaternion GetHandRotation()
         {
             Vector3 upForearm, forwardForearm;
 

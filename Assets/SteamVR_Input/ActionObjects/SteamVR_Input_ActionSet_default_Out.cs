@@ -17,6 +17,6 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_default_Out : Valve.VR.SteamVR_Action_List
     {
         
-        public static Valve.VR.SteamVR_Action_Vibration Haptic;
+        public Valve.VR.SteamVR_Action_Vibration Haptic;
     }
 }

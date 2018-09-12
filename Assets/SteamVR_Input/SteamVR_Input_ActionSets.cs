@@ -22,7 +22,6 @@ namespace Valve.VR
         public static void Dynamic_InitializeActionSets()
         {
             SteamVR_Input._default.Initialize();
-            Valve.VR.SteamVR_Input.Dynamic_InitializeInstanceActionSets();
         }
         
         public static void Dynamic_InitializeInstanceActionSets()

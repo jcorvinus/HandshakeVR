@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.Unity;
+using Leap.Unity.Query;
 using Leap.Unity.Interaction;
 
 using Valve.VR;
@@ -24,10 +25,8 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         HandModelManager modelManager;
 
-        [SerializeField]
+        InteractionManager interactionManager;
         InteractionHand leftInteractionHand;
-
-        [SerializeField]
         InteractionHand rightInteractionHand;
 
         [Header("SteamVR Variables")]
@@ -36,12 +35,40 @@ namespace CoordinateSpaceConversion
 
         [SerializeField]
         GameObject leftHandVisual;
+        SteamVRInteractionController leftInteractionController;
 
         [SerializeField]
         SteamVR_Behaviour_Pose rightHandPose;
 
         [SerializeField]
         GameObject rightHandVisual;
+        SteamVRInteractionController rightInteractionController;
+
+        private void Awake()
+        {
+            interactionManager = InteractionManager.instance;
+
+            if(interactionManager)
+            { 
+                foreach(InteractionController controller in interactionManager.interactionControllers)
+                {
+                    if(controller is InteractionHand)
+                    {
+                        InteractionHand hand = (InteractionHand)controller;
+
+                        if (hand.isLeft) leftInteractionHand = hand;
+                        else rightInteractionHand = hand;
+                    }
+                    else if (controller is SteamVRInteractionController)
+                    {
+                        SteamVRInteractionController interactionController = (SteamVRInteractionController)controller;
+
+                        if (interactionController.isLeft) leftInteractionController = interactionController;
+                        else rightInteractionController = interactionController;
+                    }
+                }
+            }
+        }
 
         // Use this for initialization
         void Start()
@@ -74,14 +101,34 @@ namespace CoordinateSpaceConversion
             if (isDefault)
             {
                 modelManager.leapProvider = defaultProvider;
-                if (leftInteractionHand) leftInteractionHand.leapProvider = defaultProvider;
-                if (rightInteractionHand) rightInteractionHand.leapProvider = defaultProvider;
+                if (leftInteractionHand)
+                {
+                    leftInteractionHand.leapProvider = defaultProvider;
+                    leftInteractionController.graspingEnabled = false;
+                    leftInteractionHand.graspingEnabled = true;
+                }
+                if (rightInteractionHand)
+                {
+                    rightInteractionHand.leapProvider = defaultProvider;
+                    rightInteractionController.graspingEnabled = false;
+                    rightInteractionHand.graspingEnabled = true;
+                }
             }
             else
             {
                 modelManager.leapProvider = customProvider;
-                if (leftInteractionHand) leftInteractionHand.leapProvider = customProvider;
-                if (rightInteractionHand) rightInteractionHand.leapProvider = customProvider;
+                if (leftInteractionHand)
+                {
+                    leftInteractionHand.leapProvider = customProvider;
+                    leftInteractionController.graspingEnabled = true;
+                    leftInteractionHand.graspingEnabled = false;
+                }
+                if (rightInteractionHand)
+                {
+                    rightInteractionHand.leapProvider = customProvider;
+                    rightInteractionController.graspingEnabled = true;
+                    rightInteractionHand.graspingEnabled = false;
+                }
 
                 for(int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't direct children of the 
                 {

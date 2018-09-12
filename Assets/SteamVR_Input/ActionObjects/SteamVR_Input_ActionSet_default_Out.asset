@@ -15,3 +15,4 @@ MonoBehaviour:
   listDirection: 1
   actions:
   - {fileID: 11400000, guid: 0d64badc805947c418deb51ed022ba76, type: 2}
+  Haptic: {fileID: 11400000, guid: 0d64badc805947c418deb51ed022ba76, type: 2}

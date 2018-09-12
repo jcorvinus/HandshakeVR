@@ -258,6 +258,28 @@ Prefab:
       propertyPath: rightInteractionHand
       value: 
       objectReference: {fileID: 640809819}
+    - target: {fileID: 114345667115788794, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: leftInteractionController
+      value: 
+      objectReference: {fileID: 1552783045}
+    - target: {fileID: 114345667115788794, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: rightInteractionController
+      value: 
+      objectReference: {fileID: 1594199277}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1552783045 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114744919474366516, guid: 59d8e1bc649c7ab4ca2c94fb99e62004,
+    type: 2}
+  m_PrefabInternal: {fileID: 286099543}
+  m_Script: {fileID: 11500000, guid: ab882b7139b109e43921665a2e43801c, type: 3}
+--- !u!114 &1594199277 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114029717507940416, guid: 59d8e1bc649c7ab4ca2c94fb99e62004,
+    type: 2}
+  m_PrefabInternal: {fileID: 286099543}
+  m_Script: {fileID: 11500000, guid: ab882b7139b109e43921665a2e43801c, type: 3}

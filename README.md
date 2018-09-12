@@ -8,7 +8,7 @@ If you want:
 - More precise, finger-level interactions than the SteamVR Interaction, VRTK, or other interaction systems (currently) provide.
 - Physical UI controls instead of laser pointers and button presses.
 - To be able to swap back and forth between Leap optical hand tracking and SteamVR skeletal tracking (Knuckles, Touch, etc.) at *run time*, automatically.
-- If you want to avoid using SteamVR's action system. With this, you can have grabbing, squeezing, and UI interactions without needing to touch the SteamVR action system. It just uses the pose and skeleton actions, and comes pre-configured.
+- If you want to minimise use fo SteamVR's action system. With this, you can have grabbing, squeezing, and UI interactions without needing to touch the SteamVR action system. It just uses the pose, skeleton, and grab actions, and comes pre-configured.
 - If you want to give your users the option of upgrading to higher quality finger tracking than they'll get from the Knuckles controller, with no changes needed to their software. (Seriously people start writing more Leap compatible software)
 - If you're a Interaction Engine developer and want the ability to hold objects behind you, well outside of the Leap Motion's regular FOV.
 

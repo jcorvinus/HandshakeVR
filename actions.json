@@ -1,18 +1,29 @@
 {
   "actions": [
     {
+      "name": "/actions/default/in/GrabPinch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/GrabGrip",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/in/Pose",
-      "type": "pose"
+      "type": "pose",
+      "requirement": "mandatory"
     },
     {
       "name": "/actions/default/in/SkeletonLeftHand",
       "type": "skeleton",
-      "skeleton": "/skeleton/hand/left"
+      "skeleton": "/skeleton/hand/left",
+      "requirement": "mandatory"
     },
     {
       "name": "/actions/default/in/SkeletonRightHand",
       "type": "skeleton",
-      "skeleton": "/skeleton/hand/right"
+      "skeleton": "/skeleton/hand/right",
+      "requirement": "mandatory"
     },
     {
       "name": "/actions/default/out/Haptic",
@@ -42,21 +53,20 @@
   "localization": [
     {
       "language_tag": "en_US",
-      "/actions/default/in/Move": "Move",
-      "/actions/default/in/Use": "Use",
       "/actions/default/in/InteractUI": "Interact With UI",
       "/actions/default/in/Teleport": "Teleport",
       "/actions/default/in/GrabPinch": "Grab Pinch",
       "/actions/default/in/GrabGrip": "Grab Grip",
-      "/actions/default/in/PoseLeftHand": "Pose (Left)",
-      "/actions/default/in/PoseRightHand": "Pose (Right)",
       "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
-      "/actions/default/out/HapticLeftHand": "Haptic",
-      "/actions/default/out/HapticRightHand": "Haptic (Right)",
-      "/actions/default/in/Plant": "Plant",
       "/actions/default/in/Pose": "Pose",
-      "/actions/default/out/Haptic": "Haptic"
+      "/actions/default/out/Haptic": "Haptic",
+      "/actions/buggybuddy/in/Steering": "Steering",
+      "/actions/buggybuddy/in/Throttle": "Throttle",
+      "/actions/buggybuddy/in/Brake": "Brake",
+      "/actions/buggybuddy/in/Reset": "Reset",
+      "/actions/platformer/in/Move": "Move",
+      "/actions/platformer/in/Jump": "Jump"
     }
   ]
 }

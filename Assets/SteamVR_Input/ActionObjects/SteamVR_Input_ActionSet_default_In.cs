@@ -17,10 +17,14 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_default_In : Valve.VR.SteamVR_Action_List
     {
         
-        public static Valve.VR.SteamVR_Action_Pose Pose;
+        public Valve.VR.SteamVR_Action_Boolean GrabPinch;
         
-        public static Valve.VR.SteamVR_Action_Skeleton SkeletonLeftHand;
+        public Valve.VR.SteamVR_Action_Boolean GrabGrip;
         
-        public static Valve.VR.SteamVR_Action_Skeleton SkeletonRightHand;
+        public Valve.VR.SteamVR_Action_Pose Pose;
+        
+        public Valve.VR.SteamVR_Action_Skeleton SkeletonLeftHand;
+        
+        public Valve.VR.SteamVR_Action_Skeleton SkeletonRightHand;
     }
 }

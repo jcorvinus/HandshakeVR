@@ -17,8 +17,8 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_default : Valve.VR.SteamVR_ActionSet
     {
         
-        public static SteamVR_Input_ActionSet_default_In inActions;
+        public SteamVR_Input_ActionSet_default_In inActions;
         
-        public static SteamVR_Input_ActionSet_default_Out outActions;
+        public SteamVR_Input_ActionSet_default_Out outActions;
     }
 }

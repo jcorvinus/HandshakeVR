@@ -51,14 +51,16 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         Transform thumbMetacarpal;
 
+        SteamVR_Behaviour_Pose steamVRPose;
+
         [Header("Debug Vars")]
         [SerializeField]
-        bool drawSkeleton = false;
-
+        bool drawSkeleton = false;  
 
         private void Awake()
         {
             if(!controllerHand) controllerHand = GetComponent<SkeletalControllerHand>();
+            steamVRPose = wrist.GetComponentInParent<SteamVR_Behaviour_Pose>();
         }
 
         private void Update()
@@ -83,6 +85,8 @@ namespace CoordinateSpaceConversion
 
             MatchBones(thumbMetacarpal, controllerHand.ThumbMetacarpal, fingerBasis, wristBoneOrientation);
         }
+
+        public bool IsTracking { get { return steamVRPose.isValid; } }
 
         void MatchBones(Transform steamVRBone, Transform leapBone, BoneBasis basis, Quaternion leapOrientation, int depth =0)
         {

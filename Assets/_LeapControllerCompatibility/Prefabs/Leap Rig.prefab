@@ -5745,6 +5745,7 @@ MonoBehaviour:
   skeletonRoot: {fileID: 4672290211030862}
   origin: {fileID: 0}
   updatePose: 0
+  onlySetRotations: 0
   skeletonBlend: 1
   mirroring: 0
 --- !u!114 &114234201052821044
@@ -5951,6 +5952,7 @@ MonoBehaviour:
   skeletonRoot: {fileID: 4393578720803864}
   origin: {fileID: 0}
   updatePose: 0
+  onlySetRotations: 0
   skeletonBlend: 1
   mirroring: 2
 --- !u!114 &114325742512613982
@@ -5995,8 +5997,10 @@ MonoBehaviour:
   rightInteractionHand: {fileID: 0}
   leftHandPose: {fileID: 114734113485747038}
   leftHandVisual: {fileID: 1202413479721654}
+  leftInteractionController: {fileID: 0}
   rightHandPose: {fileID: 114530473879428212}
   rightHandVisual: {fileID: 1955278027004552}
+  rightInteractionController: {fileID: 0}
 --- !u!114 &114437818936181726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6119,8 +6123,22 @@ MonoBehaviour:
   poseAction: {fileID: 11400000, guid: 9cb310d97b6d4c04385ca1b05af7c2fa, type: 2}
   inputSource: 2
   origin: {fileID: 4290699132272366}
-  enableAdvancedVelocityEstimation: 1
   onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTrackingChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
@@ -6277,8 +6295,22 @@ MonoBehaviour:
   poseAction: {fileID: 11400000, guid: 9cb310d97b6d4c04385ca1b05af7c2fa, type: 2}
   inputSource: 1
   origin: {fileID: 4290699132272366}
-  enableAdvancedVelocityEstimation: 1
   onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTrackingChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
