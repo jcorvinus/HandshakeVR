@@ -57,11 +57,5 @@ Go head and open up any of the other scenes and try them out as well. They're ad
 Q: How do I develop for Interaction Engine?
 A: Head on over to the Interaction Engine documentation: https://leapmotion.github.io/UnityModules/interaction-engine.html
 
-Q: Why does releasing an object sometimes cause it to pop upwards?
-A: I'm not 100% sure but I think it has to do with the colliders of the last few fingers still penetrating the object when the 'grab' is released. This should be fixable by changing the collision behavior. I do plan on fixing this.
-
-Q: Why is the grabbing fiddly for me?
-A: The thumb and index finger are the most important parts of a grab in interaction engine. Make sure to grab objects with those fingers. At some point I'll create customn poses that make this easier, same with pinching.
-
 Q: Why do you switch to the SteamVR thin glove model when in SteamVR mode despite the retargeting being valid for both models?
 A: The leap hand model rigged to the SteamVR skeleton is horrifying.
