@@ -5992,11 +5992,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultProvider: {fileID: 114325742512613982}
   customProvider: {fileID: 114221310039567002}
+  hideLeapHandsOnSwitch: 0
   modelManager: {fileID: 114509227216367108}
   leftHandPose: {fileID: 114734113485747038}
   leftHandVisual: {fileID: 1202413479721654}
   rightHandPose: {fileID: 114530473879428212}
   rightHandVisual: {fileID: 1955278027004552}
+  manualProviderSwitching: 0
 --- !u!114 &114437818936181726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6071,8 +6073,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   provider: {fileID: 114221310039567002}
   palmWidth: 0.085
-  palmForwardOfffset: 0.03
+  palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
+  fingerWidth: 16
   modelPalmFacing: {x: 0, y: -1, z: 0}
   modelFingerPointing: {x: 1, y: 0, z: 0}
   thumbMetaCarpal: {fileID: 4109469096651692}
@@ -6324,8 +6327,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   provider: {fileID: 114221310039567002}
   palmWidth: 0.085
-  palmForwardOfffset: 0.03
+  palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
+  fingerWidth: 16
   modelPalmFacing: {x: 0, y: 1, z: 0}
   modelFingerPointing: {x: -1, y: 0, z: 0}
   thumbMetaCarpal: {fileID: 4838227886576278}

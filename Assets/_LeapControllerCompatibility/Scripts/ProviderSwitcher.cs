@@ -48,6 +48,10 @@ namespace CoordinateSpaceConversion
         GameObject rightHandVisual;
         SteamVRInteractionController rightInteractionController;
 
+        [Header("Debugging")]
+        [SerializeField]
+        bool manualProviderSwitching = false;
+
         private void Awake()
         {
             interactionManager = InteractionManager.instance;
@@ -83,15 +87,20 @@ namespace CoordinateSpaceConversion
         // Update is called once per frame
         void Update()
         {
-            //if (Input.GetKeyUp(KeyCode.Space)) SwitchProviders();
-
-            if(isDefault)
+            if (manualProviderSwitching)
             {
-                if (ShouldUseControllers()) SwitchProviders();
+                if (Input.GetKeyUp(KeyCode.Space)) SwitchProviders();
             }
             else
             {
-                if (!ShouldUseControllers()) SwitchProviders();
+                if (isDefault)
+                {
+                    if (ShouldUseControllers()) SwitchProviders();
+                }
+                else
+                {
+                    if (!ShouldUseControllers()) SwitchProviders();
+                }
             }
         }
 

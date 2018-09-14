@@ -24,6 +24,8 @@ namespace CoordinateSpaceConversion
         [SerializeField] float palmForwardOfffset = 0;
         [SerializeField] float palmNormalOffset = 0;
 
+        [SerializeField] float fingerWidth = 8;
+
         float forearmLength = 0.27f;
 
         [SerializeField]
@@ -103,7 +105,7 @@ namespace CoordinateSpaceConversion
         Finger GenerateFinger(int frameID, int handID, Finger.FingerType fingerType,
             float timeVisible, Transform metaCarpalTransform)
         {
-            float fingerWidth = 8f * MM_TO_M;
+            float _fingerWidth = fingerWidth * MM_TO_M;
 
             // NOTE: if our type is thumb, our 'meta carpal transform' is actually our proximal,
             // and we'll need to generate a zero-length metacarpal for it
@@ -113,18 +115,21 @@ namespace CoordinateSpaceConversion
             Transform tip = distalTransform.GetChild(0);
 
             Bone metaCarpal, proximal, intermediate, distal;
-            metaCarpal = GenerateBone(metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, fingerWidth);
-            proximal = GenerateBone(proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, fingerWidth);
-            intermediate = GenerateBone(intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, fingerWidth);
-            distal = GenerateBone(distalTransform, tip, Bone.BoneType.TYPE_DISTAL, fingerWidth);
+            metaCarpal = GenerateBone(metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, _fingerWidth);
+            proximal = GenerateBone(proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, _fingerWidth);
+            intermediate = GenerateBone(intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, _fingerWidth);
+            distal = GenerateBone(distalTransform, tip, Bone.BoneType.TYPE_DISTAL, _fingerWidth);
 
             Vector tipPosition = tip.transform.position.ToVector();
             Vector direction = new Vector(0,0,0);
 
-            float fingerLength = 0; // add up joint lengths for this
+            float fingerLength = 
+                Vector3.Distance(proximalTransform.position, intermediateTransform.position) +
+                Vector3.Distance(intermediateTransform.position, distalTransform.position ) +
+                Vector3.Distance(distalTransform.position, tip.position); // add up joint lengths for this
 
             return new Finger(frameID, handID, handID + (int)fingerType, timeVisible,
-                tipPosition, direction, fingerWidth, fingerLength, true, fingerType,
+                tipPosition, direction, _fingerWidth, fingerLength, true, fingerType,
                 metaCarpal, proximal, intermediate, distal);
         }
 
@@ -160,8 +165,6 @@ namespace CoordinateSpaceConversion
             forearmEnd = GetForearmEnd().ToVector();
 
             Quaternion forearmRotation = GetForearmRotation();
-
-            //GetBasis(wrist, out rightForearm, out forwardForearm, out upForearm);
 
             Arm arm = new Arm(forearmStart,forearmEnd, (forearmStart + forearmEnd) * 0.5f,
                 (forearmEnd - forearmStart).Normalized, forearmLength, 0.09f,
@@ -380,7 +383,7 @@ namespace CoordinateSpaceConversion
                 DrawHand();
 
                 // draw palm width
-                //Gizmos.DrawWireCube(GetPalmPosition(), Vector3.right * palmWidth);
+                Gizmos.DrawWireCube(GetPalmPosition(), Vector3.right * palmWidth);
 
                 Gizmos.color = Color.white;
                 Gizmos.DrawLine(wrist.transform.position, GetPalmPosition());
