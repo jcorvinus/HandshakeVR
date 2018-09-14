@@ -22,6 +22,10 @@ namespace CoordinateSpaceConversion
 
         bool isDefault = false;
 
+        [Tooltip("If you want to use the SteamVR hand mesh, enable this.")]
+        [SerializeField]
+        bool hideLeapHandsOnSwitch = false;
+
         [SerializeField]
         HandModelManager modelManager;
 
@@ -130,15 +134,16 @@ namespace CoordinateSpaceConversion
                     rightInteractionHand.graspingEnabled = false;
                 }
 
-                for(int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't direct children of the 
+                for(int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't children of the model manager
                 {
-                    modelManager.transform.GetChild(i).gameObject.SetActive(false);
+
+                    modelManager.transform.GetChild(i).gameObject.SetActive(!hideLeapHandsOnSwitch);
                 }
             }
 
-            modelManager.GraphicsEnabled = isDefault;
-            leftHandVisual.gameObject.SetActive(!isDefault);
-            rightHandVisual.gameObject.SetActive(!isDefault);
+            modelManager.GraphicsEnabled = isDefault || !hideLeapHandsOnSwitch;
+            leftHandVisual.gameObject.SetActive(!modelManager.GraphicsEnabled);
+            rightHandVisual.gameObject.SetActive(!modelManager.GraphicsEnabled);
 
             Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
         }

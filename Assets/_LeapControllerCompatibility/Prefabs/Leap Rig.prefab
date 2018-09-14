@@ -5993,14 +5993,10 @@ MonoBehaviour:
   defaultProvider: {fileID: 114325742512613982}
   customProvider: {fileID: 114221310039567002}
   modelManager: {fileID: 114509227216367108}
-  leftInteractionHand: {fileID: 0}
-  rightInteractionHand: {fileID: 0}
   leftHandPose: {fileID: 114734113485747038}
   leftHandVisual: {fileID: 1202413479721654}
-  leftInteractionController: {fileID: 0}
   rightHandPose: {fileID: 114530473879428212}
   rightHandVisual: {fileID: 1955278027004552}
-  rightInteractionController: {fileID: 0}
 --- !u!114 &114437818936181726
 MonoBehaviour:
   m_ObjectHideFlags: 1
