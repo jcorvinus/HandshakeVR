@@ -6069,7 +6069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultProvider: {fileID: 114325742512613982}
   customProvider: {fileID: 114221310039567002}
-  hideLeapHandsOnSwitch: 0
+  hideLeapHandsOnSwitch: 1
   modelManager: {fileID: 114509227216367108}
   leftHandPose: {fileID: 114734113485747038}
   leftHandVisual: {fileID: 1202413479721654}
