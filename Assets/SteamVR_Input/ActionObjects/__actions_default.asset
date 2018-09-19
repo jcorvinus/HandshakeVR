@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Name: __actions_default
   m_EditorClassIdentifier: 
   allActions:
-  - {fileID: 11400000, guid: 71fa15c0284a965438fd0b3556c433b9, type: 2}
   - {fileID: 11400000, guid: 9254a5aa1c8c8a14d916ab37d718e001, type: 2}
   - {fileID: 11400000, guid: 9cb310d97b6d4c04385ca1b05af7c2fa, type: 2}
   - {fileID: 11400000, guid: e972e42168153a3419f2ef1efc3bc47f, type: 2}
   - {fileID: 11400000, guid: 296d71bb3963c5040941d281768da7e8, type: 2}
   - {fileID: 11400000, guid: 0d64badc805947c418deb51ed022ba76, type: 2}
   nonVisualInActions:
-  - {fileID: 11400000, guid: 71fa15c0284a965438fd0b3556c433b9, type: 2}
   - {fileID: 11400000, guid: 9254a5aa1c8c8a14d916ab37d718e001, type: 2}
   visualActions:
   - {fileID: 11400000, guid: 9cb310d97b6d4c04385ca1b05af7c2fa, type: 2}

@@ -27,6 +27,9 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         bool applyPositionsToMetacarpalsOnly = true;
 
+        [SerializeField]
+        bool dontApplyRotationToMetacarpals = false;
+
         [Tooltip("This is our leap hand data generator")]
         [SerializeField]
         SkeletalControllerHand controllerHand;
@@ -92,9 +95,9 @@ namespace CoordinateSpaceConversion
         {
             if (applyPositions)
             {
-                if(applyPositionsToMetacarpalsOnly && depth == 1 || !applyPositionsToMetacarpalsOnly) leapBone.transform.position = steamVRBone.transform.position;                
+                if(applyPositionsToMetacarpalsOnly && depth == 0 || !applyPositionsToMetacarpalsOnly) leapBone.transform.position = steamVRBone.transform.position;                
             }
-            leapBone.transform.rotation = GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation;
+            if(depth > 0 || !dontApplyRotationToMetacarpals) leapBone.transform.rotation = GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation;
 
             if(steamVRBone.childCount == leapBone.childCount)
             {

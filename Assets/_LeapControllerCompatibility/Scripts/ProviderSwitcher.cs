@@ -20,7 +20,9 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         CustomProvider customProvider;
 
-        bool isDefault = false;
+        bool isDefault = true;
+
+        public bool IsDefault { get { return isDefault; } }
 
         [Tooltip("If you want to use the SteamVR hand mesh, enable this.")]
         [SerializeField]
@@ -117,13 +119,13 @@ namespace CoordinateSpaceConversion
                 if (leftInteractionHand)
                 {
                     leftInteractionHand.leapProvider = defaultProvider;
-                    leftInteractionController.graspingEnabled = false;
+                    //if(leftInteractionController) leftInteractionController.graspingEnabled = false; // used to be commented
                     leftInteractionHand.graspingEnabled = true;
                 }
                 if (rightInteractionHand)
                 {
                     rightInteractionHand.leapProvider = defaultProvider;
-                    rightInteractionController.graspingEnabled = false;
+                    //if(rightInteractionController) rightInteractionController.graspingEnabled = false; // used to be commented
                     rightInteractionHand.graspingEnabled = true;
                 }
             }
@@ -133,17 +135,17 @@ namespace CoordinateSpaceConversion
                 if (leftInteractionHand)
                 {
                     leftInteractionHand.leapProvider = customProvider;
-                    leftInteractionController.graspingEnabled = true;
-                    leftInteractionHand.graspingEnabled = false;
+                    /*leftInteractionController.graspingEnabled = true; // used to be commented
+                    leftInteractionHand.graspingEnabled = false; // used to be commented*/
                 }
                 if (rightInteractionHand)
                 {
                     rightInteractionHand.leapProvider = customProvider;
-                    rightInteractionController.graspingEnabled = true;
-                    rightInteractionHand.graspingEnabled = false;
+                    /*rightInteractionController.graspingEnabled = true; // used to be commented
+                    rightInteractionHand.graspingEnabled = false; // used to be commented*/
                 }
 
-                for(int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't children of the model manager
+                for (int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't children of the model manager
                 {
 
                     modelManager.transform.GetChild(i).gameObject.SetActive(!hideLeapHandsOnSwitch);

@@ -36,6 +36,8 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         InteractionHand handToOverride;
 
+        ProviderSwitcher switcher;
+
         private List<Vector3> _graspManipulatorPoints = new List<Vector3>();
 
         public float maxGraspDistance = 0.06F;
@@ -64,18 +66,46 @@ namespace CoordinateSpaceConversion
 
             disableContactTimer = disableContactAfterGraspTime;
             _contactBones = new ContactBone[] { };
+
+            switcher = FindObjectOfType<ProviderSwitcher>();
         }
 
         private void FixedUpdate()
         {
-            if (isGraspingObject) disableContactTimer = 0;
+            if (isGraspingObject || handToOverride.isGraspingObject) disableContactTimer = 0;
 
             if(disableContactTimer <= disableContactAfterGraspTime)
             {
                 disableContactTimer += Time.fixedDeltaTime;
             }
 
-            if(handToOverride.contactBones != null) handToOverride.contactEnabled = disableContactTimer >= disableContactAfterGraspTime;
+            if (handToOverride.contactBones != null)
+            {
+                bool setContactEnabled = disableContactTimer >= disableContactAfterGraspTime;
+                if (handToOverride.contactEnabled != setContactEnabled) handToOverride.contactEnabled = setContactEnabled;
+            }
+
+            if (handToOverride.isGraspingObject)
+            {
+                // disable our grasp if we're grasping
+                if (isGraspingObject) ReleaseGrasp();
+
+                graspingEnabled = false;
+            }
+            else
+            {
+                if (!switcher.IsDefault)
+                {
+                    // only do this if our custom provider is enabled and working
+                    graspingEnabled = true;
+                    handToOverride.graspingEnabled = !isGraspingObject;
+                }
+                else
+                {
+                    graspingEnabled = false;
+                    handToOverride.graspingEnabled = true;
+                }               
+            }
         }
 
         private void LateUpdate()
@@ -185,7 +215,7 @@ namespace CoordinateSpaceConversion
         {
             get
             {
-                return (skeletalControllerHand != null) ? skeletalControllerHand.GetPalmPosition() : transform.position;
+                return (skeletalControllerHand != null) ? skeletalControllerHand.GetPalmPosition() + (skeletalControllerHand.GetPalmNormal() * (maxGraspDistance)) : transform.position;
             }
         }
 
@@ -237,8 +267,7 @@ namespace CoordinateSpaceConversion
         {
             get
             {
-                return grabAction.GetState((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand) || 
-                    grabPinchAction.GetState((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+                return grabAction.GetState((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
             }
         }
 

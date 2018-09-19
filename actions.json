@@ -1,10 +1,6 @@
 {
   "actions": [
     {
-      "name": "/actions/default/in/GrabPinch",
-      "type": "boolean"
-    },
-    {
       "name": "/actions/default/in/GrabGrip",
       "type": "boolean"
     },

@@ -602,6 +602,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1213165893608838
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4075186119839902}
+  - component: {fileID: 114518284054293684}
+  m_Layer: 0
+  m_Name: SteamVR_RenderModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1229977398705672
 GameObject:
   m_ObjectHideFlags: 1
@@ -738,6 +754,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1300350659943964
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4874259806558754}
+  - component: {fileID: 114014650519430202}
+  m_Layer: 0
+  m_Name: SteamVR_RenderModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1301521799751914
 GameObject:
   m_ObjectHideFlags: 1
@@ -2988,6 +3020,19 @@ Transform:
   m_Father: {fileID: 4998568889461226}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4075186119839902
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213165893608838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4508493048135674}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4075974728454980
 Transform:
   m_ObjectHideFlags: 1
@@ -3791,6 +3836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4448062782556830}
+  - {fileID: 4874259806558754}
   m_Father: {fileID: 4290699132272366}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4292,6 +4338,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4256290482226986}
+  - {fileID: 4075186119839902}
   m_Father: {fileID: 4290699132272366}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5095,6 +5142,19 @@ Transform:
   m_Father: {fileID: 4794513285217462}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4874259806558754
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300350659943964}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4334007251812034}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4879459947214196
 Transform:
   m_ObjectHideFlags: 1
@@ -5645,6 +5705,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114014650519430202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300350659943964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5890e3cad70bea64d91aef9145ba3454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: -1
+  modelOverride: 
+  shader: {fileID: 0}
+  verbose: 0
+  createComponents: 1
+  updateDynamically: 1
 --- !u!114 &114037639420073382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6108,6 +6185,23 @@ MonoBehaviour:
     IsRightToBeSpawned: 0
     IsEnabled: 1
     CanDuplicate: 0
+--- !u!114 &114518284054293684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213165893608838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5890e3cad70bea64d91aef9145ba3454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: -1
+  modelOverride: 
+  shader: {fileID: 0}
+  verbose: 0
+  createComponents: 1
+  updateDynamically: 1
 --- !u!114 &114530473879428212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6367,6 +6461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applyPositions: 1
   applyPositionsToMetacarpalsOnly: 1
+  dontApplyRotationToMetacarpals: 0
   controllerHand: {fileID: 0}
   wrist: {fileID: 4314826047246052}
   wristBasis:
@@ -6382,7 +6477,7 @@ MonoBehaviour:
     Forward: {x: 1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
   thumbMetacarpal: {fileID: 4879459947214196}
-  drawSkeleton: 0
+  drawSkeleton: 1
 --- !u!114 &114797019714743708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6533,6 +6628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applyPositions: 1
   applyPositionsToMetacarpalsOnly: 1
+  dontApplyRotationToMetacarpals: 0
   controllerHand: {fileID: 0}
   wrist: {fileID: 4312833101513000}
   wristBasis:

@@ -14,12 +14,6 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         LeapProvider provider;
 
-        /*TYPE_THUMB = 0,
-        TYPE_INDEX = 1,
-        TYPE_MIDDLE = 2,
-        TYPE_RING = 3,
-        TYPE_PINKY = 4,*/
-
         [SerializeField] float palmWidth;
         [SerializeField] float palmForwardOfffset = 0;
         [SerializeField] float palmNormalOffset = 0;
@@ -293,7 +287,7 @@ namespace CoordinateSpaceConversion
                 (wrist.TransformDirection(modelFingerPointing) * palmForwardOfffset);
         }
 
-        private Vector3 GetPalmNormal()
+        public Vector3 GetPalmNormal()
         {
             return wrist.transform.TransformDirection(modelPalmFacing);
         }

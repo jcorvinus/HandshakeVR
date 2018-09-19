@@ -177,11 +177,11 @@ MonoBehaviour:
   _graspingEnabled: 1
   _isLeft: 0
   grabAction: {fileID: 11400000, guid: 9254a5aa1c8c8a14d916ab37d718e001, type: 2}
-  grabPinchAction: {fileID: 11400000, guid: 71fa15c0284a965438fd0b3556c433b9, type: 2}
+  grabPinchAction: {fileID: 0}
   primaryHoverPoints: []
   disableContactAfterGraspTime: 0.25
   handToOverride: {fileID: 114663581530864466}
-  maxGraspDistance: 0.06
+  maxGraspDistance: 0.035
 --- !u!114 &114261481388025906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,8 +264,8 @@ MonoBehaviour:
   _graspingEnabled: 1
   _isLeft: 1
   grabAction: {fileID: 11400000, guid: 9254a5aa1c8c8a14d916ab37d718e001, type: 2}
-  grabPinchAction: {fileID: 11400000, guid: 71fa15c0284a965438fd0b3556c433b9, type: 2}
+  grabPinchAction: {fileID: 0}
   primaryHoverPoints: []
   disableContactAfterGraspTime: 0.25
   handToOverride: {fileID: 114261481388025906}
-  maxGraspDistance: 0.06
+  maxGraspDistance: 0.035
