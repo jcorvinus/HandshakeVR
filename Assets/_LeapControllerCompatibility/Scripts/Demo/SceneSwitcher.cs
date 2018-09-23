@@ -15,6 +15,7 @@ namespace CoordinateSpaceConversion
             "SteamVRTest",
             "Basic Interactions",
             "Basic UI",
+            "CurvedUI",
             "Dynamic UI",
             "Hand UI",
             "Anchors",
