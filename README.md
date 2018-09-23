@@ -24,7 +24,7 @@ https://developer.leapmotion.com/unity/#5436356
 Leap Graphic Renderer (Optional):
 You can import Leap Motion's Graphic Renderer asset package. There is an example scene that shows how to create curved UI elements. You will need to add the symbol 'LeapGraphicRenderer' for the glow effect to work, but otherwise, you can just import the Graphic Renderer module.
 
-![define symbol location](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Define symbols")
+![define symbol location](https://github.com/jcorvinus/LeapSteamVRSkeleton/blob/master/Docs/scripting%20define%20symbols.png "Define symbols")
 
 Once you've downloaded the packages, open the project in Unity. Import the asset packages. You will get a compile error about Provider being read-only. At the moment, we need to make one small change to the leap motion assets to get things working properly. In HandUtils.cs, after line 82, add the following
 ```
