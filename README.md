@@ -16,7 +16,7 @@ If you want:
 This project is currently set up for Unity version 2017.3.1f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
 
 SteamVR:
-https://github.com/ValveSoftware/steamvr_unity_plugin/releases/tag/RC3
+https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647
 
 Leap Core Assets & Interaction Engine:
 https://developer.leapmotion.com/unity/#5436356
@@ -24,6 +24,7 @@ https://developer.leapmotion.com/unity/#5436356
 Leap Graphic Renderer (Optional):
 You can import Leap Motion's Graphic Renderer asset package. There is an example scene that shows how to create curved UI elements. You will need to add the symbol 'LeapGraphicRenderer' for the glow effect to work, but otherwise, you can just import the Graphic Renderer module.
 
+![define symbol location](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Define symbols")
 
 Once you've downloaded the packages, open the project in Unity. Import the asset packages. You will get a compile error about Provider being read-only. At the moment, we need to make one small change to the leap motion assets to get things working properly. In HandUtils.cs, after line 82, add the following
 ```
@@ -61,5 +62,7 @@ Go head and open up any of the other scenes and try them out as well. They're ad
 Q: How do I develop for Interaction Engine?
 A: Head on over to the Interaction Engine documentation: https://leapmotion.github.io/UnityModules/interaction-engine.html
 
-Q: Why do you switch to the SteamVR thin glove model when in SteamVR mode despite the retargeting being valid for both models?
-A: The leap hand model rigged to the SteamVR skeleton is horrifying.
+Q: Why do you (by default) switch to the SteamVR thin glove model when in SteamVR mode despite the retargeting being valid for both models?
+A: The leap hand model rigged to the SteamVR skeleton is horrifying. Look:
+![retargeted image](https://github.com/jcorvinus/LeapSteamVRSkeleton/blob/master/Docs/SpookyRetargeting.png "Retargeting strangeness")
+
