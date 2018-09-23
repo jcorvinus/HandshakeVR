@@ -21,15 +21,6 @@ namespace CoordinateSpaceConversion
             public Quaternion Rotation;
         }
 
-        [SerializeField]
-        bool applyPositions = false;
-
-        [SerializeField]
-        bool applyPositionsToMetacarpalsOnly = true;
-
-        [SerializeField]
-        bool dontApplyRotationToMetacarpals = false;
-
         [Tooltip("This is our leap hand data generator")]
         [SerializeField]
         SkeletalControllerHand controllerHand;
@@ -93,11 +84,8 @@ namespace CoordinateSpaceConversion
 
         void MatchBones(Transform steamVRBone, Transform leapBone, BoneBasis basis, Quaternion leapOrientation, int depth =0)
         {
-            if (applyPositions)
-            {
-                if(applyPositionsToMetacarpalsOnly && depth == 0 || !applyPositionsToMetacarpalsOnly) leapBone.transform.position = steamVRBone.transform.position;                
-            }
-            if(depth > 0 || !dontApplyRotationToMetacarpals) leapBone.transform.rotation = GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation;
+            if (depth == 0) leapBone.transform.position = steamVRBone.transform.position;
+            else leapBone.transform.SetPositionAndRotation(steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
 
             if(steamVRBone.childCount == leapBone.childCount)
             {
