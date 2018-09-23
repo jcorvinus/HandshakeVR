@@ -6459,9 +6459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54fe8063f186643a2e7fc485499e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applyPositions: 1
-  applyPositionsToMetacarpalsOnly: 1
-  dontApplyRotationToMetacarpals: 0
   controllerHand: {fileID: 0}
   wrist: {fileID: 4314826047246052}
   wristBasis:
@@ -6626,9 +6623,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54fe8063f186643a2e7fc485499e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applyPositions: 1
-  applyPositionsToMetacarpalsOnly: 1
-  dontApplyRotationToMetacarpals: 0
   controllerHand: {fileID: 0}
   wrist: {fileID: 4312833101513000}
   wristBasis:
