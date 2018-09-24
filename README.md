@@ -39,9 +39,9 @@ Once you've downloaded the packages, open the project in Unity. Import the asset
 # Exploring the project's capabilities	  
 Now to start testing and exploring the project's capabilities. You'll want the following hardware:
 - Leap Motion controller (Just get one of these, they're inexpesnive and super useful.)
-- Knuckles EV2 (If you can get them - Oculus touch controllers might work in a pinch. Vive wands will not perform well.)
+- Knuckles EV3, Oculus Touch, or Vive Controllers (In order of compatibility quality)
 
-Technically neither of these are necessary but it's extraordinarily difficult to test your code and assumptions without them.
+Technically neither of these are necessary but it's extraordinarily difficult to test your code and assumptions without them. I recommend using hardware.
 
 Open the 'Basic Interaction' scene. Ensure your leap motion is connected, and make sure that all SteamVR controllers are off. Hit the play button and use the leap optical tracking to play with the objects a bit. Then, when you're satisfied, turn on your Knuckles controllers and after a moment the hand data feed will switch and you'll see the slim VR glove model. The new hand model should work much like you expect. Do note that to pick anything up you'll need to touch one of the thumb buttons (like the trackpad, thumbstick, or face buttons). It won't work if you just try using the grip. You should be able to grab, poke, slap, punch, and throw all of the interactive objects (that aren't anchored by a joint) just like you would with the leap hands.
 
