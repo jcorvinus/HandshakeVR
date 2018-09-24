@@ -4,6 +4,8 @@
 This is a compatibility system that allows VR developers to target both Leap Motion and SteamVR skeletal hand tracking, as well as use Leap Motion's incredibly robust Interaction Engine with SteamVR controllers. All in a single workflow.
 
 ## Why would I want to use this?
+[![Demo video](https://github.com/jcorvinus/LeapSteamVRSkeleton/blob/master/Docs/thumbnail.jpg)](http://www.youtube.com/watch?v=ghk21xVKhT0)
+
 If you want:
 - More precise, finger-level interactions than the SteamVR Interaction, VRTK, or other interaction systems (currently) provide.
 - Physical UI controls instead of laser pointers and button presses.
