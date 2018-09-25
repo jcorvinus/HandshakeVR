@@ -47,6 +47,9 @@ namespace CoordinateSpaceConversion
         private Quaternion _trackedRotationLastFrame = Quaternion.identity;
 
         private bool _graspButtonLastFrame;
+        /*private bool _graspButtonDown = false;
+        private bool _graspButtonUp = false;
+        private float _graspButtonDownSlopTimer = 0F;*/
 
         private void Awake()
         {
@@ -267,7 +270,15 @@ namespace CoordinateSpaceConversion
         {
             get
             {
-                return grabAction.GetState((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+                return grabAction.GetStateDown((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+            }
+        }
+
+        private bool _graspButtonUp
+        {
+            get
+            {
+                return grabAction.GetStateUp((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
             }
         }
 
@@ -307,7 +318,7 @@ namespace CoordinateSpaceConversion
 
         protected override bool checkShouldRelease(out IInteractionBehaviour objectToRelease)
         {
-            bool shouldRelease = !_graspButtonDown && isGraspingObject;
+            bool shouldRelease = _graspButtonUp && isGraspingObject;
 
             objectToRelease = null;
             if (shouldRelease) { objectToRelease = graspedObject; }
