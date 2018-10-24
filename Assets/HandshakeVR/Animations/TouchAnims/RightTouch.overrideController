@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: RightTouch
+  m_Controller: {fileID: 9100000, guid: f33bd26a54be0844caa6e9545f1e1148, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d4095de74722e8a40938bd2989320173, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 68577b90b13179143929eba2dbec5218, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0e9c972ea3fafa14cbe297d2d000f864, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d1a76586dd1d9dd489d4120f0f2b69f0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2d57421b65f4be542a27306b57f79465, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 73740328599ac6a41bcaa0840c13e76e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5cc9cf45d8eb2af41a6b9bee92f63311, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 93f3f1a1d47eb6240ba2c75f1a389801, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1b909dcb82b66a74d850ce0887534741, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 22e1719a25220a34f929904647c9955e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 161c720440987fb419eef4c736448f6c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5c417ca3e2ea9e548a23873788b806af, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ba9ef272369475945854cc12d8b8952c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ab21e8b891ac4474eadd19c130b46d20, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bba57c54319a61e4d8a7a863d4efee9f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e614c246a7a615b4a945cb5df67f0d26, type: 2}
