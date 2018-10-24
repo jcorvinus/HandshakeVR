@@ -1,7 +1,7 @@
-# Leap SteamVR Skeleton
+# HandshakeVR
 	  
 ## What is this?
-This is a compatibility system that allows VR developers to target both Leap Motion and SteamVR skeletal hand tracking, as well as use Leap Motion's incredibly satisfying and easy-to-work-with Interaction Engine with SteamVR controllers. All in a single workflow.
+Handshake VR is a compatibility system that allows VR developers to target both Leap Motion and SteamVR skeletal hand tracking, as well as use Leap Motion's incredibly satisfying and easy-to-work-with Interaction Engine with SteamVR controllers. All in a single workflow.
 
 ## Why would I want to use this?
 [![Demo video](https://github.com/jcorvinus/LeapSteamVRSkeleton/blob/master/Docs/thumbnail.jpg)](http://www.youtube.com/watch?v=ghk21xVKhT0)
@@ -10,7 +10,7 @@ If you want:
 - More precise, finger-level interactions than the SteamVR Interaction, VRTK, or other interaction systems (currently) provide.
 - Physical UI controls instead of laser pointers and button presses.
 - To be able to swap back and forth between Leap optical hand tracking and SteamVR skeletal tracking (Knuckles, Touch, etc.) at *run time*, automatically.
-- If you want to minimise use fo SteamVR's action system. With this, you can have grabbing, squeezing, and UI interactions without needing to touch the SteamVR action system. It just uses the pose, skeleton, and grab actions, and comes pre-configured.
+- If you want to minimise use of SteamVR's action system. With this, you can have grabbing, squeezing, and UI interactions without needing to touch the SteamVR action system. It just uses the pose, skeleton, and grab actions, and comes pre-configured.
 - If you want to give your users the option of upgrading to higher quality finger tracking than they'll get from the Knuckles controller, with no changes needed to their software. (**Seriously people start writing more Leap compatible software**)
 - If you're a Interaction Engine developer and want the ability to hold objects behind you, well outside of the Leap Motion's regular FOV.
 
@@ -63,8 +63,3 @@ Go head and open up any of the other scenes and try them out as well. They're ad
 # FAQ:
 Q: How do I develop for Interaction Engine?
 A: Head on over to the Interaction Engine documentation: https://leapmotion.github.io/UnityModules/interaction-engine.html
-
-Q: Why do you (by default) switch to the SteamVR thin glove model when in SteamVR mode despite the retargeting being valid for both models?
-A: The leap hand model rigged to the SteamVR skeleton is horrifying. Look:
-![retargeted image](https://github.com/jcorvinus/LeapSteamVRSkeleton/blob/master/Docs/SpookyRetargeting.png "Retargeting strangeness")
-
