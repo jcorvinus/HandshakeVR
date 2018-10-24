@@ -21,11 +21,6 @@ namespace CoordinateSpaceConversion
             public Quaternion Rotation;
         }
 
-        struct BoneBindPose
-        {
-            public Quaternion[] Rotations;
-        }
-
         [Tooltip("This is our leap hand data generator")]
         [SerializeField]
         SkeletalControllerHand controllerHand;
@@ -41,14 +36,12 @@ namespace CoordinateSpaceConversion
         [SerializeField]
         Vector3 palmOffset;
 
-        Transform[] fingerMetacarpals;
-        BoneBindPose[] bindPoses;
-
         // 0 finger_index_meta_r
         // 1 finger_middle_meta_r
         // 2 finger_ring_meta_r
         // 3 finger_pinky_meta_r
         // 4 finger_thumb_0_r
+        Transform[] fingerMetacarpals;
 
         [SerializeField]
         BoneBasis fingerBasis;
@@ -58,11 +51,6 @@ namespace CoordinateSpaceConversion
         [Header("Debug Vars")]
         [SerializeField]
         bool drawSkeleton = false;
-        [SerializeField]
-        bool doRetargetingBasis = true;
-
-        [SerializeField]
-        bool getBindPose = false;
 
         private void Awake()
         {
@@ -73,7 +61,6 @@ namespace CoordinateSpaceConversion
         private void Start()
         {
             GetMetacarpals();
-            GetBindPose();
         }
 
         void GetMetacarpals()
@@ -85,33 +72,6 @@ namespace CoordinateSpaceConversion
             fingerMetacarpals[2] = wrist.Find("finger_ring_meta_r");
             fingerMetacarpals[3] = wrist.Find("finger_pinky_meta_r");
             fingerMetacarpals[4] = wrist.Find("finger_thumb_0_r");
-        }
-
-        void GetBindPose()
-        {
-            bindPoses = new BoneBindPose[fingerMetacarpals.Length];
-
-            int bindPoseDepth = 4;
-            for(int fingerIndx=0; fingerIndx < bindPoses.Length; fingerIndx++)
-            {
-                Transform bindBone = fingerMetacarpals[fingerIndx];
-                bindPoses[fingerIndx] = new BoneBindPose() { Rotations = new Quaternion[bindPoseDepth] };
-
-                for(int i=0; i < bindPoseDepth; i++)
-                {
-                    try
-                    {
-                        bindPoses[fingerIndx].Rotations[i] = bindBone.localRotation;
-
-                        if(bindBone.childCount > 0) bindBone = bindBone.GetChild(0);
-                    }
-                    catch(System.IndexOutOfRangeException e)
-                    {
-                        Debug.Log(string.Format("IOOR: fingerIndx: {0} i: {1}", fingerIndx, i));
-                            
-                    }
-                }
-            }
         }
 
         private void Update()
@@ -132,9 +92,7 @@ namespace CoordinateSpaceConversion
                 else if (fingerIndx == 3) fingerRoot = controllerHand.PinkyMetacarpal;
                 else fingerRoot = controllerHand.ThumbMetacarpal;
 
-                if (!doRetargetingBasis) MatchBones(fingerMetacarpals[fingerIndx], fingerRoot, fingerBasis, wristBoneOrientation);
-                else MatchBoneRetargeting(bindPoses[fingerIndx], fingerMetacarpals[fingerIndx], fingerRoot,
-                    fingerBasis, wristBoneOrientation);
+                 MatchBones(fingerMetacarpals[fingerIndx], fingerRoot, fingerBasis, wristBoneOrientation);
             }
         }
 
@@ -144,7 +102,11 @@ namespace CoordinateSpaceConversion
             Quaternion leapOrientation, int depth =0)
         {
             if (depth == 0) leapBone.transform.position = steamVRBone.transform.position;
-            else leapBone.transform.SetPositionAndRotation(steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
+            else
+            {
+                controllerHand.SetTransformWithConstraint(leapBone, steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
+                //leapBone.transform.SetPositionAndRotation(steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
+            }
 
             if(steamVRBone.childCount == leapBone.childCount)
             {
@@ -164,88 +126,6 @@ namespace CoordinateSpaceConversion
         {
             return Quaternion.LookRotation(bone.TransformDirection(basis.Forward),
                 bone.TransformDirection(basis.Up));
-        }
-
-        void MatchBoneRetargeting(BoneBindPose bindPose, Transform steamVRBone,
-            Transform leapBone, BoneBasis basis, Quaternion leapOrientation, 
-            int depth = 0)
-        {
-            if (steamVRBone.childCount == leapBone.childCount)
-            {
-                if (steamVRBone.childCount == 1)
-                {
-                    if (depth == 0) leapBone.transform.position = steamVRBone.transform.position;
-                    else
-                    {
-                        try
-                        {
-                            /*leapBone.transform.SetPositionAndRotation(steamVRBone.transform.position,
-                            GlobalRotationFromBasis(steamVRBone, bindPose.Rotations[depth], basis) * leapOrientation);*/
-
-                            if (depth == 1)
-                            {
-                                leapBone.transform.SetPositionAndRotation(steamVRBone.transform.position,
-                                    GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
-                            }
-                            else
-                            {
-                                Quaternion localRotation = LocalRotationFromBasis(steamVRBone, bindPose.Rotations[depth], basis);
-                                leapBone.transform.localRotation = localRotation * leapOrientation;
-                            }
-                        }
-                        catch (System.IndexOutOfRangeException e)
-                        {
-                            Debug.Log(string.Format("IOOR: depth: {0} rotations.length: {1}", depth, bindPose.Rotations.Length));
-                        }
-                    }
-
-                    MatchBoneRetargeting(bindPose, steamVRBone.GetChild(0), 
-                        leapBone.GetChild(0), basis, leapOrientation, depth + 1);
-                }
-            }
-            else
-            {
-                Debug.LogError("Mismatch between steamVR and leap child count. Steam Bone:" + steamVRBone + " leap bone: " + leapBone);
-                Debug.Break();
-            }
-        }
-
-        Quaternion LocalRotationFromBasis(Transform bone, Quaternion bindRotation, BoneBasis basis)
-        {
-            Quaternion difference = Quaternion.identity;
-
-            difference = bindRotation * bone.transform.localRotation;
-
-            Quaternion rotation = difference;
-
-            Vector3 forward = basis.Forward;
-            Vector3 up = basis.Up;
-
-            forward = rotation * forward * ((controllerHand.IsLeft) ? -1 : 1);
-            up = rotation * up * ((controllerHand.IsLeft) ? -1 : 1); ;
-
-            Quaternion output = Quaternion.LookRotation(forward,
-                up);
-
-            return output;
-        }
-
-        Quaternion GlobalRotationFromBasis(Transform bone, Quaternion bindRotation, BoneBasis basis)
-        {
-            Quaternion difference = bone.transform.localRotation * Quaternion.Inverse(bindRotation);
-
-            Quaternion rotation = difference;
-
-            rotation = bone.transform.parent.rotation * rotation;
-
-            Vector3 forward = basis.Forward;
-            Vector3 up = basis.Up;
-
-            forward = rotation * forward;
-            up = rotation * up;
-
-            return Quaternion.LookRotation(forward,
-                up);
         }
 
         private void DrawBones(Transform parent, BoneBasis basis)
@@ -301,13 +181,6 @@ namespace CoordinateSpaceConversion
 
         private void OnDrawGizmosSelected()
         {
-            if(getBindPose)
-            {
-                getBindPose = false;
-                if (fingerMetacarpals == null || fingerMetacarpals.Length ==0) GetMetacarpals();
-                GetBindPose();                
-            }
-
             if (!enabled || !drawSkeleton) return;
 
             if (fingerMetacarpals == null || fingerMetacarpals.Length == 0) GetMetacarpals();

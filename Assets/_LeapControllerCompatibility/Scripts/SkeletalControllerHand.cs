@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,24 @@ namespace CoordinateSpaceConversion
 {
     public class SkeletalControllerHand : MonoBehaviour
     {
+        [System.Serializable]
+        public struct BoneConstraint
+        {
+            public Transform BoneToConstrain;
+
+            [Header("Green")]
+            [Range(0, 360)]
+            [UnityEngine.Serialization.FormerlySerializedAs("MinAngle")]
+            public float StartAngle;
+
+            [Header("Blue")]
+            [Range(0, 360)]
+            [UnityEngine.Serialization.FormerlySerializedAs("MaxAngle")]
+            public float EndAngle;
+
+            public float YHeightCorrection;
+        }
+
         [SerializeField]
         LeapProvider provider;
 
@@ -22,29 +41,18 @@ namespace CoordinateSpaceConversion
 
         float forearmLength = 0.27f;
 
-        [SerializeField]
-        Vector3 modelPalmFacing;
+        [SerializeField] Vector3 modelPalmFacing;
+        [SerializeField] Vector3 modelFingerPointing;
 
-        [SerializeField]
-        Vector3 modelFingerPointing;
+        #region Bone References
+        [Header("Bones")]
+        [SerializeField] Transform thumbMetaCarpal;
+        [SerializeField] Transform indexMetaCarpal;
+        [SerializeField] Transform middleMetaCarpal;
+        [SerializeField] Transform ringMetaCarpal;
+        [SerializeField] Transform pinkyMetaCarpal;
 
-        [SerializeField]
-        Transform thumbMetaCarpal;
-
-        [SerializeField]
-        Transform indexMetaCarpal;
-
-        [SerializeField]
-        Transform middleMetaCarpal;
-
-        [SerializeField]
-        Transform ringMetaCarpal;
-
-        [SerializeField]
-        Transform pinkyMetaCarpal;
-
-        [SerializeField]
-        Transform wrist;
+        [SerializeField] Transform wrist;
 
         public Transform Wrist { get { return wrist; } }
 
@@ -52,8 +60,12 @@ namespace CoordinateSpaceConversion
         public Transform MiddleMetacarpal { get { return middleMetaCarpal; } }
         public Transform RingMetacarpal { get { return ringMetaCarpal; } }
         public Transform PinkyMetacarpal { get { return pinkyMetaCarpal; } }
-
         public Transform ThumbMetacarpal { get { return thumbMetaCarpal; } }
+        #endregion
+
+        [Header("Constraints")]
+        [SerializeField] BoneConstraint[] boneConstraints;
+        public int ConstraintCount { get { return boneConstraints.Length; } }
 
         [SerializeField]
         bool isLeft;
@@ -65,18 +77,14 @@ namespace CoordinateSpaceConversion
         bool drawBones = true;
         [SerializeField]
         bool drawBasis = true;
+        [SerializeField]
+        bool drawConstraints = true;
 
         protected Color[] colors = { Color.gray, Color.yellow, Color.cyan, Color.magenta };
 
         public static readonly float MM_TO_M = 1e-3f;
 
         float visibleTime = 0;
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
 
         // Update is called once per frame
         void Update()
@@ -327,6 +335,58 @@ namespace CoordinateSpaceConversion
             return Quaternion.Inverse(reference.transform.rotation) * worldRoation;
         }
 
+        public BoneConstraint GetConstraintAtIndex(int index)
+        {
+            return boneConstraints[index];
+        }
+
+        public void SetTransformWithConstraint(Transform bone, Vector3 position, Quaternion globalRotation)
+        {
+            if(boneConstraints.Any(item => item.BoneToConstrain.GetInstanceID() == bone.GetInstanceID()))
+            {
+                // get our constraint object
+                BoneConstraint constraint = boneConstraints.First(item => item.BoneToConstrain.GetInstanceID() ==
+                bone.GetInstanceID());
+
+                SetTransformWithConstraint(constraint, bone, position, globalRotation);
+            }
+            else
+            {
+                // just apply without constraint
+                bone.transform.SetPositionAndRotation(position, globalRotation);
+            }
+        }
+
+        private void SetTransformWithConstraint(BoneConstraint constraint, Transform bone, Vector3 position,
+            Quaternion globalRotation)
+        {
+            constraint.BoneToConstrain.position = position;
+            constraint.BoneToConstrain.localPosition = new Vector3(constraint.BoneToConstrain.localPosition.x, 
+                constraint.YHeightCorrection, 0);
+
+            Quaternion localRotation = InverseTransformQuaternion(bone.transform.parent,
+                globalRotation);
+
+            Vector3 localEuler = localRotation.eulerAngles;
+
+            float startAngle = constraint.StartAngle, endAngle = constraint.EndAngle;
+            float maxAngle, minAngle;
+
+            maxAngle = (startAngle > endAngle) ? startAngle : endAngle;
+            minAngle = (startAngle > endAngle) ? endAngle : startAngle;
+
+            float distToMax = distToMax = Mathf.DeltaAngle(localEuler.z, maxAngle);
+            float distToMin = distToMin = Mathf.DeltaAngle(localEuler.z, minAngle);
+
+            if (localEuler.z > maxAngle || localEuler.z < minAngle)
+            {
+                // move euler.z to closest angle
+                localEuler.z = (Mathf.Abs(distToMax) < Mathf.Abs(distToMin)) ? maxAngle : minAngle;
+            }
+
+            constraint.BoneToConstrain.localRotation = Quaternion.Euler(new Vector3(0, 0, localEuler.z));
+        }
+
         void DrawBones(Transform parent, Transform child, int boneIndx)
         {
             Gizmos.DrawLine(parent.transform.position, child.transform.position);
@@ -369,6 +429,28 @@ namespace CoordinateSpaceConversion
             }
         }
 
+        private void DrawConstraint(BoneConstraint constraint)
+        {
+            if (constraint.BoneToConstrain == null || constraint.BoneToConstrain.parent == null) return;
+
+            Gizmos.matrix = constraint.BoneToConstrain.parent.localToWorldMatrix;
+
+            // draw line to minAngle
+            Gizmos.color = Color.green;
+            Vector3 minPointRotated = Quaternion.AngleAxis(constraint.StartAngle, Vector3.forward) * Vector3.right;
+            Gizmos.DrawLine(constraint.BoneToConstrain.localPosition, constraint.BoneToConstrain.localPosition + minPointRotated * 0.01f);
+
+            // draw line to maxAngle
+            Gizmos.color = Color.blue;
+            Vector3 maxPointRotated = Quaternion.AngleAxis(constraint.EndAngle, Vector3.forward) * Vector3.right;
+            Gizmos.DrawLine(constraint.BoneToConstrain.localPosition, constraint.BoneToConstrain.localPosition + maxPointRotated * 0.01f);
+
+            Gizmos.matrix = Matrix4x4.identity;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(constraint.BoneToConstrain.position, constraint.BoneToConstrain.position + constraint.BoneToConstrain.right * 0.015f);
+        }
+
         private void OnDrawGizmos()
         {
             // draw hand
@@ -403,6 +485,17 @@ namespace CoordinateSpaceConversion
                     Gizmos.DrawLine(forearmCenter, forearmCenter + forearmUp * 0.01f);
                     Gizmos.color = Color.red;
                     Gizmos.DrawLine(forearmCenter, forearmCenter + forearmRight * 0.01f);
+                }
+            }
+
+            if(drawConstraints)
+            {
+                if (boneConstraints != null)
+                {
+                    foreach (BoneConstraint constraint in boneConstraints)
+                    {
+                        DrawConstraint(constraint);
+                    }
                 }
             }
         }

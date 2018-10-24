@@ -3220,7 +3220,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855344156488942}
   m_LocalRotation: {x: -0, y: -0, z: -0.0000000030850056, w: 1}
-  m_LocalPosition: {x: 0.06812, y: 0.0000000036379788, z: 0.000000013315002}
+  m_LocalPosition: {x: 0.06812, y: 0, z: 0.000000013315002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4903219156717382}
@@ -4997,7 +4997,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1080161662622034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.022379994, y: 0.000000010266218, z: 0.000000025058398}
+  m_LocalPosition: {x: 0.022379994, y: 0, z: 0.000000025058398}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
   - {fileID: 4197275204751262}
@@ -5204,7 +5204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1523383318464878}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03978002, y: 0.000000004407291, z: -0.000000010870281}
+  m_LocalPosition: {x: 0.03978002, y: 0, z: -0.000000010870281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4811735056737284}
@@ -6069,7 +6069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultProvider: {fileID: 114325742512613982}
   customProvider: {fileID: 114221310039567002}
-  hideLeapHandsOnSwitch: 1
+  hideLeapHandsOnSwitch: 0
   modelManager: {fileID: 114509227216367108}
   leftHandPose: {fileID: 114734113485747038}
   leftHandVisual: {fileID: 1202413479721654}
@@ -6161,9 +6161,43 @@ MonoBehaviour:
   ringMetaCarpal: {fileID: 4857022548233728}
   pinkyMetaCarpal: {fileID: 4392952045135900}
   wrist: {fileID: 4294710300759908}
+  boneConstraints:
+  - BoneToConstrain: {fileID: 4903219156717382}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0.002
+  - BoneToConstrain: {fileID: 4811735056737284}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4516090152521940}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0.0015
+  - BoneToConstrain: {fileID: 4764373119475462}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4327459650717142}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4178978141154576}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4013829754317868}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4007558202004960}
+    StartAngle: 360
+    EndAngle: 230
+    YHeightCorrection: 0
   isLeft: 0
   drawBones: 1
-  drawBasis: 1
+  drawBasis: 0
+  drawConstraints: 1
 --- !u!114 &114509227216367108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6432,9 +6466,43 @@ MonoBehaviour:
   ringMetaCarpal: {fileID: 4104353824806074}
   pinkyMetaCarpal: {fileID: 4078062258479264}
   wrist: {fileID: 4690874723312130}
+  boneConstraints:
+  - BoneToConstrain: {fileID: 4419276208008692}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: -0.002
+  - BoneToConstrain: {fileID: 4178344231049848}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: -0.0015
+  - BoneToConstrain: {fileID: 4912111586102464}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4633592216299524}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4369154695777044}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4351485578416176}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4749297346956918}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: 0
+  - BoneToConstrain: {fileID: 4612064682306604}
+    StartAngle: 360
+    EndAngle: 242
+    YHeightCorrection: 0
   isLeft: 1
   drawBones: 1
-  drawBasis: 1
+  drawBasis: 0
+  drawConstraints: 1
 --- !u!114 &114750749474309066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6465,16 +6533,10 @@ MonoBehaviour:
     Forward: {x: 0, y: 0, z: 1}
     Up: {x: 1, y: 0, z: 0}
   palmOffset: {x: 0, y: 0, z: 0.06}
-  fingerMetacarpals:
-  - {fileID: 4831913175761390}
-  - {fileID: 4971814808927756}
-  - {fileID: 4112604916573168}
-  - {fileID: 4872117720402156}
   fingerBasis:
     Forward: {x: 1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
-  thumbMetacarpal: {fileID: 4879459947214196}
-  drawSkeleton: 1
+  drawSkeleton: 0
 --- !u!114 &114797019714743708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6629,15 +6691,9 @@ MonoBehaviour:
     Forward: {x: 0, y: 0, z: -1}
     Up: {x: 1, y: 0, z: 0}
   palmOffset: {x: 0, y: 0, z: 0.06}
-  fingerMetacarpals:
-  - {fileID: 4126632154696164}
-  - {fileID: 4260100663108574}
-  - {fileID: 4903972987432322}
-  - {fileID: 4310272850477240}
   fingerBasis:
     Forward: {x: -1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
-  thumbMetacarpal: {fileID: 4507318379614690}
   drawSkeleton: 0
 --- !u!114 &114893741564910422
 MonoBehaviour:
