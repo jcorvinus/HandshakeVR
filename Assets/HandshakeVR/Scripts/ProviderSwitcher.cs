@@ -31,7 +31,7 @@ namespace HandshakeVR
         [SerializeField]
         HandModelManager modelManager;
 
-        InteractionManager interactionManager;
+        Leap.Unity.Interaction.InteractionManager interactionManager;
         InteractionHand leftInteractionHand;
         InteractionHand rightInteractionHand;
 
@@ -56,7 +56,7 @@ namespace HandshakeVR
 
         private void Awake()
         {
-            interactionManager = InteractionManager.instance;
+            interactionManager = Leap.Unity.Interaction.InteractionManager.instance;
 
             if(interactionManager)
             { 
