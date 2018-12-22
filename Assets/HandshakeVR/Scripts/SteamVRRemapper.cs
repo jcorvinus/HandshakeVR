@@ -8,7 +8,9 @@ namespace HandshakeVR
 {
     public class SteamVRRemapper : MonoBehaviour
     {
-        [System.Serializable]
+		enum SteamVR_ControllerType { Unknown = -1, Vive = 0, Touch = 1, Knuckles = 2 }
+
+		[System.Serializable]
         public struct BoneBasis
         {
             public Vector3 Forward;
@@ -36,6 +38,8 @@ namespace HandshakeVR
         [SerializeField]
         Vector3 palmOffset;
 
+		SteamVR_ControllerType steamVRControllerType = SteamVR_ControllerType.Unknown;
+
         // 0 finger_index_meta_r
         // 1 finger_middle_meta_r
         // 2 finger_ring_meta_r
@@ -47,16 +51,44 @@ namespace HandshakeVR
         BoneBasis fingerBasis;
 
         SteamVR_Behaviour_Pose steamVRPose;
+		SteamVR_Behaviour_Skeleton skeletonBehavior;
 
-        [Header("Debug Vars")]
+		#region SteamVR Pinch Pose
+		Animator animator;
+		[SerializeField] SteamVR_Action_Boolean trackpadTouch;
+		[SerializeField] SteamVR_Action_Boolean aButtonTouch;
+		[SerializeField] SteamVR_Action_Boolean bButtonTouch;
+		[SerializeField] SteamVR_Action_Boolean triggerTouch;
+		[SerializeField] SteamVR_Action_Single triggerPull;
+		[SerializeField] SteamVR_Action_Boolean grabGrip;
+
+		[SerializeField] SteamVR_ActionSet assistActionset;
+
+		int isPinchingHash;
+		int pinchAmtHash;
+		int isGrabbedHash;
+
+		float pinchTweenDuration = 0.025f;
+		float pinchTweenTime = 0;
+		float pinchTValue = 0;
+		#endregion
+
+		[Header("Debug Vars")]
         [SerializeField]
         bool drawSkeleton = false;
 
         private void Awake()
         {
+			isPinchingHash = Animator.StringToHash("IsPinching");
+			pinchAmtHash = Animator.StringToHash("PinchAmt");
+			isGrabbedHash = Animator.StringToHash("IsGrabbed");
+
             if(!controllerHand) controllerHand = GetComponent<SkeletalControllerHand>();
             steamVRPose = wrist.GetComponentInParent<SteamVR_Behaviour_Pose>();
-        }
+			skeletonBehavior = steamVRPose.GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
+
+			animator = steamVRPose.GetComponentInChildren<Animator>();
+		}
 
         private void Start()
         {
@@ -74,10 +106,91 @@ namespace HandshakeVR
             fingerMetacarpals[4] = wrist.Find("finger_thumb_0_r");
         }
 
-        private void Update()
+		private void GetControllerType()
+		{
+			// string property for?
+			Valve.VR.ETrackedPropertyError error = Valve.VR.ETrackedPropertyError.TrackedProp_Success;
+			Valve.VR.ETrackedDeviceProperty manufacturerNameProperty = Valve.VR.ETrackedDeviceProperty.Prop_ManufacturerName_String;
+			uint manufacturerNameCapacity = SteamVR.instance.hmd.GetStringTrackedDeviceProperty((uint)steamVRPose.GetDeviceIndex(), manufacturerNameProperty,
+				null, 0, ref error);
+
+			string manufacturerResultAsString = "";
+			if (manufacturerNameCapacity > 1)
+			{
+				var manufacturerResult = new System.Text.StringBuilder((int)manufacturerNameCapacity);
+				SteamVR.instance.hmd.GetStringTrackedDeviceProperty((uint)steamVRPose.GetDeviceIndex(), manufacturerNameProperty, manufacturerResult, manufacturerNameCapacity, ref error);
+
+				manufacturerResultAsString = manufacturerResult.ToString();
+
+				if(manufacturerResultAsString.Equals("Oculus"))
+				{
+					steamVRControllerType = SteamVR_ControllerType.Touch;
+				}
+				else
+				{
+					// figure out if we're vive or touch
+					error = ETrackedPropertyError.TrackedProp_Success;
+					Valve.VR.ETrackedDeviceProperty renderModelName = ETrackedDeviceProperty.Prop_RenderModelName_String;
+
+					uint renderModelStringCapacity = SteamVR.instance.hmd.GetStringTrackedDeviceProperty((uint)steamVRPose.GetDeviceIndex(), renderModelName, null, 0, ref error);
+
+					if (renderModelStringCapacity > 1)
+					{
+						var renderModelResult = new System.Text.StringBuilder((int)renderModelStringCapacity);
+						SteamVR.instance.hmd.GetStringTrackedDeviceProperty((uint)steamVRPose.GetDeviceIndex(), renderModelName, renderModelResult, renderModelStringCapacity, ref error);
+						Debug.Log("Controller rendermodel name: " + renderModelResult.ToString());
+
+						if (renderModelResult.ToString().ToLower().Contains("knuckles")) steamVRControllerType = SteamVR_ControllerType.Knuckles;
+						else steamVRControllerType = SteamVR_ControllerType.Vive;
+					}
+				}
+				//steamVRControllerType = (manufacturerResultAsString.Equals("Oculus")) ? SteamVR_ControllerType.Touch : SteamVR_ControllerType.Vive;
+				Debug.Log("controller manufacturer: " + manufacturerResultAsString);
+				Debug.Log("Controller type detected: " + steamVRControllerType);
+			}
+			else
+			{
+				steamVRControllerType = SteamVR_ControllerType.Unknown;
+			}
+		}
+
+		bool isPinching;
+		bool faceButtonTouch;
+		bool isTriggerTouch;
+
+		void UpdateAnimatorKnuckles()
+		{
+			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
+			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
+
+			animator.SetBool(isGrabbedHash, grabGrip.GetState(inputSource));
+
+			faceButtonTouch = (aButtonTouch.GetState(inputSource) || bButtonTouch.GetState(inputSource) ||
+				trackpadTouch.GetState(inputSource));
+
+			isTriggerTouch = triggerTouch.GetState(inputSource);
+			isPinching = faceButtonTouch;
+
+			animator.SetBool(isPinchingHash, isPinching);
+			animator.SetFloat(pinchAmtHash, skeletonBehavior.GetFingerCurl(1));
+
+			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
+			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);
+			pinchTValue = Mathf.InverseLerp(0, pinchTweenDuration, pinchTweenTime);
+			/*if (skeletonBehavior)
+			{
+				skeletonBehavior.indexSkeletonBlend = 1 - pinchTValue;
+				skeletonBehavior.thumbSkeletonBlend = 1 - pinchTValue;
+			}*/
+		}
+
+		private void Update()
         {
-            // set our wrist positions to match first
-            controllerHand.Wrist.transform.position = wrist.transform.position;
+			if (steamVRControllerType == SteamVR_ControllerType.Unknown) GetControllerType();
+			if (steamVRControllerType == SteamVR_ControllerType.Knuckles) UpdateAnimatorKnuckles();
+
+			// set our wrist positions to match first
+			controllerHand.Wrist.transform.position = wrist.transform.position;
 
             Quaternion wristBoneOrientation = controllerHand.GetLocalBasis();
             controllerHand.Wrist.rotation = GlobalRotationFromBasis(wrist, wristBasis) * wristBoneOrientation;

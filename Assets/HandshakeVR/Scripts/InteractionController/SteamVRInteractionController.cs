@@ -101,12 +101,12 @@ namespace HandshakeVR
                 {
                     // only do this if our custom provider is enabled and working
                     graspingEnabled = true;
-                    handToOverride.graspingEnabled = !isGraspingObject;
+                    //handToOverride.graspingEnabled = !isGraspingObject;
                 }
                 else
                 {
                     graspingEnabled = false;
-                    handToOverride.graspingEnabled = true;
+                    //handToOverride.graspingEnabled = true;
                 }               
             }
         }
@@ -270,7 +270,8 @@ namespace HandshakeVR
         {
             get
             {
-                return grabAction.GetStateDown((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+                return grabAction.GetStateDown((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand) ||
+					grabPinchAction.GetStateDown(isLeft ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
             }
         }
 
@@ -278,7 +279,8 @@ namespace HandshakeVR
         {
             get
             {
-                return grabAction.GetStateUp((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+                return grabAction.GetStateUp((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand) ||
+					grabPinchAction.GetStateUp(isLeft ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
             }
         }
 

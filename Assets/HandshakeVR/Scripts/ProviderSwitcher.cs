@@ -119,13 +119,13 @@ namespace HandshakeVR
                 if (leftInteractionHand)
                 {
                     leftInteractionHand.leapProvider = defaultProvider;
-                    //if(leftInteractionController) leftInteractionController.graspingEnabled = false; // used to be commented
+                    if(leftInteractionController) leftInteractionController.graspingEnabled = false;
                     leftInteractionHand.graspingEnabled = true;
                 }
                 if (rightInteractionHand)
                 {
                     rightInteractionHand.leapProvider = defaultProvider;
-                    //if(rightInteractionController) rightInteractionController.graspingEnabled = false; // used to be commented
+                    if(rightInteractionController) rightInteractionController.graspingEnabled = false;
                     rightInteractionHand.graspingEnabled = true;
                 }
             }
@@ -135,19 +135,18 @@ namespace HandshakeVR
                 if (leftInteractionHand)
                 {
                     leftInteractionHand.leapProvider = customProvider;
-                    /*leftInteractionController.graspingEnabled = true; // used to be commented
-                    leftInteractionHand.graspingEnabled = false; // used to be commented*/
+                    leftInteractionController.graspingEnabled = true; // used to be commented
+                    leftInteractionHand.graspingEnabled = false; // used to be commented
                 }
                 if (rightInteractionHand)
                 {
                     rightInteractionHand.leapProvider = customProvider;
-                    /*rightInteractionController.graspingEnabled = true; // used to be commented
-                    rightInteractionHand.graspingEnabled = false; // used to be commented*/
+                    rightInteractionController.graspingEnabled = true; // used to be commented
+                    rightInteractionHand.graspingEnabled = false; // used to be commented
                 }
 
                 for (int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't children of the model manager
                 {
-
                     modelManager.transform.GetChild(i).gameObject.SetActive(!hideLeapHandsOnSwitch);
                 }
             }

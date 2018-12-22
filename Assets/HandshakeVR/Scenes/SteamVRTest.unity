@@ -601,11 +601,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114345667115788794, guid: 81251f2a1fb3527428b70da2d46fdab9,
-        type: 2}
-      propertyPath: hideLeapHandsOnSwitch
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 2}
   m_IsPrefabParent: 0

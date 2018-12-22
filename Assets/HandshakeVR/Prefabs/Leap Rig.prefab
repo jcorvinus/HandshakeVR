@@ -1238,7 +1238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4448062782556830}
   - component: {fileID: 95573364012158424}
-  - component: {fileID: 114296628976710542}
+  - component: {fileID: 114549947989364682}
   m_Layer: 0
   m_Name: vr_glove_left_model_slim
   m_TagString: Untagged
@@ -1408,7 +1408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4256290482226986}
   - component: {fileID: 95569765466499442}
-  - component: {fileID: 114225426020839562}
+  - component: {fileID: 114427705730889696}
   m_Layer: 0
   m_Name: vr_glove_right_model_slim
   m_TagString: Untagged
@@ -1669,7 +1669,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4355238249151702}
-  - component: {fileID: 95637117834869416}
   m_Layer: 0
   m_Name: slim_l
   m_TagString: Untagged
@@ -5595,7 +5594,7 @@ Animator:
   m_GameObject: {fileID: 1798688239588192}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 68155f330d0247d4eaf4bcb0e56f5a7a, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5627,9 +5626,9 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915491891064440}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0066c009453704440b1a2835aa603535, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5646,7 +5645,7 @@ Animator:
   m_GameObject: {fileID: 1507430319387778}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 641e9d2f5c6b4cb438161abef3be8300, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 2cae2c980a350484980d61bea3395727, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5661,27 +5660,10 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446051495728384}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 65d8eda911e0ba548a3674f65c43308b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95637117834869416
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1610307106309764}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 02d2c3f5b5ca1014c8fb700e729167ae, type: 3}
-  m_Controller: {fileID: 9100000, guid: 42369a307decda842a4a92cfbad72afe, type: 2}
-  m_CullingMode: 0
+  m_Avatar: {fileID: 9000000, guid: 65d8eda911e0ba548a3674f65c43308b, type: 3}
+  m_Controller: {fileID: 22100000, guid: 2cae2c980a350484980d61bea3395727, type: 2}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -5805,26 +5787,6 @@ MonoBehaviour:
   editTimePose: 2
   rightHand: {fileID: 114503377457903724}
   leftHand: {fileID: 114737013065035772}
---- !u!114 &114225426020839562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1507430319387778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00f6c0d7b5a00aa4a8d38a09a0480032, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeletonAction: {fileID: 11400000, guid: 296d71bb3963c5040941d281768da7e8, type: 2}
-  inputSource: 2
-  rangeOfMotion: 1
-  skeletonRoot: {fileID: 4672290211030862}
-  origin: {fileID: 0}
-  updatePose: 0
-  onlySetRotations: 0
-  skeletonBlend: 1
-  mirroring: 0
 --- !u!114 &114234201052821044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6012,26 +5974,6 @@ MonoBehaviour:
   scaleLastFingerBone: 1
   modelFingerPointing: {x: -1, y: 0, z: 0}
   modelPalmFacing: {x: 0, y: 1, z: 0}
---- !u!114 &114296628976710542
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1446051495728384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00f6c0d7b5a00aa4a8d38a09a0480032, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeletonAction: {fileID: 11400000, guid: e972e42168153a3419f2ef1efc3bc47f, type: 2}
-  inputSource: 1
-  rangeOfMotion: 1
-  skeletonRoot: {fileID: 4393578720803864}
-  origin: {fileID: 0}
-  updatePose: 0
-  onlySetRotations: 0
-  skeletonBlend: 1
-  mirroring: 2
 --- !u!114 &114325742512613982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6069,13 +6011,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultProvider: {fileID: 114325742512613982}
   customProvider: {fileID: 114221310039567002}
-  hideLeapHandsOnSwitch: 0
+  hideLeapHandsOnSwitch: 1
   modelManager: {fileID: 114509227216367108}
   leftHandPose: {fileID: 114734113485747038}
   leftHandVisual: {fileID: 1202413479721654}
   rightHandPose: {fileID: 114530473879428212}
   rightHandVisual: {fileID: 1955278027004552}
   manualProviderSwitching: 0
+--- !u!114 &114427705730889696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1507430319387778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8f4580c9f11c44fa352f7e08eee9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAction:
+    actionPath: 
+    needsReinit: 0
+  inputSource: 2
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 4672290211030862}
+  origin: {fileID: 0}
+  updatePose: 0
+  onlySetRotations: 0
+  thumbSkeletonBlend: 1
+  indexSkeletonBlend: 1
+  middleSkeletonBlend: 1
+  ringSkeletonBlend: 1
+  pinkySkeletonBlend: 1
+  mirroring: 0
 --- !u!114 &114437818936181726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6247,7 +6215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5fb0ca93b55ef4b8d54b512b103341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poseAction: {fileID: 11400000, guid: 9cb310d97b6d4c04385ca1b05af7c2fa, type: 2}
+  poseAction:
+    actionPath: /actions/default/in/Pose
+    needsReinit: 0
   inputSource: 2
   origin: {fileID: 4290699132272366}
   onTransformUpdated:
@@ -6263,13 +6233,39 @@ MonoBehaviour:
   onConnectedChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_ConnectedChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onTrackingChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_TrackingChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &114549947989364682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446051495728384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8f4580c9f11c44fa352f7e08eee9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAction:
+    actionPath: 
+    needsReinit: 0
+  inputSource: 1
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 4393578720803864}
+  origin: {fileID: 0}
+  updatePose: 0
+  onlySetRotations: 0
+  thumbSkeletonBlend: 0
+  indexSkeletonBlend: 0
+  middleSkeletonBlend: 1
+  ringSkeletonBlend: 1
+  pinkySkeletonBlend: 1
+  mirroring: 2
 --- !u!114 &114567331969475762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6419,7 +6415,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5fb0ca93b55ef4b8d54b512b103341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poseAction: {fileID: 11400000, guid: 9cb310d97b6d4c04385ca1b05af7c2fa, type: 2}
+  poseAction:
+    actionPath: /actions/default/in/Pose
+    needsReinit: 0
   inputSource: 1
   origin: {fileID: 4290699132272366}
   onTransformUpdated:
@@ -6435,13 +6433,13 @@ MonoBehaviour:
   onConnectedChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_ConnectedChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onTrackingChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_TrackingChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &114737013065035772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6536,6 +6534,26 @@ MonoBehaviour:
   fingerBasis:
     Forward: {x: 1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
+  trackpadTouch:
+    actionPath: /actions/HandPoseAssist/in/TrackpadTouch
+    needsReinit: 0
+  aButtonTouch:
+    actionPath: /actions/HandPoseAssist/in/AButtonTouch
+    needsReinit: 0
+  bButtonTouch:
+    actionPath: /actions/HandPoseAssist/in/BButtonTouch
+    needsReinit: 0
+  triggerTouch:
+    actionPath: /actions/HandPoseAssist/in/TriggerTouch
+    needsReinit: 0
+  triggerPull:
+    actionPath: /actions/HandPoseAssist/in/TriggerPull
+    needsReinit: 0
+  grabGrip:
+    actionPath: /actions/default/in/GrabGrip
+    needsReinit: 0
+  assistActionset:
+    actionSetPath: /actions/HandPoseAssist
   drawSkeleton: 0
 --- !u!114 &114797019714743708
 MonoBehaviour:
@@ -6694,6 +6712,26 @@ MonoBehaviour:
   fingerBasis:
     Forward: {x: -1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
+  trackpadTouch:
+    actionPath: /actions/HandPoseAssist/in/TrackpadTouch
+    needsReinit: 0
+  aButtonTouch:
+    actionPath: /actions/HandPoseAssist/in/AButtonTouch
+    needsReinit: 0
+  bButtonTouch:
+    actionPath: /actions/HandPoseAssist/in/BButtonTouch
+    needsReinit: 0
+  triggerTouch:
+    actionPath: /actions/HandPoseAssist/in/TriggerTouch
+    needsReinit: 0
+  triggerPull:
+    actionPath: /actions/HandPoseAssist/in/TriggerPull
+    needsReinit: 0
+  grabGrip:
+    actionPath: /actions/default/in/GrabGrip
+    needsReinit: 0
+  assistActionset:
+    actionSetPath: /actions/HandPoseAssist
   drawSkeleton: 0
 --- !u!114 &114893741564910422
 MonoBehaviour:

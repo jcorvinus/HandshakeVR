@@ -17,19 +17,34 @@ namespace Valve.VR
     public partial class SteamVR_Input
     {
         
-        public static Valve.VR.SteamVR_Input_ActionSet_default _default;
+        private static SteamVR_Input_ActionSet_default p__default;
         
-        public static void Dynamic_InitializeActionSets()
+        private static SteamVR_Input_ActionSet_HandPoseAssist p_HandPoseAssist;
+        
+        public static SteamVR_Input_ActionSet_default _default
         {
-            SteamVR_Input._default.Initialize();
+            get
+            {
+                return Valve.VR.SteamVR_Input.p__default.GetCopy <SteamVR_Input_ActionSet_default>();
+            }
         }
         
-        public static void Dynamic_InitializeInstanceActionSets()
+        public static SteamVR_Input_ActionSet_HandPoseAssist HandPoseAssist
         {
-            Valve.VR.SteamVR_Input._default = ((SteamVR_Input_ActionSet_default)(SteamVR_Input_References.GetActionSet("_default")));
+            get
+            {
+                return Valve.VR.SteamVR_Input.p_HandPoseAssist.GetCopy <SteamVR_Input_ActionSet_HandPoseAssist>();
+            }
+        }
+        
+        public static void StartPreInitActionSets()
+        {
+            Valve.VR.SteamVR_Input.p__default = ((SteamVR_Input_ActionSet_default)(SteamVR_ActionSet.Create <SteamVR_Input_ActionSet_default>("/actions/default")));
+            Valve.VR.SteamVR_Input.p_HandPoseAssist = ((SteamVR_Input_ActionSet_HandPoseAssist)(SteamVR_ActionSet.Create <SteamVR_Input_ActionSet_HandPoseAssist>("/actions/HandPoseAssist")));
             Valve.VR.SteamVR_Input.actionSets = new Valve.VR.SteamVR_ActionSet[]
             {
-                    Valve.VR.SteamVR_Input._default};
+                    Valve.VR.SteamVR_Input._default,
+                    Valve.VR.SteamVR_Input.HandPoseAssist};
         }
     }
 }
