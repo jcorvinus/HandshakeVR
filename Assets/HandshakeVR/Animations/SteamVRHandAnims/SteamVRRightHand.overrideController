@@ -5,7 +5,7 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: KnucklesRightHand
+  m_Name: SteamVRRightHand
   m_Controller: {fileID: 9100000, guid: 300c5124d90c8714ab49fd5a1e5b3fb7, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 014145e1d8c8b254dbbf97687a4ab9be, type: 2}

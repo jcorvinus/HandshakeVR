@@ -51,7 +51,7 @@ namespace HandshakeVR
         BoneBasis fingerBasis;
 
         SteamVR_Behaviour_Pose steamVRPose;
-		SteamVR_Behaviour_Skeleton skeletonBehavior;
+		MaskedSteamVRSkeleton skeletonBehavior;
 
 		#region SteamVR Pinch Pose
 		Animator animator;
@@ -85,7 +85,7 @@ namespace HandshakeVR
 
             if(!controllerHand) controllerHand = GetComponent<SkeletalControllerHand>();
             steamVRPose = wrist.GetComponentInParent<SteamVR_Behaviour_Pose>();
-			skeletonBehavior = steamVRPose.GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
+			skeletonBehavior = steamVRPose.GetComponentInChildren<MaskedSteamVRSkeleton>();
 
 			animator = steamVRPose.GetComponentInChildren<Animator>();
 		}
@@ -177,17 +177,45 @@ namespace HandshakeVR
 			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
 			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);
 			pinchTValue = Mathf.InverseLerp(0, pinchTweenDuration, pinchTweenTime);
-			/*if (skeletonBehavior)
+			if (skeletonBehavior)
 			{
 				skeletonBehavior.indexSkeletonBlend = 1 - pinchTValue;
 				skeletonBehavior.thumbSkeletonBlend = 1 - pinchTValue;
-			}*/
+			}
+		}
+
+		void UpdateAnimatorVive()
+		{
+			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
+			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
+
+			faceButtonTouch = (aButtonTouch.GetState(inputSource) || bButtonTouch.GetState(inputSource) ||
+				trackpadTouch.GetState(inputSource));
+
+			isTriggerTouch = triggerTouch.GetState(inputSource);
+			isPinching = faceButtonTouch;
+
+			animator.SetBool(isGrabbedHash, grabGrip.GetState(inputSource) && !isPinching);
+
+			animator.SetBool(isPinchingHash, isPinching);
+			animator.SetFloat(pinchAmtHash, skeletonBehavior.GetFingerCurl(1));
+
+			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
+			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);
+			pinchTValue = Mathf.InverseLerp(0, pinchTweenDuration, pinchTweenTime);
+
+			if (skeletonBehavior)
+			{
+				skeletonBehavior.indexSkeletonBlend = 1 - pinchTValue;
+				skeletonBehavior.thumbSkeletonBlend = 1 - pinchTValue;
+			}
 		}
 
 		private void Update()
         {
 			if (steamVRControllerType == SteamVR_ControllerType.Unknown) GetControllerType();
 			if (steamVRControllerType == SteamVR_ControllerType.Knuckles) UpdateAnimatorKnuckles();
+			else if (steamVRControllerType == SteamVR_ControllerType.Vive) UpdateAnimatorVive();
 
 			// set our wrist positions to match first
 			controllerHand.Wrist.transform.position = wrist.transform.position;
