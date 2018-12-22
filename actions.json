@@ -63,7 +63,7 @@
     },
     {
       "name": "/actions/HandPoseAssist",
-      "usage": "single"
+      "usage": "hidden"
     }
   ],
   "default_bindings": [
