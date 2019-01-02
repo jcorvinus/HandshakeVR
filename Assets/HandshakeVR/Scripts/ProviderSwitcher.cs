@@ -156,7 +156,8 @@ namespace HandshakeVR
             rightHandVisual.gameObject.SetActive(!modelManager.GraphicsEnabled);
 
             Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
-        }
+			customProvider.IsActive = !isDefault;
+		}
 
         [ExposeMethodInEditor]
         void SwitchProviders()
