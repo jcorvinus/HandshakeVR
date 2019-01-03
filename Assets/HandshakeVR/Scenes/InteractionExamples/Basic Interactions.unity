@@ -201,6 +201,30 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 114e2c6c3fb8859429479d362a09e3c9, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &965260022 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114750749474309066, guid: 81251f2a1fb3527428b70da2d46fdab9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1509790825}
+  m_Script: {fileID: 11500000, guid: f61272283927849e4a4e5bb2cb92a0dd, type: 3}
+--- !u!114 &1149840329 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114698521151432050, guid: 81251f2a1fb3527428b70da2d46fdab9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1509790825}
+  m_Script: {fileID: 11500000, guid: f61272283927849e4a4e5bb2cb92a0dd, type: 3}
+--- !u!114 &1238799696 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114801027607174016, guid: 81251f2a1fb3527428b70da2d46fdab9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1509790825}
+  m_Script: {fileID: 11500000, guid: 9e0ed5922e911b343b8400997c95409c, type: 3}
+--- !u!114 &1247626126 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114251282332800256, guid: 81251f2a1fb3527428b70da2d46fdab9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1509790825}
+  m_Script: {fileID: 11500000, guid: 9e0ed5922e911b343b8400997c95409c, type: 3}
 --- !u!1001 &1509790825
 Prefab:
   m_ObjectHideFlags: 0
@@ -208,6 +232,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4290699132272366, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -239,6 +268,264 @@ Prefab:
     - target: {fileID: 4290699132272366, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114345667115788794, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: hideLeapHandsOnSwitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114345667115788794, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: manualProviderSwitching
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466287709473964, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1920153397230100, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114503377457903724, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: drawBones
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114737013065035772, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: drawBones
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114737013065035772, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: drawConstraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114503377457903724, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: drawConstraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[1].GroupName
+      value: DebugHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[1].LeftModel
+      value: 
+      objectReference: {fileID: 965260022}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[1].RightModel
+      value: 
+      objectReference: {fileID: 1149840329}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[1].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[2].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[2].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[2].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[2].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[3].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[3].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[3].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[3].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[4].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[4].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[4].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[4].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[5].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[5].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[5].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[5].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[6].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[6].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[6].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[6].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[7].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[7].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[7].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[7].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[8].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[8].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[8].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[8].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[9].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[9].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[9].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[9].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[10].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[10].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[10].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[10].IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[11].GroupName
+      value: RiggedHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[11].LeftModel
+      value: 
+      objectReference: {fileID: 1238799696}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[11].RightModel
+      value: 
+      objectReference: {fileID: 1247626126}
+    - target: {fileID: 114509227216367108, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 2}
+      propertyPath: ModelPool.Array.data[11].IsEnabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 2}

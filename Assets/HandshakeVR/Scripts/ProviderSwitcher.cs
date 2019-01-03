@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,6 +43,7 @@ namespace HandshakeVR
         [SerializeField]
         GameObject leftHandVisual;
         SteamVRInteractionController leftInteractionController;
+		SkeletalControllerHand leftSkeletalControllerHand;
 
         [SerializeField]
         SteamVR_Behaviour_Pose rightHandPose;
@@ -49,6 +51,7 @@ namespace HandshakeVR
         [SerializeField]
         GameObject rightHandVisual;
         SteamVRInteractionController rightInteractionController;
+		SkeletalControllerHand rightSkeletalControllerHand;
 
         [Header("Debugging")]
         [SerializeField]
@@ -68,6 +71,8 @@ namespace HandshakeVR
 
                         if (hand.isLeft) leftInteractionHand = hand;
                         else rightInteractionHand = hand;
+
+						hand.leapProvider = defaultProvider;
                     }
                     else if (controller is SteamVRInteractionController)
                     {
@@ -78,6 +83,10 @@ namespace HandshakeVR
                     }
                 }
             }
+
+			SkeletalControllerHand[] hands = transform.parent.GetComponentsInChildren<SkeletalControllerHand>(true);
+			leftSkeletalControllerHand = hands.First(item => item.IsLeft);
+			rightSkeletalControllerHand = hands.First(item => !item.IsLeft);
         }
 
         // Use this for initialization
@@ -104,6 +113,18 @@ namespace HandshakeVR
                     if (!ShouldUseControllers()) SwitchProviders();
                 }
             }
+
+			if(!isDefault)
+			{
+				// update our tracking/active state properly.
+				leftSkeletalControllerHand.IsActive = leftHandPose.isValid;
+				rightSkeletalControllerHand.IsActive = rightHandPose.isValid;
+			}
+			else
+			{
+				leftSkeletalControllerHand.IsActive = false;
+				rightSkeletalControllerHand.IsActive = false;
+			}
         }
 
         private bool ShouldUseControllers()

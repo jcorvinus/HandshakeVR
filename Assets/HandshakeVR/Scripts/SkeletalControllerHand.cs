@@ -30,8 +30,8 @@ namespace HandshakeVR
             public float YHeightCorrection;
         }
 
-        [SerializeField]
-        LeapProvider provider;
+		CustomProvider leapProvider;
+		public CustomProvider LeapProvider { set { leapProvider = value; } }
 
         [SerializeField] float palmWidth;
         [SerializeField] float palmForwardOfffset = 0;
@@ -43,6 +43,18 @@ namespace HandshakeVR
 
         [SerializeField] Vector3 modelPalmFacing;
         [SerializeField] Vector3 modelFingerPointing;
+
+		float timeVisible = 0;
+		int handID=0;
+
+		[SerializeField] bool isLeft;
+		public bool IsLeft { get { return isLeft; } }
+
+		bool isActive = false;
+		public bool IsActive { get { return isActive; } set { isActive = value; } }
+
+		private Leap.Hand leapHand;
+		public Leap.Hand LeapHand { get { return leapHand; } }
 
         #region Bone References
         [Header("Bones")]
@@ -67,11 +79,6 @@ namespace HandshakeVR
         [SerializeField] BoneConstraint[] boneConstraints;
         public int ConstraintCount { get { return boneConstraints.Length; } }
 
-        [SerializeField]
-        bool isLeft;
-
-        public bool IsLeft { get { return isLeft; } }
-
         [Header("Debug vars")]
         [SerializeField]
         bool drawBones = true;
@@ -86,10 +93,21 @@ namespace HandshakeVR
 
         float visibleTime = 0;
 
-        // Update is called once per frame
-        void Update()
+		private void Start()
+		{
+			handID = !isLeft ? 0 : 1;
+			leapHand = GenerateHandData(0);
+		}
+
+		// Update is called once per frame
+		void Update()
         {
-            visibleTime += Time.deltaTime;
+			if (isActive)
+			{
+				visibleTime += Time.deltaTime;
+				SetHandData(leapHand, leapProvider.FrameID);
+			}
+			else visibleTime = 0;
         }
 
         Bone GenerateBone(Transform prev, Transform next, Bone.BoneType type, float fingerWidth)
@@ -137,9 +155,6 @@ namespace HandshakeVR
 
         public Hand GenerateHandData(int frameID)
         {
-            //int frameID = 0;
-            int handID = !isLeft ? 0 : 1;
-
             List<Finger> fingers = new List<Finger>();
 
             fingers.Add(GenerateFinger(0, handID, Finger.FingerType.TYPE_THUMB, visibleTime,
@@ -156,7 +171,6 @@ namespace HandshakeVR
 
             fingers.Add(GenerateFinger(0, handID, Finger.FingerType.TYPE_PINKY, visibleTime,
                 pinkyMetaCarpal));
-
 
             // forearm length is 0.27
             // forearm width is 0.09
@@ -230,7 +244,132 @@ namespace HandshakeVR
             }
         }
 
-        private void GetBasis(Transform reference, out Vector3 right, out Vector3 forward, out Vector3 up)
+		void SetHandData(Hand hand, int frameID)
+		{
+			for (int fingerIndex = 0; fingerIndex < hand.Fingers.Count; fingerIndex++)
+			{
+				Leap.Finger.FingerType fingerType = (Leap.Finger.FingerType)fingerIndex;
+				float _fingerWidth = fingerWidth * MM_TO_M;
+
+				Transform metaCarpalTransform = null;
+
+				switch (fingerType)
+				{
+					case Finger.FingerType.TYPE_THUMB:
+						metaCarpalTransform = thumbMetaCarpal;
+						break;
+					case Finger.FingerType.TYPE_INDEX:
+						metaCarpalTransform = indexMetaCarpal;
+						break;
+					case Finger.FingerType.TYPE_MIDDLE:
+						metaCarpalTransform = middleMetaCarpal;
+						break;
+					case Finger.FingerType.TYPE_RING:
+						metaCarpalTransform = ringMetaCarpal;
+						break;
+					case Finger.FingerType.TYPE_PINKY:
+						metaCarpalTransform = pinkyMetaCarpal;
+						break;
+					default:
+						Debug.LogError("Invalid finger type for finger index: " + fingerIndex);
+						break;
+				}
+
+				// NOTE: if our type is thumb, our 'meta carpal transform' is actually our proximal,
+				// and we'll need to generate a zero-length metacarpal for it
+				Transform proximalTransform = (fingerType == Finger.FingerType.TYPE_THUMB) ? metaCarpalTransform : metaCarpalTransform.GetChild(0);
+				Transform intermediateTransform = proximalTransform.GetChild(0);
+				Transform distalTransform = intermediateTransform.GetChild(0);
+				Transform tip = distalTransform.GetChild(0);
+
+				Finger finger = hand.Fingers[fingerIndex];
+				SetBone(ref finger.bones[(int)Bone.BoneType.TYPE_METACARPAL], metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, _fingerWidth);
+				SetBone(ref finger.bones[(int)Bone.BoneType.TYPE_PROXIMAL], proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, _fingerWidth);
+				SetBone(ref finger.bones[(int)Bone.BoneType.TYPE_INTERMEDIATE], intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, _fingerWidth);
+				SetBone(ref finger.bones[(int)Bone.BoneType.TYPE_DISTAL], distalTransform, tip, Bone.BoneType.TYPE_DISTAL, _fingerWidth);
+
+				// update the rest of the finger values.
+				Vector tipPosition = tip.transform.position.ToVector();
+				Vector direction = new Vector(0, 0, 0);
+
+				float fingerLength =
+					Vector3.Distance(proximalTransform.position, intermediateTransform.position) +
+					Vector3.Distance(intermediateTransform.position, distalTransform.position) +
+					Vector3.Distance(distalTransform.position, tip.position); // add up joint lengths for this
+
+				hand.Fingers[fingerIndex].Id = (int)fingerType;
+				hand.Fingers[fingerIndex].HandId = handID;
+				hand.Fingers[fingerIndex].TipPosition = tipPosition;
+				hand.Fingers[fingerIndex].Direction = direction;
+				hand.Fingers[fingerIndex].Length = fingerLength;
+			}
+
+			// fill out rest of hand
+			// forearm length is 0.27
+			// forearm width is 0.09
+
+			Vector forearmStart, forearmEnd;
+
+			forearmStart = GetForearmStart().ToVector();
+			forearmEnd = GetForearmEnd().ToVector();
+
+			Quaternion forearmRotation = GetForearmRotation();
+
+			// might be possible to create this as a bone? Not sure what magic the constructor does.
+			/*Arm arm = new Arm(forearmStart, forearmEnd, (forearmStart + forearmEnd) * 0.5f,
+				(forearmEnd - forearmStart).Normalized, forearmLength, 0.09f,
+				forearmRotation.ToLeapQuaternion());*/
+
+			hand.Arm.PrevJoint = forearmStart;
+			hand.Arm.NextJoint = forearmEnd;
+			hand.Arm.Center = (forearmStart + forearmEnd) * 0.5f;
+			hand.Arm.Direction = (forearmEnd - forearmStart).Normalized;
+			hand.Arm.Length = forearmLength;
+			hand.Arm.Width = 0.09f;
+			hand.Arm.Rotation = forearmRotation.ToLeapQuaternion();
+
+			Vector palmPosition = GetPalmPosition().ToVector();
+			Vector palmNormal = GetPalmNormal().ToVector();
+			Vector palmVelocity = new Vector(0, 0, 0);
+
+			//palmWidth = 85f * MM_TO_M;
+
+			LeapQuaternion rotation = GetHandRotation().ToLeapQuaternion();
+
+			hand.FrameId = frameID;
+			hand.PalmPosition = palmPosition;
+			hand.PalmVelocity = palmVelocity;
+			hand.PalmNormal = palmNormal;
+			hand.Direction = wrist.TransformDirection(modelPalmFacing).ToVector();
+			hand.Rotation = rotation;
+			hand.PalmWidth = palmWidth;
+			hand.StabilizedPalmPosition = palmPosition;
+			hand.WristPosition = wrist.position.ToVector();
+			hand.TimeVisible = timeVisible;
+		}
+
+		private void SetBone(ref Bone bone, Transform prev, Transform next, Bone.BoneType type, float fingerWidth)
+		{
+			Vector3 up, forward, right;
+			GetBasis(prev, out right, out forward, out up);
+			float metaDist = Vector3.Distance(prev.position, next.position);
+			Vector3 metaCenter = (prev.position + next.position) * 0.5f;
+
+			bone.PrevJoint = prev.position.ToVector();
+			bone.NextJoint = next.position.ToVector();
+			bone.Center = metaCenter.ToVector();
+			bone.Direction = forward.ToVector();
+			bone.Length = metaDist;
+			bone.Width = fingerWidth;
+			bone.Type = type;
+			bone.Rotation = Quaternion.LookRotation(forward, up).ToLeapQuaternion();
+
+			/*new Bone(prev.position.ToVector(), next.position.ToVector(),
+				metaCenter.ToVector(), forward.ToVector(), metaDist, fingerWidth,
+				type, Quaternion.LookRotation(forward, up).ToLeapQuaternion());*/
+		}
+
+		private void GetBasis(Transform reference, out Vector3 right, out Vector3 forward, out Vector3 up)
         {
             forward = modelFingerPointing;
             up = modelPalmFacing * -1;
@@ -387,7 +526,7 @@ namespace HandshakeVR
             constraint.BoneToConstrain.localRotation = Quaternion.Euler(new Vector3(0, 0, localEuler.z));
         }
 
-        void DrawBones(Transform parent, Transform child, int boneIndx)
+		void DrawBones(Transform parent, Transform child, int boneIndx)
         {
             Gizmos.DrawLine(parent.transform.position, child.transform.position);
 
