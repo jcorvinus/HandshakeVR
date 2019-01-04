@@ -96,7 +96,8 @@ namespace HandshakeVR
 		private void Start()
 		{
 			handID = !isLeft ? 0 : 1;
-			leapHand = GenerateHandData(0);
+			leapHand = TestHandFactory.MakeTestHand(IsLeft, 0, handID, TestHandFactory.UnitType.UnityUnits); //GenerateHandData(0);
+			SetHandData(leapHand, 0);
 		}
 
 		// Update is called once per frame
@@ -108,97 +109,6 @@ namespace HandshakeVR
 				SetHandData(leapHand, leapProvider.FrameID);
 			}
 			else visibleTime = 0;
-        }
-
-        Bone GenerateBone(Transform prev, Transform next, Bone.BoneType type, float fingerWidth)
-        {
-            Vector3 up, forward, right;
-            GetBasis(prev, out right, out forward, out up);
-            float metaDist = Vector3.Distance(prev.position, next.position);
-            Vector3 metaCenter = (prev.position + next.position) * 0.5f;
-
-            return new Bone(prev.position.ToVector(), next.position.ToVector(),
-                metaCenter.ToVector(), forward.ToVector(), metaDist, fingerWidth,
-                type, Quaternion.LookRotation(forward, up).ToLeapQuaternion());
-        }
-
-        Finger GenerateFinger(int frameID, int handID, Finger.FingerType fingerType,
-            float timeVisible, Transform metaCarpalTransform)
-        {
-            float _fingerWidth = fingerWidth * MM_TO_M;
-
-            // NOTE: if our type is thumb, our 'meta carpal transform' is actually our proximal,
-            // and we'll need to generate a zero-length metacarpal for it
-            Transform proximalTransform = (fingerType == Finger.FingerType.TYPE_THUMB) ? metaCarpalTransform : metaCarpalTransform.GetChild(0);
-            Transform intermediateTransform = proximalTransform.GetChild(0);
-            Transform distalTransform = intermediateTransform.GetChild(0);
-            Transform tip = distalTransform.GetChild(0);
-
-            Bone metaCarpal, proximal, intermediate, distal;
-            metaCarpal = GenerateBone(metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, _fingerWidth);
-            proximal = GenerateBone(proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, _fingerWidth);
-            intermediate = GenerateBone(intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, _fingerWidth);
-            distal = GenerateBone(distalTransform, tip, Bone.BoneType.TYPE_DISTAL, _fingerWidth);
-
-            Vector tipPosition = tip.transform.position.ToVector();
-            Vector direction = new Vector(0,0,0);
-
-            float fingerLength = 
-                Vector3.Distance(proximalTransform.position, intermediateTransform.position) +
-                Vector3.Distance(intermediateTransform.position, distalTransform.position ) +
-                Vector3.Distance(distalTransform.position, tip.position); // add up joint lengths for this
-
-            return new Finger(frameID, handID, handID + (int)fingerType, timeVisible,
-                tipPosition, direction, _fingerWidth, fingerLength, true, fingerType,
-                metaCarpal, proximal, intermediate, distal);
-        }
-
-        public Hand GenerateHandData(int frameID)
-        {
-            List<Finger> fingers = new List<Finger>();
-
-            fingers.Add(GenerateFinger(0, handID, Finger.FingerType.TYPE_THUMB, visibleTime,
-                thumbMetaCarpal));
-
-            fingers.Add(GenerateFinger(0, handID, Finger.FingerType.TYPE_INDEX, visibleTime,
-                indexMetaCarpal));
-
-            fingers.Add(GenerateFinger(0, handID, Finger.FingerType.TYPE_MIDDLE, visibleTime,
-                middleMetaCarpal));
-
-            fingers.Add(GenerateFinger(0, handID, Finger.FingerType.TYPE_RING, visibleTime,
-                ringMetaCarpal));
-
-            fingers.Add(GenerateFinger(0, handID, Finger.FingerType.TYPE_PINKY, visibleTime,
-                pinkyMetaCarpal));
-
-            // forearm length is 0.27
-            // forearm width is 0.09
-
-            Vector forearmStart, forearmEnd;
-
-            forearmStart = GetForearmStart().ToVector();
-            forearmEnd = GetForearmEnd().ToVector();
-
-            Quaternion forearmRotation = GetForearmRotation();
-
-            Arm arm = new Arm(forearmStart,forearmEnd, (forearmStart + forearmEnd) * 0.5f,
-                (forearmEnd - forearmStart).Normalized, forearmLength, 0.09f,
-                forearmRotation.ToLeapQuaternion());
-           
-            Vector palmPosition = GetPalmPosition().ToVector();
-            Vector palmNormal = GetPalmNormal().ToVector();
-            Vector palmVelocity = new Vector(0,0,0);
-
-            //palmWidth = 85f * MM_TO_M;
-
-            LeapQuaternion rotation = GetHandRotation().ToLeapQuaternion();
-
-            Hand newHand = new Hand(frameID, handID, 1, 0, 0, 0, 0, palmWidth, isLeft, visibleTime, arm,
-                fingers, palmPosition, palmPosition, palmVelocity, palmNormal,
-                rotation, wrist.TransformDirection(modelPalmFacing).ToVector(), wrist.position.ToVector()); // maybe 'direction' is related to palm direction?
-
-            return newHand;
         }
 
         void GenerateBones()
