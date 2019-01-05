@@ -14,7 +14,7 @@ namespace Valve.VR
     using UnityEngine;
     
     
-    public partial class SteamVR_Input
+    public partial class SteamVR_Actions
     {
         
         private static SteamVR_Input_ActionSet_default p__default;
@@ -25,7 +25,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.p__default.GetCopy <SteamVR_Input_ActionSet_default>();
+                return SteamVR_Actions.p__default.GetCopy <SteamVR_Input_ActionSet_default>();
             }
         }
         
@@ -33,18 +33,18 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.p_HandPoseAssist.GetCopy <SteamVR_Input_ActionSet_HandPoseAssist>();
+                return SteamVR_Actions.p_HandPoseAssist.GetCopy <SteamVR_Input_ActionSet_HandPoseAssist>();
             }
         }
         
-        public static void StartPreInitActionSets()
+        private static void StartPreInitActionSets()
         {
-            Valve.VR.SteamVR_Input.p__default = ((SteamVR_Input_ActionSet_default)(SteamVR_ActionSet.Create <SteamVR_Input_ActionSet_default>("/actions/default")));
-            Valve.VR.SteamVR_Input.p_HandPoseAssist = ((SteamVR_Input_ActionSet_HandPoseAssist)(SteamVR_ActionSet.Create <SteamVR_Input_ActionSet_HandPoseAssist>("/actions/HandPoseAssist")));
+            SteamVR_Actions.p__default = ((SteamVR_Input_ActionSet_default)(SteamVR_ActionSet.Create <SteamVR_Input_ActionSet_default>("/actions/default")));
+            SteamVR_Actions.p_HandPoseAssist = ((SteamVR_Input_ActionSet_HandPoseAssist)(SteamVR_ActionSet.Create <SteamVR_Input_ActionSet_HandPoseAssist>("/actions/HandPoseAssist")));
             Valve.VR.SteamVR_Input.actionSets = new Valve.VR.SteamVR_ActionSet[]
             {
-                    Valve.VR.SteamVR_Input._default,
-                    Valve.VR.SteamVR_Input.HandPoseAssist};
+                    SteamVR_Actions._default,
+                    SteamVR_Actions.HandPoseAssist};
         }
     }
 }

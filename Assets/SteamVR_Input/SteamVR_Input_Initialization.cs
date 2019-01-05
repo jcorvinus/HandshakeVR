@@ -13,29 +13,18 @@ namespace Valve.VR
     using System;
     using UnityEngine;
     
-}
-namespace Valve.VR
-{
-    using System;
-    using UnityEngine;
     
-    
-    public partial class SteamVR_Input
+    public partial class SteamVR_Actions
     {
-        
-        static SteamVR_Input()
-        {
-            SteamVR_Input.PreInitialize();
-        }
         
         public static void PreInitialize()
         {
-            SteamVR_Input.StartPreInitActionSets();
-            SteamVR_Input.InitializeActionSetDictionaries();
-            SteamVR_Input.PreInitActions();
-            SteamVR_Input.InitializeActionArrays();
-            SteamVR_Input.InitializeActionDictionaries();
-            SteamVR_Input.FinishPreInitActionSets();
+            SteamVR_Actions.StartPreInitActionSets();
+            SteamVR_Input.PreinitializeActionSetDictionaries();
+            SteamVR_Actions.PreInitActions();
+            SteamVR_Actions.InitializeActionArrays();
+            SteamVR_Input.PreinitializeActionDictionaries();
+            SteamVR_Input.PreinitializeFinishActionSets();
         }
     }
 }

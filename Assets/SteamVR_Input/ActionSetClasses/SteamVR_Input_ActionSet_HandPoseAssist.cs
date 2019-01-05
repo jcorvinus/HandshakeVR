@@ -21,7 +21,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_HandPoseAssist_in_TrackpadTouch;
+                return SteamVR_Actions.handPoseAssist_TrackpadTouch;
             }
         }
         
@@ -29,7 +29,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_HandPoseAssist_in_AButtonTouch;
+                return SteamVR_Actions.handPoseAssist_AButtonTouch;
             }
         }
         
@@ -37,7 +37,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_HandPoseAssist_in_BButtonTouch;
+                return SteamVR_Actions.handPoseAssist_BButtonTouch;
             }
         }
         
@@ -45,7 +45,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_HandPoseAssist_in_TriggerTouch;
+                return SteamVR_Actions.handPoseAssist_TriggerTouch;
             }
         }
         
@@ -53,7 +53,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_HandPoseAssist_in_TriggerPull;
+                return SteamVR_Actions.handPoseAssist_TriggerPull;
             }
         }
     }

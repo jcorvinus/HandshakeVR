@@ -83,13 +83,10 @@
   "localization": [
     {
       "language_tag": "en_US",
-      "/actions/default/in/GrabPinch": "Grab Pinch",
-      "/actions/default/in/GrabGrip": "Grab Grip",
       "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
       "/actions/default/in/Pose": "Pose",
-      "/actions/default/out/Haptic": "Haptic",
-      "/actions/default/in/PinchGrip": "PinchGrip"
+      "/actions/default/out/Haptic": "Haptic"
     }
   ]
 }

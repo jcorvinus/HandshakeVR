@@ -172,7 +172,7 @@ namespace HandshakeVR
 			isPinching = faceButtonTouch;
 
 			animator.SetBool(isPinchingHash, isPinching);
-			animator.SetFloat(pinchAmtHash, skeletonBehavior.GetFingerCurl(1));
+			animator.SetFloat(pinchAmtHash, skeletonBehavior.fingerCurls[1]);
 
 			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
 			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);
@@ -198,7 +198,7 @@ namespace HandshakeVR
 			animator.SetBool(isGrabbedHash, grabGrip.GetState(inputSource) && !isPinching);
 
 			animator.SetBool(isPinchingHash, isPinching);
-			animator.SetFloat(pinchAmtHash, skeletonBehavior.GetFingerCurl(1));
+			animator.SetFloat(pinchAmtHash, skeletonBehavior.fingerCurls[1]);
 
 			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
 			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);
@@ -213,28 +213,37 @@ namespace HandshakeVR
 
 		private void Update()
         {
-			if (steamVRControllerType == SteamVR_ControllerType.Unknown) GetControllerType();
-			if (steamVRControllerType == SteamVR_ControllerType.Knuckles) UpdateAnimatorKnuckles();
-			else if (steamVRControllerType == SteamVR_ControllerType.Vive) UpdateAnimatorVive();
+			if (controllerHand.IsActive)
+			{
+				if (steamVRControllerType == SteamVR_ControllerType.Unknown) GetControllerType();
+				if (steamVRControllerType == SteamVR_ControllerType.Knuckles) UpdateAnimatorKnuckles();
+				else if (steamVRControllerType == SteamVR_ControllerType.Vive) UpdateAnimatorVive();
 
-			// set our wrist positions to match first
-			controllerHand.Wrist.transform.position = wrist.transform.position;
+				animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 
-            Quaternion wristBoneOrientation = controllerHand.GetLocalBasis();
-            controllerHand.Wrist.rotation = GlobalRotationFromBasis(wrist, wristBasis) * wristBoneOrientation;
+				// set our wrist positions to match first
+				controllerHand.Wrist.transform.position = wrist.transform.position;
 
-            for(int fingerIndx=0; fingerIndx < fingerMetacarpals.Length; fingerIndx++)
-            {
-                Transform fingerRoot = null;
+				Quaternion wristBoneOrientation = controllerHand.GetLocalBasis();
+				controllerHand.Wrist.rotation = GlobalRotationFromBasis(wrist, wristBasis) * wristBoneOrientation;
 
-                if (fingerIndx == 0) fingerRoot = controllerHand.IndexMetacarpal;
-                else if (fingerIndx == 1) fingerRoot = controllerHand.MiddleMetacarpal;
-                else if (fingerIndx == 2) fingerRoot = controllerHand.RingMetacarpal;
-                else if (fingerIndx == 3) fingerRoot = controllerHand.PinkyMetacarpal;
-                else fingerRoot = controllerHand.ThumbMetacarpal;
+				for (int fingerIndx = 0; fingerIndx < fingerMetacarpals.Length; fingerIndx++)
+				{
+					Transform fingerRoot = null;
 
-                 MatchBones(fingerMetacarpals[fingerIndx], fingerRoot, fingerBasis, wristBoneOrientation);
-            }
+					if (fingerIndx == 0) fingerRoot = controllerHand.IndexMetacarpal;
+					else if (fingerIndx == 1) fingerRoot = controllerHand.MiddleMetacarpal;
+					else if (fingerIndx == 2) fingerRoot = controllerHand.RingMetacarpal;
+					else if (fingerIndx == 3) fingerRoot = controllerHand.PinkyMetacarpal;
+					else fingerRoot = controllerHand.ThumbMetacarpal;
+
+					MatchBones(fingerMetacarpals[fingerIndx], fingerRoot, fingerBasis, wristBoneOrientation);
+				}
+			}
+			else
+			{
+				animator.cullingMode = AnimatorCullingMode.CullCompletely;
+			}
         }
 
         public bool IsTracking { get { return steamVRPose.isValid; } }

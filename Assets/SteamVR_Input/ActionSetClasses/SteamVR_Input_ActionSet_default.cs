@@ -21,7 +21,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_default_in_GrabGrip;
+                return SteamVR_Actions.default_GrabGrip;
             }
         }
         
@@ -29,7 +29,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_default_in_Pose;
+                return SteamVR_Actions.default_Pose;
             }
         }
         
@@ -37,7 +37,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_default_in_SkeletonLeftHand;
+                return SteamVR_Actions.default_SkeletonLeftHand;
             }
         }
         
@@ -45,7 +45,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_default_in_SkeletonRightHand;
+                return SteamVR_Actions.default_SkeletonRightHand;
             }
         }
         
@@ -53,7 +53,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_default_in_PinchGrip;
+                return SteamVR_Actions.default_PinchGrip;
             }
         }
         
@@ -61,7 +61,7 @@ namespace Valve.VR
         {
             get
             {
-                return Valve.VR.SteamVR_Input.__actions_default_out_Haptic;
+                return SteamVR_Actions.default_Haptic;
             }
         }
     }
