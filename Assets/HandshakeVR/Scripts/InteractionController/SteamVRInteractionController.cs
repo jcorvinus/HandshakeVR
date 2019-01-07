@@ -17,39 +17,35 @@ namespace HandshakeVR
         ControllerType _controllerType = ControllerType.XRController;
 
         [SerializeField] bool _isLeft;
+		[SerializeField] bool isPinchGrip; // if true, keep our position in between index and thumb.
         SkeletalControllerHand skeletalControllerHand;
         SteamVRRemapper steamVRRemapper;
 
         [SerializeField]
         SteamVR_Action_Boolean grabAction;
 
-        [SerializeField]
-        SteamVR_Action_Boolean grabPinchAction;
+		[SerializeField]
+		public new List<Transform> primaryHoverPoints = new List<Transform>(1);
 
-        [SerializeField]
-        public new List<Transform> primaryHoverPoints;
-
-        [SerializeField]
-        float disableContactAfterGraspTime = 0.25f;
-        float disableContactTimer = 0;
+        //[SerializeField]
+        //float disableContactAfterGraspTime = 0.25f;
+        //float disableContactTimer = 0;
 
         [SerializeField]
         InteractionHand handToOverride;
 
         ProviderSwitcher switcher;
 
-        private List<Vector3> _graspManipulatorPoints = new List<Vector3>();
+        private List<Vector3> _graspManipulatorPoints = new List<Vector3>(3);
 
         public float maxGraspDistance = 0.06F;
+		public float minGraspDistance = 0.02f;
 
         private bool _hasTrackedPositionLastFrame = false;
         private Vector3 _trackedPositionLastFrame = Vector3.zero;
         private Quaternion _trackedRotationLastFrame = Quaternion.identity;
 
         private bool _graspButtonLastFrame;
-        /*private bool _graspButtonDown = false;
-        private bool _graspButtonUp = false;
-        private float _graspButtonDownSlopTimer = 0F;*/
 
         private void Awake()
         {
@@ -67,17 +63,20 @@ namespace HandshakeVR
             steamVRRemapper = skeletalControllerHand.GetComponent<SteamVRRemapper>();
             _graspManipulatorPoints.Add(position);
 
-            disableContactTimer = disableContactAfterGraspTime;
+            //disableContactTimer = disableContactAfterGraspTime;
             _contactBones = new ContactBone[] { };
 
-            switcher = FindObjectOfType<ProviderSwitcher>();
+			//switcher = FindObjectOfType<ProviderSwitcher>();
+
+			primaryHoverPoints.Add(skeletalControllerHand.IndexMetacarpal.GetChild(0).GetChild(0).GetChild(0));
         }
 
         private void FixedUpdate()
         {
-            if (isGraspingObject || handToOverride.isGraspingObject) disableContactTimer = 0;
+			#region
+			//if (isGraspingObject || handToOverride.isGraspingObject) disableContactTimer = 0;
 
-            if(disableContactTimer <= disableContactAfterGraspTime)
+			/*if(disableContactTimer <= disableContactAfterGraspTime)
             {
                 disableContactTimer += Time.fixedDeltaTime;
             }
@@ -86,30 +85,57 @@ namespace HandshakeVR
             {
                 bool setContactEnabled = disableContactTimer >= disableContactAfterGraspTime;
                 if (handToOverride.contactEnabled != setContactEnabled) handToOverride.contactEnabled = setContactEnabled;
-            }
+            }*/
 
-            if (handToOverride.isGraspingObject)
-            {
-                // disable our grasp if we're grasping
-                if (isGraspingObject) ReleaseGrasp();
+			//if (handToOverride.isGraspingObject)
+			//{
+			//    // disable our grasp if we're grasping
+			//    if (isGraspingObject) ReleaseGrasp();
 
-                graspingEnabled = false;
-            }
-            else
-            {
-                if (!switcher.IsDefault)
-                {
-                    // only do this if our custom provider is enabled and working
-                    graspingEnabled = true;
-                    //handToOverride.graspingEnabled = !isGraspingObject;
-                }
-                else
-                {
-                    graspingEnabled = false;
-                    //handToOverride.graspingEnabled = true;
-                }               
-            }
+			//    graspingEnabled = false;
+			//}
+			//else
+			//{
+			//    if (!switcher.IsDefault)
+			//    {
+			//        // only do this if our custom provider is enabled and working
+			//        graspingEnabled = true;
+			//        //handToOverride.graspingEnabled = !isGraspingObject;
+			//    }
+			//    else
+			//    {
+			//        graspingEnabled = false;
+			//        //handToOverride.graspingEnabled = true;
+			//    }               
+			//}
+			#endregion
         }
+
+		private float GetGrabDistance()
+		{
+			if (skeletalControllerHand == null) return maxGraspDistance;
+
+			float grabDist = maxGraspDistance;
+			if(isPinchGrip)
+			{
+				Vector3 indexTip = GetIndexFingertipPosition();
+				Vector3 thumbTip = GetThumbtipPosition();
+
+				grabDist = Vector3.Distance(indexTip, thumbTip) * 0.65f;
+			}
+			else
+			{
+				Vector3 middleTip = GetMiddleFingertipPosition();
+				Vector3 indexTip = GetIndexFingertipPosition();
+
+				float middleDist = Vector3.Distance(middleTip, skeletalControllerHand.GetPalmPosition()) * 0.5f;
+				float indexDist = Vector3.Distance(indexTip, skeletalControllerHand.GetPalmPosition()) * 0.5f;
+
+				grabDist = (middleDist + indexDist) * 0.5f;
+			}
+
+			return Mathf.Clamp(grabDist, minGraspDistance, maxGraspDistance);
+		}
 
         private void LateUpdate()
         {
@@ -167,8 +193,8 @@ namespace HandshakeVR
             {
                 _graspManipulatorPoints.Clear();
                 _graspManipulatorPoints.Add(position);
-                _graspManipulatorPoints.Add(hoverPoint + rotation * Vector3.forward * 0.05F);
-                _graspManipulatorPoints.Add(hoverPoint + rotation * Vector3.right * 0.05F);
+                _graspManipulatorPoints.Add(position + rotation * Vector3.forward * 0.05F);
+                _graspManipulatorPoints.Add(position + rotation * Vector3.right * 0.05F);
 
                 return _graspManipulatorPoints;
             }
@@ -178,7 +204,8 @@ namespace HandshakeVR
         {
             get
             {
-                return position;
+                return (skeletalControllerHand != null) ? skeletalControllerHand.LeapHand.Finger((int)Leap.Finger.FingerType.TYPE_INDEX).TipPosition.ToVector3() :
+					position;
             }
         }
 
@@ -194,7 +221,7 @@ namespace HandshakeVR
         {
             get
             {
-                return false; // since this is used to hide the InteractionHand but we wane both of them to show up at once,
+                return false; // since this is used to hide the InteractionHand but we want both of them to show up at once,
             }
         }
 
@@ -218,11 +245,40 @@ namespace HandshakeVR
         {
             get
             {
-                return (skeletalControllerHand != null) ? skeletalControllerHand.GetPalmPosition() + (skeletalControllerHand.GetPalmNormal() * (maxGraspDistance)) : transform.position;
+				//return (skeletalControllerHand != null) ? skeletalControllerHand.GetPalmPosition() + (skeletalControllerHand.GetPalmNormal() * (maxGraspDistance)) : transform.position;
+				if (skeletalControllerHand == null || skeletalControllerHand.LeapHand == null) return transform.position;
+				
+				if(isPinchGrip)
+				{
+					Vector3 indexFingertip = GetIndexFingertipPosition();
+					Vector3 thumbFingertip = GetThumbtipPosition();
+
+					float grabDist = GetGrabDistance();
+
+					return ((indexFingertip + thumbFingertip) * 0.5f) + (skeletalControllerHand.GetPalmNormal() * grabDist) * -0.5f;
+				}
+				else
+				{
+					return skeletalControllerHand.GetPalmPosition() + (skeletalControllerHand.GetPalmNormal() * GetGrabDistance() * 0.5f);
+				}
             }
         }
 
-        public override Quaternion rotation
+		private Vector3 GetIndexFingertipPosition()
+		{
+			return skeletalControllerHand.LeapHand.Finger((int)Leap.Finger.FingerType.TYPE_INDEX).TipPosition.ToVector3();			
+		}
+		private Vector3 GetThumbtipPosition()
+		{
+			return skeletalControllerHand.LeapHand.Finger((int)Leap.Finger.FingerType.TYPE_THUMB).TipPosition.ToVector3();
+		}
+
+		private Vector3 GetMiddleFingertipPosition()
+		{
+			return skeletalControllerHand.LeapHand.Finger((int)Leap.Finger.FingerType.TYPE_MIDDLE).TipPosition.ToVector3();
+		}
+
+		public override Quaternion rotation
         {
             get
             {
@@ -270,8 +326,7 @@ namespace HandshakeVR
         {
             get
             {
-                return grabAction.GetStateDown((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand) ||
-					grabPinchAction.GetStateDown(isLeft ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+                return grabAction.GetStateDown((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
             }
         }
 
@@ -279,8 +334,7 @@ namespace HandshakeVR
         {
             get
             {
-                return grabAction.GetStateUp((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand) ||
-					grabPinchAction.GetStateUp(isLeft ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+                return grabAction.GetStateUp((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
             }
         }
 
@@ -351,19 +405,20 @@ namespace HandshakeVR
         protected override void unwarpColliders(Transform primaryHoverPoint, ISpaceComponent warpedSpaceElement)
         {
             // Extension method calculates "unwarped" pose in world space.
-            Vector3 unwarpedPosition;
+            /*Vector3 unwarpedPosition;
             Quaternion unwarpedRotation;
             warpedSpaceElement.anchor.transformer.WorldSpaceUnwarp(primaryHoverPoint.position,
                                                                    primaryHoverPoint.rotation,
                                                                    out unwarpedPosition,
-                                                                   out unwarpedRotation);
+                                                                   out unwarpedRotation);*/
 
             // no colliders to operate on so we won't do anything here.
         }
 
         private void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(position, maxGraspDistance);
+		{
+			Gizmos.color = (isPinchGrip) ? Color.green : Color.white;
+            Gizmos.DrawWireSphere(position, GetGrabDistance());
         }
     }
 }

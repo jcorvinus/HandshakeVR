@@ -5785,8 +5785,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editTimePose: 2
-  rightHand: {fileID: 114503377457903724}
-  leftHand: {fileID: 114737013065035772}
+  rightControllerHand: {fileID: 114503377457903724}
+  leftControllerHand: {fileID: 114737013065035772}
+  isActive: 0
 --- !u!114 &114234201052821044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6038,12 +6039,15 @@ MonoBehaviour:
   origin: {fileID: 0}
   updatePose: 0
   onlySetRotations: 0
+  skeletonBlend: 1
+  attachedTransformBlend: 0
+  attachedToTransform: {fileID: 0}
+  mirroring: 0
   thumbSkeletonBlend: 1
   indexSkeletonBlend: 1
   middleSkeletonBlend: 1
   ringSkeletonBlend: 1
   pinkySkeletonBlend: 1
-  mirroring: 0
 --- !u!114 &114437818936181726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6116,13 +6120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a60912536d8d546b9afa00123867b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  provider: {fileID: 114221310039567002}
   palmWidth: 0.085
   palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
   fingerWidth: 16
   modelPalmFacing: {x: 0, y: -1, z: 0}
   modelFingerPointing: {x: 1, y: 0, z: 0}
+  isLeft: 0
   thumbMetaCarpal: {fileID: 4109469096651692}
   indexMetaCarpal: {fileID: 4747158828719004}
   middleMetaCarpal: {fileID: 4323697263847962}
@@ -6162,10 +6166,9 @@ MonoBehaviour:
     StartAngle: 360
     EndAngle: 230
     YHeightCorrection: 0
-  isLeft: 0
-  drawBones: 1
+  drawBones: 0
   drawBasis: 0
-  drawConstraints: 1
+  drawConstraints: 0
 --- !u!114 &114509227216367108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6184,6 +6187,14 @@ MonoBehaviour:
     LeftModel: {fileID: 114801027607174016}
     IsLeftToBeSpawned: 0
     RightModel: {fileID: 114251282332800256}
+    IsRightToBeSpawned: 0
+    IsEnabled: 1
+    CanDuplicate: 0
+  - GroupName: DebugHands
+    _handModelManager: {fileID: 0}
+    LeftModel: {fileID: 114750749474309066}
+    IsLeftToBeSpawned: 0
+    RightModel: {fileID: 114698521151432050}
     IsRightToBeSpawned: 0
     IsEnabled: 1
     CanDuplicate: 0
@@ -6223,23 +6234,29 @@ MonoBehaviour:
   onTransformUpdated:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, SteamVR, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   onTransformChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, SteamVR, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   onConnectedChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_ConnectedChangedEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_ConnectedChangedEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onTrackingChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_TrackingChangedEvent, Assembly-CSharp,
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_TrackingChangedEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDeviceIndexChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_DeviceIndexChangedEvent, SteamVR,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  broadcastDeviceChanges: 1
 --- !u!114 &114549947989364682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6260,12 +6277,15 @@ MonoBehaviour:
   origin: {fileID: 0}
   updatePose: 0
   onlySetRotations: 0
+  skeletonBlend: 1
+  attachedTransformBlend: 0
+  attachedToTransform: {fileID: 0}
+  mirroring: 2
   thumbSkeletonBlend: 0
   indexSkeletonBlend: 0
   middleSkeletonBlend: 1
   ringSkeletonBlend: 1
   pinkySkeletonBlend: 1
-  mirroring: 2
 --- !u!114 &114567331969475762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6423,23 +6443,29 @@ MonoBehaviour:
   onTransformUpdated:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, SteamVR, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   onTransformChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_PoseEvent, SteamVR, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   onConnectedChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_ConnectedChangedEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_ConnectedChangedEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onTrackingChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_TrackingChangedEvent, Assembly-CSharp,
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_TrackingChangedEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDeviceIndexChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_DeviceIndexChangedEvent, SteamVR,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  broadcastDeviceChanges: 1
 --- !u!114 &114737013065035772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6451,13 +6477,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a60912536d8d546b9afa00123867b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  provider: {fileID: 114221310039567002}
   palmWidth: 0.085
   palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
   fingerWidth: 16
   modelPalmFacing: {x: 0, y: 1, z: 0}
   modelFingerPointing: {x: -1, y: 0, z: 0}
+  isLeft: 1
   thumbMetaCarpal: {fileID: 4838227886576278}
   indexMetaCarpal: {fileID: 4776477008512194}
   middleMetaCarpal: {fileID: 4239162721739730}
@@ -6497,10 +6523,9 @@ MonoBehaviour:
     StartAngle: 360
     EndAngle: 242
     YHeightCorrection: 0
-  isLeft: 1
-  drawBones: 1
+  drawBones: 0
   drawBasis: 0
-  drawConstraints: 1
+  drawConstraints: 0
 --- !u!114 &114750749474309066
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -27,6 +27,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1108170549236480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4056251468373092}
+  - component: {fileID: 114744919474366516}
+  m_Layer: 0
+  m_Name: SteamVRPinchGripController (Left)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1111162779792014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4879554308312314}
+  - component: {fileID: 114825817852852480}
+  m_Layer: 0
+  m_Name: SteamVRPinchGripController (Right)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1208890174473122
 GameObject:
   m_ObjectHideFlags: 0
@@ -51,9 +83,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4317121043758020}
-  - component: {fileID: 114744919474366516}
+  - component: {fileID: 114827478877995460}
   m_Layer: 0
-  m_Name: Interaction Controller(Left)
+  m_Name: SteamVRGripGrabController (Left)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4416602224377666}
   - component: {fileID: 114403111889667306}
+  - component: {fileID: 114028259613950254}
   m_Layer: 0
   m_Name: Interaction Manager
   m_TagString: Untagged
@@ -85,12 +118,25 @@ GameObject:
   - component: {fileID: 4641908597831220}
   - component: {fileID: 114029717507940416}
   m_Layer: 0
-  m_Name: Interaction Controller(Right)
+  m_Name: SteamVRGripGrabController (Right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4056251468373092
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1108170549236480}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4416602224377666}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4161424928644190
 Transform:
   m_ObjectHideFlags: 1
@@ -143,7 +189,9 @@ Transform:
   - {fileID: 4161424928644190}
   - {fileID: 4259683374779462}
   - {fileID: 4317121043758020}
+  - {fileID: 4056251468373092}
   - {fileID: 4641908597831220}
+  - {fileID: 4879554308312314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,8 +206,47 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4416602224377666}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4879554308312314
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111162779792014}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4416602224377666}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114028259613950254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1617868873928688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399097bbd1743cf428d7f94c3fa14076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platforms:
+  - Platform: 1
+    Controllers:
+    - {fileID: 114827478877995460}
+    - {fileID: 114744919474366516}
+    - {fileID: 114029717507940416}
+    - {fileID: 114825817852852480}
+  disableContactAfterGraspTime: 0.25
+  leftDisableContactTimer: 0
+  leftControllerGrasping: 0
+  leftContactEnabled: 0
+  rightDisableContactTimer: 0
+  rightControllerGrasping: 0
+  rightContactEnabled: 0
+  controllersEnabled: 0
 --- !u!114 &114029717507940416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,16 +263,14 @@ MonoBehaviour:
   _contactEnabled: 0
   _graspingEnabled: 1
   _isLeft: 0
+  isPinchGrip: 0
   grabAction:
     actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
-  grabPinchAction:
-    actionPath: /actions/default/in/PinchGrip
-    needsReinit: 0
   primaryHoverPoints: []
-  disableContactAfterGraspTime: 0.25
   handToOverride: {fileID: 114663581530864466}
   maxGraspDistance: 0.035
+  minGraspDistance: 0.02
 --- !u!114 &114261481388025906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,8 +304,10 @@ MonoBehaviour:
     _values:
     - {fileID: 114261481388025906}
     - {fileID: 114663581530864466}
-    - {fileID: 114744919474366516}
+    - {fileID: 114827478877995460}
     - {fileID: 114029717507940416}
+    - {fileID: 114744919474366516}
+    - {fileID: 114825817852852480}
   hoverActivationRadius: 0.2
   touchActivationRadius: 0.075
   _autoGenerateLayers: 1
@@ -256,6 +343,54 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1108170549236480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab882b7139b109e43921665a2e43801c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114403111889667306}
+  _hoverEnabled: 0
+  _contactEnabled: 0
+  _graspingEnabled: 1
+  _isLeft: 1
+  isPinchGrip: 1
+  grabAction:
+    actionPath: /actions/default/in/PinchGrip
+    needsReinit: 0
+  primaryHoverPoints: []
+  handToOverride: {fileID: 114261481388025906}
+  maxGraspDistance: 0.035
+  minGraspDistance: 0.02
+--- !u!114 &114825817852852480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111162779792014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab882b7139b109e43921665a2e43801c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114403111889667306}
+  _hoverEnabled: 0
+  _contactEnabled: 0
+  _graspingEnabled: 1
+  _isLeft: 0
+  isPinchGrip: 1
+  grabAction:
+    actionPath: /actions/default/in/PinchGrip
+    needsReinit: 0
+  primaryHoverPoints: []
+  handToOverride: {fileID: 114663581530864466}
+  maxGraspDistance: 0.035
+  minGraspDistance: 0.02
+--- !u!114 &114827478877995460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1294173392603816}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -267,13 +402,11 @@ MonoBehaviour:
   _contactEnabled: 0
   _graspingEnabled: 1
   _isLeft: 1
+  isPinchGrip: 0
   grabAction:
     actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
-  grabPinchAction:
-    actionPath: /actions/default/in/PinchGrip
-    needsReinit: 0
   primaryHoverPoints: []
-  disableContactAfterGraspTime: 0.25
   handToOverride: {fileID: 114261481388025906}
   maxGraspDistance: 0.035
+  minGraspDistance: 0.02
