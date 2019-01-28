@@ -49,14 +49,6 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean PinchGrip
-        {
-            get
-            {
-                return SteamVR_Actions.default_PinchGrip;
-            }
-        }
-        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

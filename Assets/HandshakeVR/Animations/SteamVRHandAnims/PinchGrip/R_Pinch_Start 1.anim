@@ -31,7 +31,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 1.6430001, y: 5.84, z: -32.137}
+        value: {x: 1.6430001, y: 5.84, z: -8.878}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -44,7 +44,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 0.014, y: 0.133, z: -16.470001}
+        value: {x: 0.014, y: 0.133, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -57,7 +57,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: -0.116000004, y: -0.56600004, z: -29.089}
+        value: {x: -0.116000004, y: -0.56600004, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -271,7 +271,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -32.137
+        value: -8.878
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -319,7 +319,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -16.470001
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -367,7 +367,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -29.089
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -529,8 +529,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.z
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r
+    attribute: m_LocalEulerAngles.z
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -539,8 +539,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.y
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r
+    attribute: m_LocalEulerAngles.y
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -549,8 +549,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.x
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r
+    attribute: m_LocalEulerAngles.x
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -589,8 +589,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.z
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r/finger_index_2_r
+    attribute: m_LocalEulerAngles.z
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -599,8 +599,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.y
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r/finger_index_2_r
+    attribute: m_LocalEulerAngles.y
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -609,8 +609,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.x
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r/finger_index_2_r
+    attribute: m_LocalEulerAngles.x
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -619,8 +619,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.z
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r
+    attribute: m_LocalEulerAngles.z
+    path: Root/wrist_r/finger_thumb_0_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -629,8 +629,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.y
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r
+    attribute: m_LocalEulerAngles.y
+    path: Root/wrist_r/finger_thumb_0_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -639,8 +639,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_rocalEulerAngles.x
-    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r
+    attribute: m_LocalEulerAngles.x
+    path: Root/wrist_r/finger_thumb_0_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -710,7 +710,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Root/wrist_r/finger_thumb_0_r
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r/finger_index_2_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -720,7 +720,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Root/wrist_r/finger_thumb_0_r
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r/finger_index_2_r
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -730,7 +730,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Root/wrist_r/finger_thumb_0_r
+    path: Root/wrist_r/finger_index_meta_r/finger_index_0_r/finger_index_1_r/finger_index_2_r
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

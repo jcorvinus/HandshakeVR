@@ -37,7 +37,13 @@ namespace HandshakeVR
         InteractionHand leftInteractionHand;
         InteractionHand rightInteractionHand;
 
-        [Header("SteamVR Variables")]
+		Leap.Unity.HandModelBase leftAbstractHand;
+		Leap.Unity.HandModelBase rightAbstractHand;
+
+		public Leap.Unity.HandModelBase LeftAbstractHandModel { get { return leftAbstractHand; } }
+		public Leap.Unity.HandModelBase RightAbstractHandModel { get { return rightAbstractHand; } }
+
+		[Header("SteamVR Variables")]
         [SerializeField]
         SteamVR_Behaviour_Pose leftHandPose;
 
@@ -62,6 +68,11 @@ namespace HandshakeVR
         {
             interactionManager = Leap.Unity.Interaction.InteractionManager.instance;
 			if(interactionManager != null) controllerManager = interactionManager.GetComponent<PlatformControllerManager>();
+
+			DataHand[] dataHands = modelManager.GetComponentsInChildren<DataHand>(true);
+
+			leftAbstractHand = (HandModelBase)dataHands.First(item => item is DataHand && item.Handedness == Chirality.Left);
+			rightAbstractHand = (HandModelBase)dataHands.First(item => item is DataHand && item.Handedness == Chirality.Right);
 
             if(interactionManager)
             { 
@@ -142,14 +153,10 @@ namespace HandshakeVR
 				if (leftInteractionHand)
                 {
                     leftInteractionHand.leapProvider = defaultProvider;
-                    /*if(leftInteractionController) leftInteractionController.graspingEnabled = false;
-                    leftInteractionHand.graspingEnabled = true;*/
                 }
                 if (rightInteractionHand)
                 {
                     rightInteractionHand.leapProvider = defaultProvider;
-                    /*if(rightInteractionController) rightInteractionController.graspingEnabled = false;
-                    rightInteractionHand.graspingEnabled = true;*/
                 }
 				if (controllerManager) controllerManager.ControllersEnabled = false;
             }
@@ -159,20 +166,18 @@ namespace HandshakeVR
                 if (leftInteractionHand)
                 {
                     leftInteractionHand.leapProvider = customProvider;
-                    /*leftInteractionController.graspingEnabled = true; // used to be commented
-                    leftInteractionHand.graspingEnabled = false; // used to be commented*/
                 }
                 if (rightInteractionHand)
                 {
                     rightInteractionHand.leapProvider = customProvider;
-                    /*rightInteractionController.graspingEnabled = true; // used to be commented
-                    rightInteractionHand.graspingEnabled = false; // used to be commented*/
                 }
 				if (controllerManager) controllerManager.ControllersEnabled = true;
 
 				for (int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't children of the model manager
                 {
-                    modelManager.transform.GetChild(i).gameObject.SetActive(!hideLeapHandsOnSwitch);
+					HandModel handModel = modelManager.transform.GetChild(i).GetComponent<HandModel>();
+
+                    if(handModel != null && handModel.HandModelType == ModelType.Graphics) modelManager.transform.GetChild(i).gameObject.SetActive(!hideLeapHandsOnSwitch);
                 }
             }
 

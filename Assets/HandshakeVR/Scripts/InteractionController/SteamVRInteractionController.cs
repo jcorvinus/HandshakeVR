@@ -20,16 +20,13 @@ namespace HandshakeVR
 		[SerializeField] bool isPinchGrip; // if true, keep our position in between index and thumb.
         SkeletalControllerHand skeletalControllerHand;
         SteamVRRemapper steamVRRemapper;
+		PinchDetector pinchGrabDetector;
 
         [SerializeField]
         SteamVR_Action_Boolean grabAction;
 
 		[SerializeField]
 		public new List<Transform> primaryHoverPoints = new List<Transform>(1);
-
-        //[SerializeField]
-        //float disableContactAfterGraspTime = 0.25f;
-        //float disableContactTimer = 0;
 
         [SerializeField]
         InteractionHand handToOverride;
@@ -63,53 +60,27 @@ namespace HandshakeVR
             steamVRRemapper = skeletalControllerHand.GetComponent<SteamVRRemapper>();
             _graspManipulatorPoints.Add(position);
 
-            //disableContactTimer = disableContactAfterGraspTime;
             _contactBones = new ContactBone[] { };
 
-			//switcher = FindObjectOfType<ProviderSwitcher>();
-
 			primaryHoverPoints.Add(skeletalControllerHand.IndexMetacarpal.GetChild(0).GetChild(0).GetChild(0));
-        }
 
-        private void FixedUpdate()
-        {
-			#region
-			//if (isGraspingObject || handToOverride.isGraspingObject) disableContactTimer = 0;
+			switcher = FindObjectOfType<ProviderSwitcher>();
+			pinchGrabDetector = GetComponent<PinchDetector>();
+		}
 
-			/*if(disableContactTimer <= disableContactAfterGraspTime)
-            {
-                disableContactTimer += Time.fixedDeltaTime;
-            }
+		private void Start()
+		{
+			base.Start();
 
-            if (handToOverride.contactBones != null)
-            {
-                bool setContactEnabled = disableContactTimer >= disableContactAfterGraspTime;
-                if (handToOverride.contactEnabled != setContactEnabled) handToOverride.contactEnabled = setContactEnabled;
-            }*/
+			if (isPinchGrip)
+			{
+				HandModelBase handModelBase = (_isLeft) ? switcher.LeftAbstractHandModel : switcher.RightAbstractHandModel;
 
-			//if (handToOverride.isGraspingObject)
-			//{
-			//    // disable our grasp if we're grasping
-			//    if (isGraspingObject) ReleaseGrasp();
-
-			//    graspingEnabled = false;
-			//}
-			//else
-			//{
-			//    if (!switcher.IsDefault)
-			//    {
-			//        // only do this if our custom provider is enabled and working
-			//        graspingEnabled = true;
-			//        //handToOverride.graspingEnabled = !isGraspingObject;
-			//    }
-			//    else
-			//    {
-			//        graspingEnabled = false;
-			//        //handToOverride.graspingEnabled = true;
-			//    }               
-			//}
-			#endregion
-        }
+				PinchDetector pinchDetector = pinchGrabDetector;
+				pinchDetector.HandModel = handModelBase;
+				pinchDetector.enabled = true;
+			}
+		}
 
 		private float GetGrabDistance()
 		{
@@ -151,7 +122,7 @@ namespace HandshakeVR
                 _hasTrackedPositionLastFrame = false;
             }
 
-            _graspButtonLastFrame = _graspButtonDown;
+            //if(!isPinchGrip) _graspButtonLastFrame = _graspButtonDown;
         }
 
         private IInteractionBehaviour _closestGraspableObject = null;
@@ -322,21 +293,37 @@ namespace HandshakeVR
             return skeletalControllerHand.GetPalmPosition();
         }
 
-        private bool _graspButtonDown
-        {
+		private bool _graspButtonDown;
+		/*{
             get
             {
-                return grabAction.GetStateDown((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+				if (isPinchGrip)
+				{
+					return pinchGrabDetector.ActivatedThisFrame;
+				}
+				else
+				{
+					return grabAction.GetStateDown((isLeft) ? SteamVR_Input_Sources.LeftHand :
+						SteamVR_Input_Sources.RightHand);
+				}
             }
-        }
+        }*/
 
-        private bool _graspButtonUp
-        {
+		private bool _graspButtonUp;
+        /*{
             get
             {
-                return grabAction.GetStateUp((isLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand);
+				if (isPinchGrip)
+				{
+					return pinchGrabDetector.DeactivatedThisFrame;
+				}
+				else
+				{
+					return grabAction.GetStateUp((isLeft) ? SteamVR_Input_Sources.LeftHand : 
+						SteamVR_Input_Sources.RightHand);
+				}
             }
-        }
+        }*/
 
         protected override bool checkShouldGrasp(out IInteractionBehaviour objectToGrasp)
         {
@@ -385,9 +372,56 @@ namespace HandshakeVR
         protected override void fixedUpdateGraspingState()
         {
             refreshClosestGraspableObject();
-        }
 
-        protected override void getColliderBoneTargetPositionRotation(int contactBoneIndex, out Vector3 targetPosition, out Quaternion targetRotation)
+			fixedUpdateGraspButtonState();
+		}
+
+		private void fixedUpdateGraspButtonState(bool ignoreTemporal = false)
+		{
+			_graspButtonDown = false;
+			_graspButtonUp = false;
+
+			/*bool graspButton = (isPinchGrip) ? pinchGrabDetector.IsActive : grabAction.state;
+
+			if(graspButton != _graspButtonLastFrame)
+			{
+				if(graspButton)
+				{
+					_graspButtonDown = true;
+				}
+				else
+				{
+					_graspButtonUp = true;
+				}
+			}*/
+
+			bool graspButton = _graspButtonLastFrame;
+
+			if (!_graspButtonLastFrame)
+			{
+				graspButton = (isPinchGrip) ? pinchGrabDetector.IsActive : grabAction.state;
+
+				if (graspButton)
+				{
+					// Grasp button was _just_ depressed this frame.
+					_graspButtonDown = true;
+				}
+			}
+			else
+			{
+				graspButton = (isPinchGrip) ? pinchGrabDetector.IsActive : grabAction.state;
+
+				if (!graspButton)
+				{
+					// Grasp button was _just_ released this frame.
+					_graspButtonUp = true;
+				}
+			}
+
+			_graspButtonLastFrame = graspButton;
+		}
+
+		protected override void getColliderBoneTargetPositionRotation(int contactBoneIndex, out Vector3 targetPosition, out Quaternion targetRotation)
         {
             throw new NotImplementedException();
         }

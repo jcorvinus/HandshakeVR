@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4056251468373092}
   - component: {fileID: 114744919474366516}
+  - component: {fileID: 114177069870084556}
   m_Layer: 0
   m_Name: SteamVRPinchGripController (Left)
   m_TagString: Untagged
@@ -52,6 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4879554308312314}
   - component: {fileID: 114825817852852480}
+  - component: {fileID: 114392554232097652}
   m_Layer: 0
   m_Name: SteamVRPinchGripController (Right)
   m_TagString: Untagged
@@ -240,12 +242,6 @@ MonoBehaviour:
     - {fileID: 114029717507940416}
     - {fileID: 114825817852852480}
   disableContactAfterGraspTime: 0.25
-  leftDisableContactTimer: 0
-  leftControllerGrasping: 0
-  leftContactEnabled: 0
-  rightDisableContactTimer: 0
-  rightControllerGrasping: 0
-  rightContactEnabled: 0
   controllersEnabled: 0
 --- !u!114 &114029717507940416
 MonoBehaviour:
@@ -271,6 +267,32 @@ MonoBehaviour:
   handToOverride: {fileID: 114663581530864466}
   maxGraspDistance: 0.035
   minGraspDistance: 0.02
+--- !u!114 &114177069870084556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1108170549236480}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e309ac4138f124f9f8ad312a14a8e9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _handModel: {fileID: 0}
+  ControlsTransform: 0
+  ShowGizmos: 1
+  ActivateDistance: 0.03
+  DeactivateDistance: 0.04
 --- !u!114 &114261481388025906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,6 +311,32 @@ MonoBehaviour:
   _leapProvider: {fileID: 0}
   _handDataMode: 0
   enabledPrimaryHoverFingertips: 0101010000
+--- !u!114 &114392554232097652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111162779792014}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e309ac4138f124f9f8ad312a14a8e9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _handModel: {fileID: 0}
+  ControlsTransform: 0
+  ShowGizmos: 1
+  ActivateDistance: 0.03
+  DeactivateDistance: 0.04
 --- !u!114 &114403111889667306
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -13,16 +13,16 @@ namespace HandshakeVR
         string[] sceneList = new string[]
         {
             "SteamVRTest",
-            "Basic Interactions",
-            "Basic UI",
-            "CurvedUI",
-            "Dynamic UI",
-            "Hand UI",
-            "Anchors",
-            "Interaction Callbacks",
-            "Moving Reference Frame",
-            "SwapGrasp"
-        };
+            "HandshakeVR/Scenes/Interaction/Basic Interactions",
+			"HandshakeVR/Scenes/Interaction/Basic UI",
+			"HandshakeVR/Scenes/GraphicRenderer/CurvedUI",
+			"HandshakeVR/Scenes/Interaction/Dynamic UI",
+			"HandshakeVR/Scenes/Interaction/Hand UI",
+			"HandshakeVR/Scenes/Interaction/Anchors",
+			"HandshakeVR/Scenes/Interaction/Interaction Callbacks",
+			"HandshakeVR/Scenes/Interaction/Moving Reference Frame",
+			"HandshakeVR/Scenes/Interaction/SwapGrasp"
+		};
 
         int currentSceneIndex = -1;
 
@@ -51,13 +51,13 @@ namespace HandshakeVR
             {
                 currentSceneIndex--;
                 currentSceneIndex = (int)Mathf.Repeat(currentSceneIndex, sceneList.Length);
-                SceneManager.LoadScene(sceneList[currentSceneIndex], LoadSceneMode.Single);
-            }
+				SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
+			}
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 currentSceneIndex++;
                 currentSceneIndex = (int)Mathf.Repeat(currentSceneIndex, sceneList.Length);
-                SceneManager.LoadScene(sceneList[currentSceneIndex], LoadSceneMode.Single);
+				SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
             }
         }
     }

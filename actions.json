@@ -22,11 +22,6 @@
       "requirement": "mandatory"
     },
     {
-      "name": "/actions/default/in/PinchGrip",
-      "type": "boolean",
-      "requirement": "suggested"
-    },
-    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },

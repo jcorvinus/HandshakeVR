@@ -1269,9 +1269,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4776150196494334}
-  - component: {fileID: 114750749474309066}
+  - component: {fileID: 114301695143532306}
   m_Layer: 0
-  m_Name: DebugLeftHand
+  m_Name: DataLeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2472,6 +2472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4497757387482430}
   - component: {fileID: 114056977576845306}
+  - component: {fileID: 114637843089099120}
   m_Layer: 0
   m_Name: '[SteamVR]'
   m_TagString: Untagged
@@ -2703,9 +2704,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4608188306187854}
-  - component: {fileID: 114698521151432050}
+  - component: {fileID: 114573492316853542}
   m_Layer: 0
-  m_Name: DebugRightHand
+  m_Name: DataRightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5645,7 +5646,7 @@ Animator:
   m_GameObject: {fileID: 1507430319387778}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 641e9d2f5c6b4cb438161abef3be8300, type: 3}
-  m_Controller: {fileID: 22100000, guid: 2cae2c980a350484980d61bea3395727, type: 2}
+  m_Controller: {fileID: 9100000, guid: 300c5124d90c8714ab49fd5a1e5b3fb7, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5662,7 +5663,7 @@ Animator:
   m_GameObject: {fileID: 1446051495728384}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 65d8eda911e0ba548a3674f65c43308b, type: 3}
-  m_Controller: {fileID: 22100000, guid: 2cae2c980a350484980d61bea3395727, type: 2}
+  m_Controller: {fileID: 9100000, guid: 300c5124d90c8714ab49fd5a1e5b3fb7, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5975,6 +5976,19 @@ MonoBehaviour:
   scaleLastFingerBone: 1
   modelFingerPointing: {x: -1, y: 0, z: 0}
   modelPalmFacing: {x: 0, y: 1, z: 0}
+--- !u!114 &114301695143532306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1466287709473964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizeBasis: 1
+  handedness: 0
 --- !u!114 &114325742512613982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6042,6 +6056,31 @@ MonoBehaviour:
   skeletonBlend: 1
   attachedTransformBlend: 0
   attachedToTransform: {fileID: 0}
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_SkeletonEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_SkeletonEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_SkeletonEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Skeleton_ConnectedChangedEvent, SteamVR,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Skeleton_TrackingChangedEvent, SteamVR,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   mirroring: 0
   thumbSkeletonBlend: 1
   indexSkeletonBlend: 1
@@ -6190,11 +6229,11 @@ MonoBehaviour:
     IsRightToBeSpawned: 0
     IsEnabled: 1
     CanDuplicate: 0
-  - GroupName: DebugHands
+  - GroupName: DataHands
     _handModelManager: {fileID: 0}
-    LeftModel: {fileID: 114750749474309066}
+    LeftModel: {fileID: 114301695143532306}
     IsLeftToBeSpawned: 0
-    RightModel: {fileID: 114698521151432050}
+    RightModel: {fileID: 114573492316853542}
     IsRightToBeSpawned: 0
     IsEnabled: 1
     CanDuplicate: 0
@@ -6280,6 +6319,31 @@ MonoBehaviour:
   skeletonBlend: 1
   attachedTransformBlend: 0
   attachedToTransform: {fileID: 0}
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_SkeletonEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_SkeletonEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_SkeletonEvent, SteamVR, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Skeleton_ConnectedChangedEvent, SteamVR,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Valve.VR.SteamVR_Behaviour_Skeleton_TrackingChangedEvent, SteamVR,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   mirroring: 2
   thumbSkeletonBlend: 0
   indexSkeletonBlend: 0
@@ -6311,6 +6375,19 @@ MonoBehaviour:
   scaleLastFingerBone: 1
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: 0, y: -1, z: 0}
+--- !u!114 &114573492316853542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920153397230100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizeBasis: 1
+  handedness: 1
 --- !u!114 &114598005453372536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6361,6 +6438,20 @@ MonoBehaviour:
   scaleLastFingerBone: 0
   modelFingerPointing: {x: -1, y: 0, z: 0}
   modelPalmFacing: {x: 0, y: 1, z: 0}
+--- !u!114 &114637843089099120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1840064247765222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aaa8a3afb932fe478757c1e89cf0cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initializeSteamVROnAwake: 1
+  doNotDestroy: 0
+  steamvr_render: {fileID: 0}
 --- !u!114 &114638510767388102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6386,19 +6477,6 @@ MonoBehaviour:
   scaleLastFingerBone: 1
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: 0, y: -1, z: 0}
---- !u!114 &114698521151432050
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1920153397230100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f61272283927849e4a4e5bb2cb92a0dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualizeBasis: 0
-  handedness: 1
 --- !u!114 &114708544487691830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6526,19 +6604,6 @@ MonoBehaviour:
   drawBones: 0
   drawBasis: 0
   drawConstraints: 0
---- !u!114 &114750749474309066
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1466287709473964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f61272283927849e4a4e5bb2cb92a0dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualizeBasis: 0
-  handedness: 0
 --- !u!114 &114765591528612442
 MonoBehaviour:
   m_ObjectHideFlags: 1

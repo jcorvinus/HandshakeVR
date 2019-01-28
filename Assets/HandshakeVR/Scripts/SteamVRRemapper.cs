@@ -67,10 +67,12 @@ namespace HandshakeVR
 		int isPinchingHash;
 		int pinchAmtHash;
 		int isGrabbedHash;
+		int pinchThumbHorizHash;
 
 		float pinchTweenDuration = 0.025f;
 		float pinchTweenTime = 0;
 		float pinchTValue = 0;
+		float pinchThumbHoriz = 0;
 		#endregion
 
 		[Header("Debug Vars")]
@@ -82,6 +84,7 @@ namespace HandshakeVR
 			isPinchingHash = Animator.StringToHash("IsPinching");
 			pinchAmtHash = Animator.StringToHash("PinchAmt");
 			isGrabbedHash = Animator.StringToHash("IsGrabbed");
+			pinchThumbHorizHash = Animator.StringToHash("ThumbHoriz");
 
             if(!controllerHand) controllerHand = GetComponent<SkeletalControllerHand>();
             steamVRPose = wrist.GetComponentInParent<SteamVR_Behaviour_Pose>();
@@ -170,9 +173,15 @@ namespace HandshakeVR
 
 			isTriggerTouch = triggerTouch.GetState(inputSource);
 			isPinching = faceButtonTouch;
+			if (faceButtonTouch)
+			{
+				pinchThumbHoriz += (trackpadTouch.GetState(inputSource) ? -1 : 1) * Time.deltaTime * 6;
+				pinchThumbHoriz = Mathf.Clamp01(pinchThumbHoriz);
+			}
 
 			animator.SetBool(isPinchingHash, isPinching);
 			animator.SetFloat(pinchAmtHash, skeletonBehavior.fingerCurls[1]);
+			animator.SetFloat(pinchThumbHorizHash, pinchThumbHoriz);
 
 			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
 			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);

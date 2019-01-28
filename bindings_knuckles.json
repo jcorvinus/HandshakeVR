@@ -1,5 +1,5 @@
 {
-  "app_key": "application.generated.unity.leaptest.exe",
+  "app_key": "application.generated.unity.handshakevr.exe",
   "bindings": {
     "/actions/buggy": {
       "chords": [],
@@ -30,7 +30,28 @@
           "path": "/user/hand/right/output/haptic"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "/user/hand/left/input/grip",
+          "mode": "grab",
+          "parameters": {},
+          "inputs": {
+            "grab": {
+              "output": "/actions/default/in/grabgrip"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/grip",
+          "mode": "grab",
+          "parameters": {},
+          "inputs": {
+            "grab": {
+              "output": "/actions/default/in/grabgrip"
+            }
+          }
+        }
+      ],
       "skeleton": [
         {
           "output": "/actions/default/in/skeletonlefthand",
