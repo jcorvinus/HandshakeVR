@@ -61,6 +61,7 @@ namespace HandshakeVR
 		[SerializeField] SteamVR_Action_Boolean triggerTouch;
 		[SerializeField] SteamVR_Action_Single triggerPull;
 		[SerializeField] SteamVR_Action_Boolean grabGrip;
+		[SerializeField] SteamVR_Action_Vector2 viveThumbHoriz;
 
 		[SerializeField] SteamVR_ActionSet assistActionset;
 
@@ -198,16 +199,22 @@ namespace HandshakeVR
 			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
 			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
 
-			faceButtonTouch = (aButtonTouch.GetState(inputSource) || bButtonTouch.GetState(inputSource) ||
-				trackpadTouch.GetState(inputSource));
-
+			faceButtonTouch = trackpadTouch.GetState(inputSource);
 			isTriggerTouch = triggerTouch.GetState(inputSource);
 			isPinching = faceButtonTouch;
+
+			if (faceButtonTouch)
+			{
+				float thumbRemap = viveThumbHoriz.axis.x;
+				if (inputSource == SteamVR_Input_Sources.RightHand) thumbRemap = (1 - thumbRemap) - 0.5f;
+				pinchThumbHoriz = Mathf.Clamp01(thumbRemap * 0.5f);
+			}
 
 			animator.SetBool(isGrabbedHash, grabGrip.GetState(inputSource) && !isPinching);
 
 			animator.SetBool(isPinchingHash, isPinching);
 			animator.SetFloat(pinchAmtHash, skeletonBehavior.fingerCurls[1]);
+			animator.SetFloat(pinchThumbHorizHash, pinchThumbHoriz);
 
 			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
 			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);
@@ -264,7 +271,6 @@ namespace HandshakeVR
             else
             {
                 controllerHand.SetTransformWithConstraint(leapBone, steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
-                //leapBone.transform.SetPositionAndRotation(steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
             }
 
             if(steamVRBone.childCount == leapBone.childCount)

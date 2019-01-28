@@ -49,6 +49,11 @@
       "name": "/actions/HandPoseAssist/in/TriggerPull",
       "type": "vector1",
       "requirement": "optional"
+    },
+    {
+      "name": "/actions/HandPoseAssist/in/ThumbHorizontal",
+      "type": "vector2",
+      "requirement": "optional"
     }
   ],
   "action_sets": [
@@ -81,7 +86,12 @@
       "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
       "/actions/default/in/Pose": "Pose",
-      "/actions/default/out/Haptic": "Haptic"
+      "/actions/default/out/Haptic": "Haptic",
+      "/actions/HandPoseAssist/in/ThumbHorizontal": "ThumbHorizontaI - if you've got a vive trackpad or something similar, use this to drive the thumb horizontal rotation in the pinch animation",
+      "/actions/HandPoseAssist/in/TrackpadTouch": "Trackpad Touch: Is the trackpad being touched?",
+      "/actions/HandPoseAssist/in/AButtonTouch": "A Button Touch: Is the A button being touched (knuckles & touch)",
+      "/actions/HandPoseAssist/in/BButtonTouch": "B ButtonTouch: Is the B button being touched (knuckles & touch)",
+      "/actions/HandPoseAssist/in/TriggerPull": "Trigger pull amount is used for driving precision pinch animation"
     }
   ]
 }

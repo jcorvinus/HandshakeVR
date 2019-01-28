@@ -56,5 +56,13 @@ namespace Valve.VR
                 return SteamVR_Actions.handPoseAssist_TriggerPull;
             }
         }
+        
+        public virtual SteamVR_Action_Vector2 ThumbHorizontal
+        {
+            get
+            {
+                return SteamVR_Actions.handPoseAssist_ThumbHorizontal;
+            }
+        }
     }
 }

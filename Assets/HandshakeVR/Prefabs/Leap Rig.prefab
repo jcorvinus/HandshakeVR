@@ -6642,6 +6642,9 @@ MonoBehaviour:
   grabGrip:
     actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
+  viveThumbHoriz:
+    actionPath: /actions/HandPoseAssist/in/ThumbHorizontal
+    needsReinit: 0
   assistActionset:
     actionSetPath: /actions/HandPoseAssist
   drawSkeleton: 0
@@ -6819,6 +6822,9 @@ MonoBehaviour:
     needsReinit: 0
   grabGrip:
     actionPath: /actions/default/in/GrabGrip
+    needsReinit: 0
+  viveThumbHoriz:
+    actionPath: /actions/HandPoseAssist/in/ThumbHorizontal
     needsReinit: 0
   assistActionset:
     actionSetPath: /actions/HandPoseAssist
