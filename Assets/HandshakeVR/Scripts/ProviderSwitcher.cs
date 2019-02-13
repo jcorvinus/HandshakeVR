@@ -187,7 +187,7 @@ namespace HandshakeVR
 
             Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
 			customProvider.IsActive = !isDefault;
-		}
+		}			
 
         [ExposeMethodInEditor]
         void SwitchProviders()

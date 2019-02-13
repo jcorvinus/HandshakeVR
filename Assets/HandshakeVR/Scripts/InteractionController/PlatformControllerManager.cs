@@ -86,6 +86,12 @@ namespace HandshakeVR
 			}
 		}
 
+		public InteractionController[] LeftControllers { get { return leftControllers; } }
+		public InteractionController[] RightControllers { get { return rightControllers; } }
+
+		private static PlatformControllerManager instance;
+		public static PlatformControllerManager Instance { get { return instance; } }
+
 		private void Awake()
 		{
 			PlatformInfo platform = platforms.First(item => item.Platform == PlatformID.SteamVR);
@@ -100,6 +106,8 @@ namespace HandshakeVR
 
 			leftDisableContactTimer = disableContactAfterGraspTime;
 			rightDisableContactTimer = disableContactAfterGraspTime;
+
+			instance = this;
 		}
 
 		void SetLeftControllerStates()

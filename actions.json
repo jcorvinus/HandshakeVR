@@ -22,6 +22,10 @@
       "requirement": "mandatory"
     },
     {
+      "name": "/actions/default/in/Break",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -91,7 +95,8 @@
       "/actions/HandPoseAssist/in/TrackpadTouch": "Trackpad Touch: Is the trackpad being touched?",
       "/actions/HandPoseAssist/in/AButtonTouch": "A Button Touch: Is the A button being touched (knuckles & touch)",
       "/actions/HandPoseAssist/in/BButtonTouch": "B ButtonTouch: Is the B button being touched (knuckles & touch)",
-      "/actions/HandPoseAssist/in/TriggerPull": "Trigger pull amount is used for driving precision pinch animation"
+      "/actions/HandPoseAssist/in/TriggerPull": "Trigger pull amount is used for driving precision pinch animation",
+      "/actions/default/in/Break": "Debug.Break()"
     }
   ]
 }
