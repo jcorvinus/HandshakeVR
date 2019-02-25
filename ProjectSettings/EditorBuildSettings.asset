@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/HandshakeVR/Scenes/SteamVRTest.unity
     guid: b1ba11614d553fb44a2b744954797a31
-  - enabled: 1
+  - enabled: 0
     path: Assets/HandshakeVR/Scenes/InteractionExamples/Basic Interactions.unity
     guid: 5953f27b71561604e8dc35f354437fbf
+  - enabled: 1
+    path: Assets/HandshakeVR/JuicyObjects/Scenes/feedbackTest.unity
+    guid: 661f58a82d4a45c4dbcb0ddf4e6e0c3d
   - enabled: 1
     path: Assets/HandshakeVR/Scenes/InteractionExamples/Basic UI.unity
     guid: 7e5cc770180daef4fb74ce23b1c4d310

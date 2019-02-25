@@ -250,8 +250,8 @@ namespace HandshakeVR
 			impactSourceProperties.MaxDistanceProperty.floatValue = 0.75f;
 			impactSourceProperties.PlayOnAwakeProperty.boolValue = false;
 			impactSourceProperties.RolloffProperty.enumValueIndex = (int)AudioRolloffMode.Linear;
-			impactSource.spatialBlend = 1;
 			impactSourceProperties.AudioSourceObject.ApplyModifiedProperties();
+			impactSource.spatialBlend = 1;
 
 			// throw
 			throwSourceProperties.AudioSourceObject.Update();
@@ -262,8 +262,8 @@ namespace HandshakeVR
 			throwSourceProperties.MaxDistanceProperty.floatValue = 0.75f;
 			throwSourceProperties.PlayOnAwakeProperty.boolValue = false;
 			throwSourceProperties.RolloffProperty.enumValueIndex = (int)AudioRolloffMode.Linear;
-			throwSource.spatialBlend = 1;
 			throwSourceProperties.AudioSourceObject.ApplyModifiedProperties();
+			throwSource.spatialBlend = 0.16f;
 
 			// slide
 			slideSourceProperties.AudioSourceObject.Update();
@@ -272,7 +272,6 @@ namespace HandshakeVR
 			slideSourceProperties.LoopProperty.boolValue = true;
 			slideSourceProperties.MaxDistanceProperty.floatValue = 2.41f;
 			slideSourceProperties.PlayOnAwakeProperty.boolValue = true;
-			slideSource.spatialBlend = 1;
 			// do our custom curve keyframe
 			slideSourceProperties.RolloffProperty.enumValueIndex = (int)AudioRolloffMode.Custom;
 			Keyframe[] curveKeyframes = new Keyframe[2];
@@ -283,6 +282,7 @@ namespace HandshakeVR
 			rolloffCurve.AddKey(curveKeyframes[1]);
 			slideSourceProperties.RolloffCurveProperty.animationCurveValue = rolloffCurve;
 			slideSourceProperties.AudioSourceObject.ApplyModifiedProperties();
+			slideSource.spatialBlend = 1;
 
 			// grab
 			grabSourceProperties.AudioSourceObject.Update();
@@ -293,8 +293,8 @@ namespace HandshakeVR
 			grabSourceProperties.MaxDistanceProperty.floatValue = 0.75f;
 			grabSourceProperties.PlayOnAwakeProperty.boolValue = false;
 			grabSourceProperties.RolloffProperty.enumValueIndex = (int)AudioRolloffMode.Linear;
-			grabSource.spatialBlend = 1;
 			grabSourceProperties.AudioSourceObject.ApplyModifiedProperties();
+			grabSource.spatialBlend = 0.354f;
 		}
 
 		void GetTrailObjectAndProperties()

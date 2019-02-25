@@ -47,28 +47,6 @@ namespace HandshakeVR
         {
             emission = particle.emission;
             emission.rateOverTime = 0;
-
-			/*interactionBehaviour.OnPerControllerGraspEnd += (InteractionController controller) => 
-			{
-				if(controller.isLeft)
-				{
-					grabbedLeftPreviousFrame = false;
-					if (leftIsGrabbedToken != null)
-					{
-						leftIsGrabbedToken.Remove();
-						leftIsGrabbedToken = null;
-					}
-				}
-				else
-				{
-					grabbedRightPreviousFrame = false;
-					if (rightIsGrabbedToken != null)
-					{
-						rightIsGrabbedToken.Remove();
-						rightIsGrabbedToken = null;
-					}
-				}
-			};*/
         }
 
 		private void OnDisable()

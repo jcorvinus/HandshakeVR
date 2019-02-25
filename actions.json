@@ -22,7 +22,7 @@
       "requirement": "mandatory"
     },
     {
-      "name": "/actions/default/in/Break",
+      "name": "/actions/default/in/NextScene",
       "type": "boolean"
     },
     {
@@ -96,7 +96,7 @@
       "/actions/HandPoseAssist/in/AButtonTouch": "A Button Touch: Is the A button being touched (knuckles & touch)",
       "/actions/HandPoseAssist/in/BButtonTouch": "B ButtonTouch: Is the B button being touched (knuckles & touch)",
       "/actions/HandPoseAssist/in/TriggerPull": "Trigger pull amount is used for driving precision pinch animation",
-      "/actions/default/in/Break": "Debug.Break()"
+      "/actions/default/in/NextScene": "Go To Next Scene"
     }
   ]
 }

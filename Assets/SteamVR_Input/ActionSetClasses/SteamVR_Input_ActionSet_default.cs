@@ -49,11 +49,11 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean Break
+        public virtual SteamVR_Action_Boolean NextScene
         {
             get
             {
-                return SteamVR_Actions.default_Break;
+                return SteamVR_Actions.default_NextScene;
             }
         }
         
