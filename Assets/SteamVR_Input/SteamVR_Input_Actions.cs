@@ -25,7 +25,7 @@ namespace Valve.VR
         
         private static SteamVR_Action_Skeleton p_default_SkeletonRightHand;
         
-        private static SteamVR_Action_Boolean p_default_NextScene;
+        private static SteamVR_Action_Boolean p_default_SceneChange;
         
         private static SteamVR_Action_Vibration p_default_Haptic;
         
@@ -73,11 +73,11 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Boolean default_NextScene
+        public static SteamVR_Action_Boolean default_SceneChange
         {
             get
             {
-                return SteamVR_Actions.p_default_NextScene.GetCopy <SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_default_SceneChange.GetCopy <SteamVR_Action_Boolean>();
             }
         }
         
@@ -145,7 +145,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_Pose,
                     SteamVR_Actions.default_SkeletonLeftHand,
                     SteamVR_Actions.default_SkeletonRightHand,
-                    SteamVR_Actions.default_NextScene,
+                    SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.default_Haptic,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
@@ -159,7 +159,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_Pose,
                     SteamVR_Actions.default_SkeletonLeftHand,
                     SteamVR_Actions.default_SkeletonRightHand,
-                    SteamVR_Actions.default_NextScene,
+                    SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
                     SteamVR_Actions.handPoseAssist_BButtonTouch,
@@ -178,7 +178,7 @@ namespace Valve.VR
             Valve.VR.SteamVR_Input.actionsBoolean = new Valve.VR.SteamVR_Action_Boolean[]
             {
                     SteamVR_Actions.default_GrabGrip,
-                    SteamVR_Actions.default_NextScene,
+                    SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
                     SteamVR_Actions.handPoseAssist_BButtonTouch,
@@ -197,7 +197,7 @@ namespace Valve.VR
             Valve.VR.SteamVR_Input.actionsNonPoseNonSkeletonIn = new Valve.VR.ISteamVR_Action_In[]
             {
                     SteamVR_Actions.default_GrabGrip,
-                    SteamVR_Actions.default_NextScene,
+                    SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
                     SteamVR_Actions.handPoseAssist_BButtonTouch,
@@ -212,7 +212,7 @@ namespace Valve.VR
             SteamVR_Actions.p_default_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create <SteamVR_Action_Pose>("/actions/default/in/Pose")));
             SteamVR_Actions.p_default_SkeletonLeftHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create <SteamVR_Action_Skeleton>("/actions/default/in/SkeletonLeftHand")));
             SteamVR_Actions.p_default_SkeletonRightHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create <SteamVR_Action_Skeleton>("/actions/default/in/SkeletonRightHand")));
-            SteamVR_Actions.p_default_NextScene = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/default/in/NextScene")));
+            SteamVR_Actions.p_default_SceneChange = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/default/in/SceneChange")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create <SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
             SteamVR_Actions.p_handPoseAssist_TrackpadTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/HandPoseAssist/in/TrackpadTouch")));
             SteamVR_Actions.p_handPoseAssist_AButtonTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/HandPoseAssist/in/AButtonTouch")));

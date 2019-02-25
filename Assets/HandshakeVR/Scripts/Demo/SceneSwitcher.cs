@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using Valve.VR;
+
 namespace HandshakeVR
 {
     public class SceneSwitcher : MonoBehaviour
@@ -10,7 +12,9 @@ namespace HandshakeVR
         static SceneSwitcher instance;
         public static SceneSwitcher Instance { get { return instance; } }
 
-        string[] sceneList = new string[]
+		[SerializeField] SteamVR_Action_Boolean sceneChangeAction;
+
+		string[] sceneList = new string[]
         {
             "SteamVRTest",
             "HandshakeVR/Scenes/Interaction/Basic Interactions",
@@ -32,6 +36,12 @@ namespace HandshakeVR
             {
                 instance = this;
                 DontDestroyOnLoad(this.gameObject);
+
+				sceneChangeAction.onStateDown += (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) => 
+				{
+					if (fromSource == SteamVR_Input_Sources.RightHand) NextScene();
+					else PreviousScene();
+				};
             }
             else Destroy(gameObject);
         }
@@ -44,20 +54,30 @@ namespace HandshakeVR
             currentSceneIndex = scene.buildIndex;
         }
 
+		void NextScene()
+		{
+			currentSceneIndex++;
+			currentSceneIndex = (int)Mathf.Repeat(currentSceneIndex, sceneList.Length);
+			SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
+		}
+
+		void PreviousScene()
+		{
+			currentSceneIndex--;
+			currentSceneIndex = (int)Mathf.Repeat(currentSceneIndex, sceneList.Length);
+			SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
+		}
+
         // Update is called once per frame
         void Update()
         {
             if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                currentSceneIndex--;
-                currentSceneIndex = (int)Mathf.Repeat(currentSceneIndex, sceneList.Length);
-				SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
+				PreviousScene();
 			}
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                currentSceneIndex++;
-                currentSceneIndex = (int)Mathf.Repeat(currentSceneIndex, sceneList.Length);
-				SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
+				NextScene();
             }
         }
     }

@@ -340,6 +340,9 @@ namespace HandshakeVR
 			gradient.alphaKeys = alphaKeys;
 
 			currentTrailRenderer.colorGradient = gradient; // fuck it we'll do it without serialization backup.
+
+			// let's do our trail width falloff
+			currentTrailRenderer.widthCurve = AnimationCurve.Linear(0, 1, 1, 0);
 		}
 
 		struct AudioSourceProperties
@@ -580,7 +583,24 @@ namespace HandshakeVR
 
 		void DoMultiObject()
 		{
-			EditorGUILayout.LabelField("Multi-edit not yet supported. Sorry!");
+			EditorGUILayout.HelpBox("ONLY SELECT THE ROOTS OF OBJECTS YOU WANT TO CONVERT.", MessageType.Warning);
+
+			if (GUILayout.Button("Generate new for all eligible objects in selection"))
+			{
+				GetDefaultAssets();
+
+				foreach (GameObject gameObject in Selection.gameObjects)
+				{
+					ChangeSelection(gameObject);
+					if (interaction == null)
+					{
+						if (!selectedObject.isStatic)
+						{
+							CreateNew();
+						}
+					}
+				}
+			}
 		}
 	}
 }

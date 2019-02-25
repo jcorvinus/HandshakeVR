@@ -88,7 +88,7 @@ namespace HandshakeVR
         {
             if (hasThrowSource)
             {
-                throwSource.volume = Mathf.InverseLerp(0.06f, 1, rigidBody.velocity.sqrMagnitude);
+                throwSource.volume = MathSupplement.Exerp(0, 1, Mathf.InverseLerp(0.06f, 8, rigidBody.velocity.sqrMagnitude));
                 throwSource.Play();
             }
         }

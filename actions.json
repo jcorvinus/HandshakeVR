@@ -22,7 +22,7 @@
       "requirement": "mandatory"
     },
     {
-      "name": "/actions/default/in/NextScene",
+      "name": "/actions/default/in/SceneChange",
       "type": "boolean"
     },
     {
@@ -95,8 +95,7 @@
       "/actions/HandPoseAssist/in/TrackpadTouch": "Trackpad Touch: Is the trackpad being touched?",
       "/actions/HandPoseAssist/in/AButtonTouch": "A Button Touch: Is the A button being touched (knuckles & touch)",
       "/actions/HandPoseAssist/in/BButtonTouch": "B ButtonTouch: Is the B button being touched (knuckles & touch)",
-      "/actions/HandPoseAssist/in/TriggerPull": "Trigger pull amount is used for driving precision pinch animation",
-      "/actions/default/in/NextScene": "Go To Next Scene"
+      "/actions/HandPoseAssist/in/TriggerPull": "Trigger pull amount is used for driving precision pinch animation"
     }
   ]
 }
