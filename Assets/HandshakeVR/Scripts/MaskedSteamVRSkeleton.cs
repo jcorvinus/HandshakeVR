@@ -96,7 +96,7 @@ namespace HandshakeVR
 			}
 		}
 
-		protected override void UpdateSkeletonTransforms()
+		public override void UpdateSkeletonTransforms()
 		{
 			Vector3[] bonePositions = GetBonePositions();
 			Quaternion[] boneRotations = GetBoneRotations();
