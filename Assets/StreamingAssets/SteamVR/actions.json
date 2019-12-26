@@ -6,20 +6,17 @@
     },
     {
       "name": "/actions/default/in/Pose",
-      "type": "pose",
-      "requirement": "mandatory"
+      "type": "pose"
     },
     {
       "name": "/actions/default/in/SkeletonLeftHand",
       "type": "skeleton",
-      "skeleton": "/skeleton/hand/left",
-      "requirement": "mandatory"
+      "skeleton": "/skeleton/hand/left"
     },
     {
       "name": "/actions/default/in/SkeletonRightHand",
       "type": "skeleton",
-      "skeleton": "/skeleton/hand/right",
-      "requirement": "mandatory"
+      "skeleton": "/skeleton/hand/right"
     },
     {
       "name": "/actions/default/in/SceneChange",
@@ -31,71 +28,53 @@
     },
     {
       "name": "/actions/HandPoseAssist/in/TrackpadTouch",
-      "type": "boolean",
-      "requirement": "optional"
+      "type": "boolean"
     },
     {
       "name": "/actions/HandPoseAssist/in/AButtonTouch",
-      "type": "boolean",
-      "requirement": "optional"
+      "type": "boolean"
     },
     {
       "name": "/actions/HandPoseAssist/in/BButtonTouch",
-      "type": "boolean",
-      "requirement": "optional"
+      "type": "boolean"
     },
     {
       "name": "/actions/HandPoseAssist/in/TriggerTouch",
-      "type": "boolean",
-      "requirement": "optional"
+      "type": "boolean"
     },
     {
       "name": "/actions/HandPoseAssist/in/TriggerPull",
-      "type": "vector1",
-      "requirement": "optional"
+      "type": "vector1"
     },
     {
       "name": "/actions/HandPoseAssist/in/ThumbHorizontal",
-      "type": "vector2",
-      "requirement": "optional"
+      "type": "vector2"
     }
   ],
   "action_sets": [
     {
       "name": "/actions/default",
-      "usage": "single"
+      "usage": "leftright"
     },
     {
       "name": "/actions/HandPoseAssist",
-      "usage": "hidden"
+      "usage": "single"
     }
   ],
   "default_bindings": [
     {
-      "controller_type": "vive_controller",
-      "binding_url": "bindings_vive_controller.json"
-    },
-    {
-      "controller_type": "oculus_touch",
-      "binding_url": "bindings_oculus_touch.json"
-    },
-    {
       "controller_type": "knuckles",
-      "binding_url": "bindings_knuckles.json"
+      "binding_url": "application_generated_unity_handshakevr_exe_binding_knuckles.json"
     }
   ],
   "localization": [
     {
       "language_tag": "en_US",
+      "/actions/default/in/GrabGrip": "Grab Grip",
+      "/actions/default/in/Pose": "Pose",
       "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
-      "/actions/default/in/Pose": "Pose",
-      "/actions/default/out/Haptic": "Haptic",
-      "/actions/HandPoseAssist/in/ThumbHorizontal": "ThumbHorizontaI - if you've got a vive trackpad or something similar, use this to drive the thumb horizontal rotation in the pinch animation",
-      "/actions/HandPoseAssist/in/TrackpadTouch": "Trackpad Touch: Is the trackpad being touched?",
-      "/actions/HandPoseAssist/in/AButtonTouch": "A Button Touch: Is the A button being touched (knuckles & touch)",
-      "/actions/HandPoseAssist/in/BButtonTouch": "B ButtonTouch: Is the B button being touched (knuckles & touch)",
-      "/actions/HandPoseAssist/in/TriggerPull": "Trigger pull amount is used for driving precision pinch animation"
+      "/actions/default/out/Haptic": "Haptic"
     }
   ]
 }

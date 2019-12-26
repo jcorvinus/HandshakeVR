@@ -1,0 +1,187 @@
+{
+  "app_key": "application.generated.unity.handshakevr.exe",
+  "bindings": {
+    "/actions/default": {
+      "chords": [],
+      "poses": [
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/left/pose/gdc2015"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/right/pose/gdc2015"
+        }
+      ],
+      "haptics": [
+        {
+          "output": "/actions/default/out/haptic",
+          "path": "/user/hand/left/output/haptic"
+        },
+        {
+          "output": "/actions/default/out/haptic",
+          "path": "/user/hand/right/output/haptic"
+        }
+      ],
+      "sources": [
+        {
+          "path": "/user/hand/left/input/grip",
+          "mode": "grab",
+          "parameters": {},
+          "inputs": {
+            "grab": {
+              "output": "/actions/default/in/grabgrip"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/thumbstick",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/scenechange"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/grip",
+          "mode": "grab",
+          "parameters": {},
+          "inputs": {
+            "grab": {
+              "output": "/actions/default/in/grabgrip"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/thumbstick",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/scenechange"
+            }
+          }
+        }
+      ],
+      "skeleton": [
+        {
+          "output": "/actions/default/in/skeletonrighthand",
+          "path": "/user/hand/left/input/skeleton/right"
+        },
+        {
+          "output": "/actions/default/in/skeletonrighthand",
+          "path": "/user/hand/right/input/skeleton/right"
+        },
+        {
+          "output": "/actions/default/in/skeletonlefthand",
+          "path": "/user/hand/left/input/skeleton/left"
+        }
+      ]
+    },
+    "/actions/handposeassist": {
+      "chords": [],
+      "poses": [],
+      "haptics": [],
+      "sources": [
+        {
+          "path": "/user/hand/left/input/trackpad",
+          "mode": "trackpad",
+          "parameters": {},
+          "inputs": {
+            "position": {
+              "output": "/actions/handposeassist/in/thumbhorizontal"
+            },
+            "touch": {
+              "output": "/actions/handposeassist/in/trackpadtouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trackpad",
+          "mode": "trackpad",
+          "parameters": {},
+          "inputs": {
+            "position": {
+              "output": "/actions/handposeassist/in/thumbhorizontal"
+            },
+            "touch": {
+              "output": "/actions/handposeassist/in/trackpadtouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/b",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "touch": {
+              "output": "/actions/handposeassist/in/bbuttontouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/b",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "touch": {
+              "output": "/actions/handposeassist/in/bbuttontouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/a",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "touch": {
+              "output": "/actions/handposeassist/in/abuttontouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/a",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "touch": {
+              "output": "/actions/handposeassist/in/abuttontouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/trigger",
+          "mode": "trigger",
+          "parameters": {},
+          "inputs": {
+            "pull": {
+              "output": "/actions/handposeassist/in/triggerpull"
+            },
+            "touch": {
+              "output": "/actions/handposeassist/in/triggertouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trigger",
+          "mode": "trigger",
+          "parameters": {},
+          "inputs": {
+            "pull": {
+              "output": "/actions/handposeassist/in/triggerpull"
+            },
+            "touch": {
+              "output": "/actions/handposeassist/in/triggertouch"
+            }
+          }
+        }
+      ],
+      "skeleton": []
+    }
+  },
+  "controller_type": "knuckles",
+  "description": "Handshake VR Index Default Controls",
+  "name": "Handshake VR Index Default Controls"
+}

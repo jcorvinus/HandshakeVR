@@ -51,3 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e44794e9b7dd14eab4236fc4d13053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneChangeAction:
+    actionPath: /actions/default/in/SceneChange
+    needsReinit: 0

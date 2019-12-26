@@ -1728,6 +1728,7 @@ GameObject:
   - component: {fileID: 4448062782556830}
   - component: {fileID: 95573364012158424}
   - component: {fileID: 114549947989364682}
+  - component: {fileID: 114590040874727342}
   m_Layer: 0
   m_Name: vr_glove_left_model_slim
   m_TagString: Untagged
@@ -1915,6 +1916,7 @@ GameObject:
   - component: {fileID: 4256290482226986}
   - component: {fileID: 95569765466499442}
   - component: {fileID: 114427705730889696}
+  - component: {fileID: 114675182791620922}
   m_Layer: 0
   m_Name: vr_glove_right_model_slim
   m_TagString: Untagged
@@ -8573,7 +8575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAction:
-    actionPath: 
+    actionPath: /actions/default/in/SkeletonRightHand
     needsReinit: 0
   inputSource: 2
   rangeOfMotion: 1
@@ -8582,8 +8584,6 @@ MonoBehaviour:
   updatePose: 0
   onlySetRotations: 0
   skeletonBlend: 1
-  attachedTransformBlend: 0
-  attachedToTransform: {fileID: 0}
   onBoneTransformsUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -8610,6 +8610,10 @@ MonoBehaviour:
     m_TypeName: Valve.VR.SteamVR_Behaviour_Skeleton_TrackingChangedEvent, SteamVR,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   mirroring: 0
+  fallbackPoser: {fileID: 114675182791620922}
+  fallbackCurlAction:
+    actionPath: /actions/HandPoseAssist/in/TriggerPull
+    needsReinit: 0
   thumbSkeletonBlend: 1
   indexSkeletonBlend: 1
   middleSkeletonBlend: 1
@@ -8955,7 +8959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAction:
-    actionPath: 
+    actionPath: /actions/default/in/SkeletonLeftHand
     needsReinit: 0
   inputSource: 1
   rangeOfMotion: 1
@@ -8964,8 +8968,6 @@ MonoBehaviour:
   updatePose: 0
   onlySetRotations: 0
   skeletonBlend: 1
-  attachedTransformBlend: 0
-  attachedToTransform: {fileID: 0}
   onBoneTransformsUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -8992,6 +8994,10 @@ MonoBehaviour:
     m_TypeName: Valve.VR.SteamVR_Behaviour_Skeleton_TrackingChangedEvent, SteamVR,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   mirroring: 2
+  fallbackPoser: {fileID: 114590040874727342}
+  fallbackCurlAction:
+    actionPath: /actions/HandPoseAssist/in/TriggerPull
+    needsReinit: 0
   thumbSkeletonBlend: 0
   indexSkeletonBlend: 0
   middleSkeletonBlend: 1
@@ -9094,6 +9100,34 @@ MonoBehaviour:
   wristJoint: {fileID: 0}
   elbowJoint: {fileID: 0}
   filtering: 0.5
+--- !u!114 &114590040874727342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446051495728384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7418c7dd8f977d4e969202d3fa7e926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poseEditorExpanded: 1
+  blendEditorExpanded: 1
+  poseNames:
+  - SteamVR_LeftHandClose (MAIN)
+  overridePreviewLeftHandPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+    type: 2}
+  overridePreviewRightHandPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+    type: 2}
+  skeletonMainPose: {fileID: 11400000, guid: fa311b51199d9974ea424dc9ed2ddd6c, type: 2}
+  skeletonAdditionalPoses: []
+  showLeftPreview: 0
+  showRightPreview: 0
+  previewLeftInstance: {fileID: 0}
+  previewRightInstance: {fileID: 0}
+  previewPoseSelection: 0
+  blendingBehaviours: []
+  scale: 1
 --- !u!114 &114591505914609026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9220,6 +9254,34 @@ MonoBehaviour:
   scaleLastFingerBone: 1
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: 0, y: -1, z: 0}
+--- !u!114 &114675182791620922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1507430319387778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7418c7dd8f977d4e969202d3fa7e926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poseEditorExpanded: 1
+  blendEditorExpanded: 1
+  poseNames:
+  - SteamVR_RightHandClose (MAIN)
+  overridePreviewLeftHandPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+    type: 2}
+  overridePreviewRightHandPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+    type: 2}
+  skeletonMainPose: {fileID: 11400000, guid: 09d8f3341fa07974991f39e2d36d2c5f, type: 2}
+  skeletonAdditionalPoses: []
+  showLeftPreview: 0
+  showRightPreview: 0
+  previewLeftInstance: {fileID: 0}
+  previewRightInstance: {fileID: 0}
+  previewPoseSelection: 0
+  blendingBehaviours: []
+  scale: 1
 --- !u!114 &114705559209010444
 MonoBehaviour:
   m_ObjectHideFlags: 1
