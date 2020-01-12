@@ -39,7 +39,7 @@ Once you've downloaded the packages, open the project in Unity. Import the asset
 # Exploring the project's capabilities	  
 Now to start testing and exploring the project's capabilities. You'll want the following hardware:
 - Leap Motion controller (Just get one of these, they're inexpesnive and super useful.)
-- Knuckles EV3 / EV2, Oculus Touch, or Vive Controllers (In order of compatibility quality). If you have something else that supports SteamVR Skeletal Input (like say, your own custom hardware), that might work too. In fact, let me know if it does or does not.
+- Valve Index Controllers (any revision post EV2), Oculus Touch, or Vive Controllers (In order of compatibility quality). If you have something else that supports SteamVR Skeletal Input (like say, your own custom hardware), that might work too. In fact, let me know if it does or does not.
 
 Technically neither of these are necessary but it's extraordinarily difficult to test your code and assumptions without them. I recommend using hardware.
 
