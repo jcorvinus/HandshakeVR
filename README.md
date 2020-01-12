@@ -18,8 +18,7 @@ If you want:
 This project is currently set up for Unity version 2017.3.1f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
 
 SteamVR:
-~~https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647~~
-For now, use the [beta release of SteamVR Unity plugin](https://github.com/ValveSoftware/steamvr_unity_plugin/releases/tag/2.2b4). I know this is less than ideal, but I'll update it to the next asset store release verison shortly after Valve releases it.
+https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647
 
 Leap Core Assets & Interaction Engine:
 https://developer.leapmotion.com/unity/#5436356
