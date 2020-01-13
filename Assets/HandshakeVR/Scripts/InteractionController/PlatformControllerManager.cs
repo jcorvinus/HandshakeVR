@@ -7,8 +7,6 @@ using Leap.Unity.Interaction;
 
 namespace HandshakeVR
 {
-	public enum PlatformID { None=0, SteamVR = 1 }
-
 	public class PlatformControllerManager : MonoBehaviour
 	{
 		[System.Serializable]
