@@ -146,7 +146,7 @@ namespace HandshakeVR
 						SteamVR.instance.hmd.GetStringTrackedDeviceProperty((uint)steamVRPose.GetDeviceIndex(), renderModelName, renderModelResult, renderModelStringCapacity, ref error);
 						Debug.Log("Controller rendermodel name: " + renderModelResult.ToString());
 
-						if (renderModelResult.ToString().ToLower().Contains("knuckles")) steamVRControllerType = SteamVR_ControllerType.Knuckles;
+						if (renderModelResult.ToString().ToLower().Contains("index")) steamVRControllerType = SteamVR_ControllerType.Knuckles;
 						else steamVRControllerType = SteamVR_ControllerType.Vive;
 					}
 				}
