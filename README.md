@@ -18,8 +18,7 @@ If you want:
 This project is currently set up for Unity version 2017.3.1f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
 
 SteamVR:
-~~https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647~~
-For now, use the [beta release of SteamVR Unity plugin](https://github.com/ValveSoftware/steamvr_unity_plugin/releases/tag/2.2b4). I know this is less than ideal, but I'll update it to the next asset store release verison shortly after Valve releases it.
+https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647
 
 Leap Core Assets & Interaction Engine:
 https://developer.leapmotion.com/unity/#5436356
@@ -40,7 +39,7 @@ Once you've downloaded the packages, open the project in Unity. Import the asset
 # Exploring the project's capabilities	  
 Now to start testing and exploring the project's capabilities. You'll want the following hardware:
 - Leap Motion controller (Just get one of these, they're inexpesnive and super useful.)
-- Knuckles EV3 / EV2, Oculus Touch, or Vive Controllers (In order of compatibility quality). If you have something else that supports SteamVR Skeletal Input (like say, your own custom hardware), that might work too. In fact, let me know if it does or does not.
+- Valve Index Controllers (any revision post EV2), Oculus Touch, or Vive Controllers (In order of compatibility quality). If you have something else that supports SteamVR Skeletal Input (like say, your own custom hardware), that might work too. In fact, let me know if it does or does not.
 
 Technically neither of these are necessary but it's extraordinarily difficult to test your code and assumptions without them. I recommend using hardware.
 
