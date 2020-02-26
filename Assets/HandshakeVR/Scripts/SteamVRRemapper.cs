@@ -50,7 +50,9 @@ namespace HandshakeVR
         [SerializeField]
         BoneBasis fingerBasis;
 
+		[SerializeField]
         SteamVR_Behaviour_Pose steamVRPose;
+		[SerializeField]
 		MaskedSteamVRSkeleton skeletonBehavior;
 
 		#region SteamVR Pinch Pose
@@ -88,8 +90,8 @@ namespace HandshakeVR
 			pinchThumbHorizHash = Animator.StringToHash("ThumbHoriz");
 
             if(!controllerHand) controllerHand = GetComponent<SkeletalControllerHand>();
-            steamVRPose = wrist.GetComponentInParent<SteamVR_Behaviour_Pose>();
-			skeletonBehavior = steamVRPose.GetComponentInChildren<MaskedSteamVRSkeleton>();
+            /*steamVRPose = wrist.GetComponentInParent<SteamVR_Behaviour_Pose>();
+			skeletonBehavior = steamVRPose.GetComponentInChildren<MaskedSteamVRSkeleton>();*/
 
 			animator = steamVRPose.GetComponentInChildren<Animator>();
 		}

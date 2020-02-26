@@ -9041,6 +9041,8 @@ MonoBehaviour:
   fingerBasis:
     Forward: {x: -1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
+  steamVRPose: {fileID: 114530473879428212}
+  skeletonBehavior: {fileID: 114427705730889696}
   trackpadTouch:
     actionPath: /actions/HandPoseAssist/in/TrackpadTouch
     needsReinit: 0
@@ -10627,6 +10629,8 @@ MonoBehaviour:
   fingerBasis:
     Forward: {x: 1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
+  steamVRPose: {fileID: 114734113485747038}
+  skeletonBehavior: {fileID: 114549947989364682}
   trackpadTouch:
     actionPath: /actions/HandPoseAssist/in/TrackpadTouch
     needsReinit: 0
