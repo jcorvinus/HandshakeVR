@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedf5422bc39a534bb2fef1c712876aa, type: 3}
   m_Name: CurrentPlatform
   m_EditorClassIdentifier: 
-  platformID: 1
+  platformID: 2
+  useHandshakeMultiplatform: 1

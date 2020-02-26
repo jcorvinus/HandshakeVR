@@ -31,10 +31,8 @@ namespace HandshakeVR
 
 		public static void SetPlatformSettings(PlatformID platform)
 		{
-			// apply our change
-
-			// set our compile symbols properly
-			string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            // set our compile symbols properly
+            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 			List<string> allDefines = new List<string>(definesString.Split(';'));
 
 			allDefines.Remove(PlatformInfo.HANDSHAKE_NONE);
@@ -63,20 +61,37 @@ namespace HandshakeVR
 
 		public override void OnInspectorGUI()
 		{
-			/*base.OnInspectorGUI();*/
+			base.OnInspectorGUI();
 
-			serializedObject.Update();
+			/*serializedObject.Update();
 
 			// get our platform ID
 			PlatformID platform = m_instance.PlatformID;
-			PlatformID newPlatform = (PlatformID)EditorGUILayout.EnumPopup("PlatformID", m_instance.PlatformID);
 
-			// if there are changes, and the flag says to use Handshake's multiplatform system,
-			// set the compile flags accordingly.
-			if (platform != newPlatform && useHandshakeProperty.boolValue)
+            EditorGUILayout.PropertyField(platformIDProperty);
+
+            PlatformID newPlatform = m_instance.PlatformID;
+
+            if(platform != newPlatform)
+            {
+                Debug.Log(newPlatform.ToString());
+            }
+
+            // if there are changes, and the flag says to use Handshake's multiplatform system,
+            // set the compile flags accordingly.
+            if (platform != newPlatform && useHandshakeProperty.boolValue)
 			{
-				SetPlatformSettings(newPlatform);
+                SetPlatformSettings(newPlatform);
 			}
+
+            bool useHandshakeMultiplat = useHandshakeProperty.boolValue;
+
+            EditorGUILayout.PropertyField(useHandshakeProperty);
+
+            if(!useHandshakeMultiplat && useHandshakeProperty.boolValue)
+            {
+                SetPlatformSettings(newPlatform);
+            }
 
 			// check platform ID against player build target
 			BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
@@ -102,7 +117,7 @@ namespace HandshakeVR
 					break;
 			}
 
-			serializedObject.ApplyModifiedProperties();
+			serializedObject.ApplyModifiedProperties();*/
 		}
 	}
 }
