@@ -34,6 +34,7 @@ namespace HandshakeVR
 
         Leap.Unity.Interaction.InteractionManager interactionManager;
 		PlatformControllerManager controllerManager;
+		PlatformManager platformManager;
         InteractionHand leftInteractionHand;
         InteractionHand rightInteractionHand;
 
@@ -66,6 +67,7 @@ namespace HandshakeVR
 
         private void Awake()
         {
+			platformManager = GetComponent<PlatformManager>();
             interactionManager = Leap.Unity.Interaction.InteractionManager.instance;
 			if(interactionManager != null) controllerManager = interactionManager.GetComponent<PlatformControllerManager>();
 
@@ -130,8 +132,8 @@ namespace HandshakeVR
 			if(!isDefault)
 			{
 				// update our tracking/active state properly.
-				leftSkeletalControllerHand.IsActive = leftHandPose.isValid;
-				rightSkeletalControllerHand.IsActive = rightHandPose.isValid;
+				leftSkeletalControllerHand.IsActive = GetControllerValidity(true);
+				rightSkeletalControllerHand.IsActive = GetControllerValidity(false);
 			}
 			else
 			{
@@ -140,9 +142,14 @@ namespace HandshakeVR
 			}
         }
 
+		bool GetControllerValidity(bool left)
+		{
+			return platformManager.GetControllerTrackingValidity(left);
+		}
+
         private bool ShouldUseControllers()
         {
-            return leftHandPose.isValid || rightHandPose.isValid;
+            return GetControllerValidity(true) || GetControllerValidity(false);
         }
 
         void SetProvider()

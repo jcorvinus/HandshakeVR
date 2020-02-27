@@ -73,17 +73,25 @@ namespace HandshakeVR
 
 			currentPlatformReferences = platformData;
 		}
-
-		// Start is called before the first frame update
-		void Start()
+		
+		public bool HideLeapHandsOnSwitch()
 		{
-
+			return currentPlatformReferences.HideLeapHandsOnSwitch;
 		}
 
-		// Update is called once per frame
-		void Update()
+		public bool GetControllerTrackingValidity(bool isLeft)
 		{
+			for(int i=0; i < currentPlatformReferences.TrackerValidity.Length; i++)
+			{
+				TrackerValidity validity = currentPlatformReferences.TrackerValidity[i];
 
+				if (validity.IsLeft == isLeft)
+				{
+					return validity.IsValid;
+				}
+			}
+
+			return false;
 		}
 	}
 }

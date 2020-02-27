@@ -17,7 +17,7 @@ namespace HandshakeVR
 
 		private void Update()
 		{
-			
+			isValid = pose.isValid;
 		}
 	}
 }

@@ -690,9 +690,13 @@ MonoBehaviour:
     - {fileID: 5320614048707729859}
     - {fileID: 8980501289451424577}
     ObjectsToDisable: []
-    BehavioursToEnable: []
+    BehavioursToEnable:
+    - {fileID: 8027809468077282867}
+    - {fileID: 6341289972597108324}
     BehavioursToDisable: []
-    TrackerValidity: []
+    TrackerValidity:
+    - {fileID: 2364839826558950729}
+    - {fileID: 3609407248362339417}
     HideLeapHandsOnSwitch: 0
     LeftPlatformHandVisual: {fileID: 0}
     RightPlatformHandVisual: {fileID: 0}
@@ -8923,6 +8927,7 @@ GameObject:
   - component: {fileID: 114503377457903724}
   - component: {fileID: 95119487780664478}
   - component: {fileID: 114865598229303362}
+  - component: {fileID: 8027809468077282867}
   m_Layer: 0
   m_Name: SkeletalHandRight
   m_TagString: Untagged
@@ -9073,6 +9078,23 @@ MonoBehaviour:
   assistActionset:
     actionSetPath: /actions/HandPoseAssist
   drawSkeleton: 0
+--- !u!114 &8027809468077282867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798688239588192}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480b9c3d150d4fc4aa7ef31e296c2c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorController: {fileID: 0}
+  grabValueNoTouchFloor: 0.4
+  grabValueTouchFloor: 0.56
+  thumbValueTouchCeiling: 0.75
+  indexTouchFloor: 0.35
 --- !u!1 &1799628601938518
 GameObject:
   m_ObjectHideFlags: 0
@@ -10511,6 +10533,7 @@ GameObject:
   - component: {fileID: 114737013065035772}
   - component: {fileID: 95532336884584336}
   - component: {fileID: 114765591528612442}
+  - component: {fileID: 6341289972597108324}
   m_Layer: 0
   m_Name: SkeletalHandLeft
   m_TagString: Untagged
@@ -10661,6 +10684,23 @@ MonoBehaviour:
   assistActionset:
     actionSetPath: /actions/HandPoseAssist
   drawSkeleton: 0
+--- !u!114 &6341289972597108324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915491891064440}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480b9c3d150d4fc4aa7ef31e296c2c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorController: {fileID: 0}
+  grabValueNoTouchFloor: 0.4
+  grabValueTouchFloor: 0.56
+  thumbValueTouchCeiling: 0.75
+  indexTouchFloor: 0.35
 --- !u!1 &1917720237370356
 GameObject:
   m_ObjectHideFlags: 0
@@ -11477,6 +11517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6501470677356823783}
   - component: {fileID: 6325415742552094435}
+  - component: {fileID: 2364839826558950729}
   m_Layer: 0
   m_Name: OculusRightController
   m_TagString: Untagged
@@ -11517,6 +11558,20 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 1
+--- !u!114 &2364839826558950729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5320614048707729859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781b1826d3fc82f47a7f8ba6ef6c7bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 1
+  trackingNode: 5
 --- !u!1 &7324916317407616233
 GameObject:
   m_ObjectHideFlags: 0
@@ -11737,6 +11792,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1906297495465244461}
   - component: {fileID: 8114730995820566142}
+  - component: {fileID: 3609407248362339417}
   m_Layer: 0
   m_Name: OculusLeftController
   m_TagString: Untagged
@@ -11777,6 +11833,20 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 1
+--- !u!114 &3609407248362339417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980501289451424577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781b1826d3fc82f47a7f8ba6ef6c7bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
+  trackingNode: 5
 --- !u!1001 &2565893732947454371
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,5 +10,6 @@ namespace HandshakeVR
 
 		protected bool isValid;
 		public bool IsValid { get { return isValid; } }
+		public bool IsLeft { get { return isLeft; } }
 	}
 }
