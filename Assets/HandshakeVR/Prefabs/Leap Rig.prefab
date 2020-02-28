@@ -737,12 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultProvider: {fileID: 114325742512613982}
   customProvider: {fileID: 114221310039567002}
-  hideLeapHandsOnSwitch: 1
   modelManager: {fileID: 114509227216367108}
-  leftHandPose: {fileID: 114734113485747038}
-  leftHandVisual: {fileID: 1202413479721654}
-  rightHandPose: {fileID: 114530473879428212}
-  rightHandVisual: {fileID: 1955278027004552}
   manualProviderSwitching: 0
 --- !u!1 &1055644899474474
 GameObject:
@@ -2633,9 +2628,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 82056687033432926}
   depthVolumeBoost: 41.88
-  vibration:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
   doHaptics: 0
   penetrationHaptics: 1
   currentDeepestPenetration: 0
@@ -8276,9 +8268,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 82737336833124222}
   depthVolumeBoost: 41.88
-  vibration:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
   doHaptics: 0
   penetrationHaptics: 1
   currentDeepestPenetration: 0
@@ -9133,12 +9122,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerTransform: {fileID: 6501470677356823783}
   animatorController: {fileID: 22100000, guid: c7d565ac29004f644a1e25048406447c, type: 2}
+  localPosOffset: {x: 0.026, y: 0.01, z: -0.094}
+  localRotOffset: {x: -67.094, y: -21.146, z: -71.208}
   grabValueNoTouchFloor: 0.4
   grabValueTouchFloor: 0.56
   thumbValueTouchCeiling: 0.75
   indexTouchFloor: 0.35
-  drawDebugMesh: 1
+  drawDebugMesh: 0
   debugMesh: {fileID: 7324916317407616233}
+  applyOffsetEveryFrame: 1
 --- !u!1 &1799628601938518
 GameObject:
   m_ObjectHideFlags: 0
@@ -10742,12 +10734,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerTransform: {fileID: 1906297495465244461}
   animatorController: {fileID: 9100000, guid: f33bd26a54be0844caa6e9545f1e1148, type: 2}
+  localPosOffset: {x: -0.026, y: 0.01, z: -0.094}
+  localRotOffset: {x: 56.448, y: 166.685, z: 78.11401}
   grabValueNoTouchFloor: 0.4
   grabValueTouchFloor: 0.56
   thumbValueTouchCeiling: 0.75
   indexTouchFloor: 0.35
-  drawDebugMesh: 1
+  drawDebugMesh: 0
   debugMesh: {fileID: 8068259616071680714}
+  applyOffsetEveryFrame: 1
 --- !u!1 &1917720237370356
 GameObject:
   m_ObjectHideFlags: 0
@@ -11933,6 +11928,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OVRControllerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 112276, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 488160, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11999,6 +11998,10 @@ PrefabInstance:
     - target: {fileID: 112276, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
       propertyPath: m_Name
       value: OVRControllerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 112276, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 488160, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
       propertyPath: m_LocalPosition.x

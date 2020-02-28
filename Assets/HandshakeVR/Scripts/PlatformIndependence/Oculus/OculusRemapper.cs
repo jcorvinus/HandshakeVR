@@ -8,8 +8,34 @@ namespace HandshakeVR
 {
 	public class OculusRemapper : MonoBehaviour
 	{
+		[System.Serializable]
+		public struct ControllerOffset
+		{
+			[SerializeField] public Vector3 LocalPositionLeft;
+			[SerializeField] public Vector3 LocalRotationLeft;
+
+			[SerializeField] public Vector3 LocalPositionRight;
+			[SerializeField] public Vector3 LocalRotationRight;
+		}
+
+		[SerializeField] Transform controllerTransform;
 		SkeletalControllerHand controllerHand;
 		[SerializeField] RuntimeAnimatorController animatorController;
+
+		ControllerOffset ovrTouchOffset = new ControllerOffset()
+		{
+			LocalPositionLeft = new Vector3(-0.026f, 0.01f, -0.094f),
+			LocalRotationLeft = new Vector3(56.448f, 166.685f, 78.11401f),
+
+			LocalPositionRight = new Vector3(-0.026f, 0.01f, -0.094f),
+			LocalRotationRight = new Vector3(56.448f, 166.685f, 78.11401f)
+		};
+
+		[SerializeField]
+		Vector3 localPosOffset = new Vector3(-0.026f, 0.01f, -0.094f);
+
+		[SerializeField]
+		Vector3 localRotOffset = new Vector3(56.448f, 116.685f, 78.11401f);
 
 		Animator handAnimator;
 		bool poseCanGrip;
@@ -29,6 +55,11 @@ namespace HandshakeVR
 		[Range(0, 1)] [SerializeField] float thumbValueTouchCeiling = 0.75f;
 		[Range(0, 1)] [SerializeField] float indexTouchFloor = 0.35f;
 
+		[Header("Debug Vars")]
+		[SerializeField] bool drawDebugMesh;
+		[SerializeField] GameObject debugMesh;
+		[SerializeField] bool applyOffsetEveryFrame;
+
 		private void Awake()
 		{
 			controllerHand = GetComponent<SkeletalControllerHand>();
@@ -42,16 +73,42 @@ namespace HandshakeVR
 			pinchHash = Animator.StringToHash("Pinching");
 		}
 
+		private void Start()
+		{
+			handAnimator.runtimeAnimatorController = animatorController;
+			handAnimator.enabled = true;
+
+			ApplySpecificControllerOffset(ovrTouchOffset, controllerHand.Wrist);
+		}
+
+		private void ApplySpecificControllerOffset(ControllerOffset offset, Transform offsetTransform)
+		{
+			bool isLeft = controllerHand.IsLeft;
+
+			offsetTransform.localPosition = localPosOffset;
+			offsetTransform.localRotation = Quaternion.Euler(localRotOffset);
+		}
+
 		// Update is called once per frame
 		void Update()
 		{
+			// move our position
+			transform.SetPositionAndRotation(controllerTransform.position,
+				controllerTransform.rotation);
+			if(applyOffsetEveryFrame) ApplySpecificControllerOffset(ovrTouchOffset, controllerHand.Wrist.parent);
+
 			ProcessOVRTouchInput();
+
+			if(drawDebugMesh)
+			{
+				debugMesh.gameObject.SetActive(true);
+			}
+			else if(debugMesh != null) debugMesh.gameObject.SetActive(false);
 		}
 
 		bool IsLeft()
 		{
 			return controllerHand.IsLeft;
-			//return userHand.Handedness == UserHand.Hand.Left;
 		}
 
 		void ProcessOVRTouchInput()
