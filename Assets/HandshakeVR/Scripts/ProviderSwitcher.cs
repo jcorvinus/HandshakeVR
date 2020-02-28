@@ -25,10 +25,6 @@ namespace HandshakeVR
 
         public bool IsDefault { get { return isDefault; } }
 
-        [Tooltip("If you want to use the SteamVR hand mesh, enable this.")]
-        [SerializeField]
-        bool hideLeapHandsOnSwitch = false;
-
         [SerializeField]
         HandModelManager modelManager;
 
@@ -44,21 +40,7 @@ namespace HandshakeVR
 		public Leap.Unity.HandModelBase LeftAbstractHandModel { get { return leftAbstractHand; } }
 		public Leap.Unity.HandModelBase RightAbstractHandModel { get { return rightAbstractHand; } }
 
-		[Header("SteamVR Variables")]
-        [SerializeField]
-        SteamVR_Behaviour_Pose leftHandPose;
-
-        [SerializeField]
-        GameObject leftHandVisual;
-        SteamVRInteractionController leftInteractionController;
 		SkeletalControllerHand leftSkeletalControllerHand;
-
-        [SerializeField]
-        SteamVR_Behaviour_Pose rightHandPose;
-
-        [SerializeField]
-        GameObject rightHandVisual;
-        SteamVRInteractionController rightInteractionController;
 		SkeletalControllerHand rightSkeletalControllerHand;
 
         [Header("Debugging")]
@@ -88,13 +70,6 @@ namespace HandshakeVR
                         else rightInteractionHand = hand;
 
 						hand.leapProvider = defaultProvider;
-                    }
-                    else if (controller is SteamVRInteractionController)
-                    {
-                        SteamVRInteractionController interactionController = (SteamVRInteractionController)controller;
-
-                        if (interactionController.isLeft) leftInteractionController = interactionController;
-                        else rightInteractionController = interactionController;
                     }
                 }
             }
@@ -184,13 +159,12 @@ namespace HandshakeVR
                 {
 					HandModel handModel = modelManager.transform.GetChild(i).GetComponent<HandModel>();
 
-                    if(handModel != null && handModel.HandModelType == ModelType.Graphics) modelManager.transform.GetChild(i).gameObject.SetActive(!hideLeapHandsOnSwitch);
+                    if(handModel != null && handModel.HandModelType == ModelType.Graphics) modelManager.transform.GetChild(i).gameObject.SetActive(!platformManager.HideLeapHandsOnSwitch());
                 }
             }
 
-            modelManager.GraphicsEnabled = isDefault || !hideLeapHandsOnSwitch;
-            leftHandVisual.gameObject.SetActive(!modelManager.GraphicsEnabled);
-            rightHandVisual.gameObject.SetActive(!modelManager.GraphicsEnabled);
+            modelManager.GraphicsEnabled = isDefault || !platformManager.HideLeapHandsOnSwitch();
+			PlatformManager.Instance.SetPlatformVisualHands(!modelManager.GraphicsEnabled);
 
             Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
 			customProvider.IsActive = !isDefault;

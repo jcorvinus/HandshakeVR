@@ -86,6 +86,12 @@ namespace HandshakeVR
 			return currentPlatformReferences.HideLeapHandsOnSwitch;
 		}
 
+		public void SetPlatformVisualHands(bool enabled)
+		{
+			if(currentPlatformReferences.LeftPlatformHandVisual != null) currentPlatformReferences.LeftPlatformHandVisual.SetActive(enabled);
+			if(currentPlatformReferences.RightPlatformHandVisual != null) currentPlatformReferences.RightPlatformHandVisual.SetActive(enabled);
+		}
+
 		public bool GetControllerTrackingValidity(bool isLeft)
 		{
 			for(int i=0; i < currentPlatformReferences.TrackerValidity.Length; i++)
