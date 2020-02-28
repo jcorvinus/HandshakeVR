@@ -668,6 +668,7 @@ MonoBehaviour:
     HideLeapHandsOnSwitch: 0
     LeftPlatformHandVisual: {fileID: 0}
     RightPlatformHandVisual: {fileID: 0}
+    Haptics: []
   - ID: 1
     ObjectsToEnable:
     - {fileID: 1496670861649422}
@@ -681,9 +682,12 @@ MonoBehaviour:
     TrackerValidity:
     - {fileID: 5699461040402797892}
     - {fileID: 5482665112695376253}
-    HideLeapHandsOnSwitch: 0
+    HideLeapHandsOnSwitch: 1
     LeftPlatformHandVisual: {fileID: 1202413479721654}
     RightPlatformHandVisual: {fileID: 1955278027004552}
+    Haptics:
+    - {fileID: 733970500088365879}
+    - {fileID: 65609369624601602}
   - ID: 2
     ObjectsToEnable:
     - {fileID: 2921183908444396954}
@@ -700,6 +704,9 @@ MonoBehaviour:
     HideLeapHandsOnSwitch: 0
     LeftPlatformHandVisual: {fileID: 0}
     RightPlatformHandVisual: {fileID: 0}
+    Haptics:
+    - {fileID: 1722751594412476922}
+    - {fileID: 5932058671559328411}
 --- !u!114 &114221310039567002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5052,6 +5059,7 @@ GameObject:
   - component: {fileID: 4334007251812034}
   - component: {fileID: 114734113485747038}
   - component: {fileID: 5482665112695376253}
+  - component: {fileID: 65609369624601602}
   m_Layer: 0
   m_Name: SteamVRLeftHand
   m_TagString: Untagged
@@ -5121,6 +5129,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
+--- !u!114 &65609369624601602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393295431413752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f48ec9faea21e740a61a72c5a5bcad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 1
+  vibration:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0
 --- !u!1 &1396745778646040
 GameObject:
   m_ObjectHideFlags: 0
@@ -5879,6 +5903,7 @@ GameObject:
   - component: {fileID: 4508493048135674}
   - component: {fileID: 114530473879428212}
   - component: {fileID: 5699461040402797892}
+  - component: {fileID: 733970500088365879}
   m_Layer: 0
   m_Name: SteamVRRightHand
   m_TagString: Untagged
@@ -5948,6 +5973,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+--- !u!114 &733970500088365879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496670861649422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f48ec9faea21e740a61a72c5a5bcad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
+  vibration:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0
 --- !u!1 &1507430319387778
 GameObject:
   m_ObjectHideFlags: 0
@@ -9090,11 +9131,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480b9c3d150d4fc4aa7ef31e296c2c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorController: {fileID: 0}
+  controllerTransform: {fileID: 6501470677356823783}
+  animatorController: {fileID: 22100000, guid: c7d565ac29004f644a1e25048406447c, type: 2}
   grabValueNoTouchFloor: 0.4
   grabValueTouchFloor: 0.56
   thumbValueTouchCeiling: 0.75
   indexTouchFloor: 0.35
+  drawDebugMesh: 1
+  debugMesh: {fileID: 7324916317407616233}
 --- !u!1 &1799628601938518
 GameObject:
   m_ObjectHideFlags: 0
@@ -10696,11 +10740,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480b9c3d150d4fc4aa7ef31e296c2c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorController: {fileID: 0}
+  controllerTransform: {fileID: 1906297495465244461}
+  animatorController: {fileID: 9100000, guid: f33bd26a54be0844caa6e9545f1e1148, type: 2}
   grabValueNoTouchFloor: 0.4
   grabValueTouchFloor: 0.56
   thumbValueTouchCeiling: 0.75
   indexTouchFloor: 0.35
+  drawDebugMesh: 1
+  debugMesh: {fileID: 8068259616071680714}
 --- !u!1 &1917720237370356
 GameObject:
   m_ObjectHideFlags: 0
@@ -11518,6 +11565,7 @@ GameObject:
   - component: {fileID: 6501470677356823783}
   - component: {fileID: 6325415742552094435}
   - component: {fileID: 2364839826558950729}
+  - component: {fileID: 1722751594412476922}
   m_Layer: 0
   m_Name: OculusRightController
   m_TagString: Untagged
@@ -11572,6 +11620,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLeft: 1
   trackingNode: 5
+--- !u!114 &1722751594412476922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5320614048707729859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6533d1c588b7d64187c068deebeab1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &7324916317407616233
 GameObject:
   m_ObjectHideFlags: 0
@@ -11793,6 +11854,7 @@ GameObject:
   - component: {fileID: 1906297495465244461}
   - component: {fileID: 8114730995820566142}
   - component: {fileID: 3609407248362339417}
+  - component: {fileID: 5932058671559328411}
   m_Layer: 0
   m_Name: OculusLeftController
   m_TagString: Untagged
@@ -11847,6 +11909,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLeft: 0
   trackingNode: 5
+--- !u!114 &5932058671559328411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980501289451424577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6533d1c588b7d64187c068deebeab1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1001 &2565893732947454371
 PrefabInstance:
   m_ObjectHideFlags: 0

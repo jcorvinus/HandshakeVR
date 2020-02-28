@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Valve.VR;
-
 using Leap.Unity;
 using Leap.Unity.Interaction;
 
@@ -24,8 +22,6 @@ namespace HandshakeVR
 		RigidFinger[] fingers;
 	
 		// haptic variables
-		[SerializeField] SteamVR_Action_Vibration vibration;
-		SteamVR_Input_Sources inputSource;
 		float frequency = 1; // from 1-320hz
 		float oldFrequency;
 		float frequencyDiffPeriod;
@@ -78,8 +74,6 @@ namespace HandshakeVR
             intersectColorHash = Shader.PropertyToID("_HighlightColor");
             hoverIntersectColor = handMeshes[0].material.GetColor(intersectColorHash);
             currentColor = staticIntersectColor;
-
-			inputSource = (rigidHand.Handedness == Chirality.Left) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
 
 			oldFrequency = frequency;
         }
@@ -205,7 +199,8 @@ namespace HandshakeVR
 
 			if(timeTillNextPulse <= 0)
 			{
-				vibration.Execute(0, Time.fixedDeltaTime, frequency, amplitude, inputSource);
+				//vibration.Execute(0, Time.fixedDeltaTime, frequency, amplitude, inputSource);
+				PlatformManager.Instance.DoHapticsForCurrentPlatform(frequency, amplitude, Time.fixedDeltaTime, rigidHand.Handedness == Chirality.Left);
 				timeTillNextPulse = period;
 			}
 

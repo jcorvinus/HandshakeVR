@@ -27,6 +27,9 @@ namespace HandshakeVR
 			public bool HideLeapHandsOnSwitch;
 			public GameObject LeftPlatformHandVisual;
 			public GameObject RightPlatformHandVisual;
+
+			[Header("Haptics")]
+			public ControllerHaptics[] Haptics;
 		}
 
 		// reference our current platform info asset here
@@ -36,8 +39,12 @@ namespace HandshakeVR
 		PlatformReferences currentPlatformReferences;
 		public PlatformID Platform { get { return currentPlatform.PlatformID; } }
 
+		private static PlatformManager instance;
+		public static PlatformManager Instance { get { return instance; } }
+
 		private void Awake()
 		{
+			instance = this;
 			// set up our platform properly.
 			// find our platform info
 			PlatformReferences platformData = perPlatformData.First(item => item.ID == Platform);
@@ -92,6 +99,25 @@ namespace HandshakeVR
 			}
 
 			return false;
+		}
+
+		public void DoHapticsForCurrentPlatform(float frequency, float amplitude, float duration,
+			bool isLeftController)
+		{
+			// get our haptics component
+			ControllerHaptics haptics=null;
+
+			for(int i=0; i < currentPlatformReferences.Haptics.Length; i++)
+			{
+				ControllerHaptics currentHaptics = currentPlatformReferences.Haptics[i];
+				if(currentHaptics.IsLeft == isLeftController)
+				{
+					haptics = currentHaptics;
+					break;
+				}
+			}
+
+			if(haptics != null) haptics.DoHaptics(frequency, amplitude, duration);
 		}
 	}
 }
