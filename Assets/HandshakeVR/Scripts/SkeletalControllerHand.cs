@@ -10,7 +10,21 @@ using Leap.Unity;
 
 namespace HandshakeVR
 {
-    public class SkeletalControllerHand : MonoBehaviour
+	[System.Serializable]
+	public struct BoneBasis
+	{
+		public Vector3 Forward;
+		public Vector3 Up;
+	}
+
+	[System.Serializable]
+	public struct BoneData
+	{
+		public Vector3 Position;
+		public Quaternion Rotation;
+	}
+
+	public class SkeletalControllerHand : MonoBehaviour
     {
         [System.Serializable]
         public struct BoneConstraint

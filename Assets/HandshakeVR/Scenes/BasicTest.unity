@@ -619,21 +619,26 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114590040874727342, guid: 81251f2a1fb3527428b70da2d46fdab9,
+    - target: {fileID: 1078686206451172873, guid: 81251f2a1fb3527428b70da2d46fdab9,
         type: 3}
-      propertyPath: previewLeftInstance
-      value: 
+      propertyPath: perPlatformData.Array.data[2].HideLeapHandsOnSwitch
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114590040874727342, guid: 81251f2a1fb3527428b70da2d46fdab9,
+    - target: {fileID: 3224706849146016469, guid: 81251f2a1fb3527428b70da2d46fdab9,
         type: 3}
-      propertyPath: previewRightInstance
-      value: 
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114675182791620922, guid: 81251f2a1fb3527428b70da2d46fdab9,
+    - target: {fileID: 3224706849146016469, guid: 81251f2a1fb3527428b70da2d46fdab9,
         type: 3}
-      propertyPath: previewRightInstance
+      propertyPath: _skeletonMaterial
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 3224706849146016469, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: _systemGestureMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 584662273d60a0f47bd7fecbb570e66e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 3}
 --- !u!1001 &1138907802

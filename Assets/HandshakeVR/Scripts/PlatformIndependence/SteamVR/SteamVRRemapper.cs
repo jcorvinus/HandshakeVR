@@ -10,19 +10,6 @@ namespace HandshakeVR
     {
 		enum SteamVR_ControllerType { Unknown = -1, Vive = 0, Touch = 1, Knuckles = 2 }
 
-		[System.Serializable]
-        public struct BoneBasis
-        {
-            public Vector3 Forward;
-            public Vector3 Up;
-        }
-
-        public struct BoneData
-        {
-            public Vector3 Position;
-            public Quaternion Rotation;
-        }
-
         [Tooltip("This is our leap hand data generator")]
         [SerializeField]
         SkeletalControllerHand controllerHand;

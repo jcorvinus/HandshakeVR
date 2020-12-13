@@ -25,8 +25,8 @@ namespace HandshakeVR
 			[Header("Visuals")]
 			[Tooltip("Use this to show the platform's hand model, instead of the Leap one.")]
 			public bool HideLeapHandsOnSwitch;
-			public GameObject LeftPlatformHandVisual;
-			public GameObject RightPlatformHandVisual;
+			public Avatar.AvatarVisibility LeftPlatformHandVisual;
+			public Avatar.AvatarVisibility RightPlatformHandVisual;
 
 			[Header("Haptics")]
 			public ControllerHaptics[] Haptics;
@@ -88,8 +88,8 @@ namespace HandshakeVR
 
 		public void SetPlatformVisualHands(bool enabled)
 		{
-			if(currentPlatformReferences.LeftPlatformHandVisual != null) currentPlatformReferences.LeftPlatformHandVisual.SetActive(enabled);
-			if(currentPlatformReferences.RightPlatformHandVisual != null) currentPlatformReferences.RightPlatformHandVisual.SetActive(enabled);
+			if(currentPlatformReferences.LeftPlatformHandVisual) currentPlatformReferences.LeftPlatformHandVisual.SetVisibility(enabled);
+			if(currentPlatformReferences.RightPlatformHandVisual) currentPlatformReferences.RightPlatformHandVisual.SetVisibility(enabled);
 		}
 
 		public bool GetControllerTrackingValidity(bool isLeft)

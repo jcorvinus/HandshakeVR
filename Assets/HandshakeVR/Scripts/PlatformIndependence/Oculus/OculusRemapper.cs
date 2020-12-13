@@ -33,7 +33,6 @@ namespace HandshakeVR
 
 		[SerializeField]
 		Vector3 localPosOffset = new Vector3(-0.026f, 0.01f, -0.094f);
-
 		[SerializeField]
 		Vector3 localRotOffset = new Vector3(56.448f, 116.685f, 78.11401f);
 
@@ -50,21 +49,39 @@ namespace HandshakeVR
 
 		bool controllerIsPinching;
 
+		[Header("Controller Gesture Vars")]
 		[Range(0, 1)] [SerializeField] float grabValueNoTouchFloor = 0.4f;
 		[Range(0, 1)] [SerializeField] float grabValueTouchFloor = 0.56f;
 		[Range(0, 1)] [SerializeField] float thumbValueTouchCeiling = 0.75f;
 		[Range(0, 1)] [SerializeField] float indexTouchFloor = 0.35f;
 
+		[Header("Hand Remapping Vars")]
+		[SerializeField] Vector3 fingerForward;
+		[SerializeField] Vector3 fingerUp;
+		OVRHand hand;
+		OVRSkeleton skeleton;
+
 		[Header("Debug Vars")]
 		[SerializeField] bool drawDebugMesh;
 		[SerializeField] GameObject debugMesh;
-		[SerializeField] bool applyOffsetEveryFrame;
+
+		[SerializeField] bool drawSkeleton;
+		[SerializeField] bool drawBindPose;
+		[SerializeField] bool drawBasis;
 
 		private void Awake()
 		{
 			controllerHand = GetComponent<SkeletalControllerHand>();
 			handAnimator = GetComponent<Animator>();
 
+			hand = controllerTransform.GetComponentInChildren<OVRHand>();
+			skeleton = hand.GetComponent<OVRSkeleton>();
+
+			GetControllerHashes();
+		}
+
+		void GetControllerHashes()
+		{
 			xAxisHash = Animator.StringToHash("xAxis");
 			yAxisHash = Animator.StringToHash("yAxis");
 			gripHash = Animator.StringToHash("Grip");
@@ -95,9 +112,40 @@ namespace HandshakeVR
 			// move our position
 			transform.SetPositionAndRotation(controllerTransform.position,
 				controllerTransform.rotation);
-			if(applyOffsetEveryFrame) ApplySpecificControllerOffset(ovrTouchOffset, controllerHand.Wrist.parent);
 
-			ProcessOVRTouchInput();
+			OVRInput.Controller controllerType = OVRInput.GetActiveController();
+
+			switch (controllerType)
+			{
+				// lolwat cases
+				case OVRInput.Controller.Active:
+				case OVRInput.Controller.All:
+					break;
+
+				// touch cases
+				case OVRInput.Controller.LTouch:
+				case OVRInput.Controller.RTouch:
+				case OVRInput.Controller.Touch:
+					ApplySpecificControllerOffset(ovrTouchOffset, controllerHand.Wrist.parent);
+
+					ProcessOVRTouchInput();
+					break;
+
+				// hands cases
+				case OVRInput.Controller.Hands:
+				case OVRInput.Controller.LHand:
+				case OVRInput.Controller.RHand:
+					controllerHand.Wrist.transform.localPosition = Vector3.zero;
+					controllerHand.Wrist.localRotation = Quaternion.identity;
+					break;
+
+				// do nothing cases
+				case OVRInput.Controller.None:
+				case OVRInput.Controller.Remote:
+				case OVRInput.Controller.Gamepad:
+				default:
+					break;
+			}
 
 			if(drawDebugMesh)
 			{
@@ -173,6 +221,61 @@ namespace HandshakeVR
 
 			if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller)) DispatchToolActivateEvent();
 			else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, controller)) DispatchToolDeactivateEvent();*/
+		}
+
+		Quaternion GlobalRotationFromBasis(Transform bone, BoneBasis basis)
+		{
+			return Quaternion.LookRotation(bone.TransformDirection(basis.Forward),
+				bone.TransformDirection(basis.Up));
+		}
+
+		private void DrawBasis(Transform bone, BoneBasis basis)
+		{
+			Quaternion rotation = GlobalRotationFromBasis(bone, basis);
+
+			Vector3 up, forward, right;
+
+			up = rotation * Vector3.up;
+			forward = rotation * Vector3.forward;
+			right = rotation * Vector3.right;
+
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawLine(bone.position, bone.position + (up * 0.025f));
+			Gizmos.color = Color.red;
+			Gizmos.DrawLine(bone.position, bone.position + (right * 0.025f));
+			Gizmos.color = Color.blue;
+			Gizmos.DrawLine(bone.position, bone.position + (forward * 0.025f));
+		}
+
+		void DrawBone(Transform bone)
+		{
+			if (bone.parent)
+			{
+				Gizmos.DrawLine(bone.parent.position, bone.position);
+			}
+
+			if (drawBasis)
+			{
+				DrawBasis(bone, new BoneBasis() { Forward = fingerForward, Up = fingerUp });
+			}
+
+			for (int i = 0; i < bone.childCount; i++)
+			{
+				DrawBone(bone.GetChild(i));
+			}
+		}
+
+		private void OnDrawGizmosSelected()
+		{
+			if(drawBindPose && hand && skeleton && skeleton.Bones.Count > 0)
+			{
+				DrawBone(skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_WristRoot].Transform);
+			}
+
+			if(drawSkeleton && hand && skeleton && skeleton.Bones.Count > 0)
+			{
+				DrawBone(skeleton.BindPoses[(int)OVRSkeleton.BoneId.Hand_WristRoot].Transform);
+			}
 		}
 	}
 }
