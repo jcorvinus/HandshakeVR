@@ -90,8 +90,6 @@ namespace HandshakeVR
 			pinchThumbHorizHash = Animator.StringToHash("ThumbHoriz");
 
             if(!controllerHand) controllerHand = GetComponent<SkeletalControllerHand>();
-            /*steamVRPose = wrist.GetComponentInParent<SteamVR_Behaviour_Pose>();
-			skeletonBehavior = steamVRPose.GetComponentInChildren<MaskedSteamVRSkeleton>();*/
 
 			animator = steamVRPose.GetComponentInChildren<Animator>();
 		}
