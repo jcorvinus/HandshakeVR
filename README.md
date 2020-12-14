@@ -23,6 +23,11 @@ https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647
 Leap Core Assets & Interaction Engine:
 https://developer.leapmotion.com/unity/#5436356
 
+Oculus Unity Integration:
+https://developer.oculus.com/downloads/package/unity-integration/
+
+(if it asks you to upgrade, select 'yes')
+
 Leap Graphic Renderer (Optional):
 You can import Leap Motion's Graphic Renderer asset package. There is an example scene that shows how to create curved UI elements. You will need to add the symbol 'LeapGraphicRenderer' for the glow effect to work, but otherwise, you can just import the Graphic Renderer module.
 
@@ -52,9 +57,9 @@ Go head and open up any of the other scenes and try them out as well. They're ad
 # Setting up a new scene
 - Create a new scene
 - Delete the main camera
-- Locate the /Assets/_LeapControllerCompatibility/Prefabs/LeapRig prefab
+- Locate the /Assets/HandshakeVR/Prefabs/LeapRig prefab
 	- Drag it into the scene
-- Locate the /Assets/_LeapControllerCompatibility/Prefabs/Interaction Manager prefab
+- Locate the /Assets/HandshakeVR/Prefabs/Interaction Manager prefab
 	- Drag it into the scene
 - save the scene
 - enter play mode
