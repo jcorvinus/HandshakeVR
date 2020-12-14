@@ -5599,7 +5599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualizeBasis: 1
+  visualizeBones: 0
+  visualizeBasis: 0
   handedness: 0
 --- !u!1 &1477405028088064
 GameObject:
@@ -9158,14 +9159,13 @@ MonoBehaviour:
   grabValueTouchFloor: 0.56
   thumbValueTouchCeiling: 0.75
   indexTouchFloor: 0.35
-  fingerForward: {x: 0, y: 0, z: 0}
-  fingerUp: {x: 0, y: 0, z: 0}
+  fingerForward: {x: -1, y: 0, z: 0}
+  fingerUp: {x: 0, y: 1, z: 0}
   drawDebugMesh: 0
   debugMesh: {fileID: 7324916317407616233}
   drawSkeleton: 0
   drawBindPose: 0
-  skeletonRoot: {fileID: 0}
-  bindPoseRoot: {fileID: 0}
+  drawBasis: 0
 --- !u!1 &1799628601938518
 GameObject:
   m_ObjectHideFlags: 0
@@ -10775,14 +10775,13 @@ MonoBehaviour:
   grabValueTouchFloor: 0.56
   thumbValueTouchCeiling: 0.75
   indexTouchFloor: 0.35
-  fingerForward: {x: 0, y: 0, z: 0}
-  fingerUp: {x: 0, y: 0, z: 0}
+  fingerForward: {x: -1, y: 0, z: 0}
+  fingerUp: {x: 0, y: -1, z: 0}
   drawDebugMesh: 0
   debugMesh: {fileID: 8068259616071680714}
   drawSkeleton: 0
   drawBindPose: 0
-  skeletonRoot: {fileID: 0}
-  bindPoseRoot: {fileID: 0}
+  drawBasis: 0
 --- !u!1 &1917720237370356
 GameObject:
   m_ObjectHideFlags: 0
@@ -10969,7 +10968,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualizeBasis: 1
+  visualizeBones: 0
+  visualizeBasis: 0
   handedness: 1
 --- !u!1 &1921086932365936
 GameObject:

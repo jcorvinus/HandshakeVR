@@ -135,8 +135,9 @@ namespace HandshakeVR
 				case OVRInput.Controller.Hands:
 				case OVRInput.Controller.LHand:
 				case OVRInput.Controller.RHand:
-					controllerHand.Wrist.transform.localPosition = Vector3.zero;
-					controllerHand.Wrist.localRotation = Quaternion.identity;
+					/*controllerHand.Wrist.transform.localPosition = Vector3.zero;
+					controllerHand.Wrist.localRotation = Quaternion.identity;*/
+					DoSkeletalTracking();
 					break;
 
 				// do nothing cases
@@ -154,6 +155,68 @@ namespace HandshakeVR
 			else if(debugMesh != null) debugMesh.gameObject.SetActive(false);
 		}
 
+		void MatchBones(Transform oculusBone, Transform leapBone, BoneBasis basis,
+			Quaternion leapOrientation, int depth = 0)
+		{
+			if (depth == 0) leapBone.transform.position = oculusBone.transform.position;
+			else
+			{
+				controllerHand.SetTransformWithConstraint(leapBone, oculusBone.transform.position, GlobalRotationFromBasis(oculusBone, basis) * leapOrientation);
+			}
+
+			/*int depthLimit = 2;
+			if (depth >= depthLimit) return;*/
+
+			if (oculusBone.childCount == leapBone.childCount)
+			{
+				if (oculusBone.childCount == 1)
+				{
+					MatchBones(oculusBone.GetChild(0), leapBone.GetChild(0), basis, leapOrientation, depth + 1);
+				}
+			}
+			else
+			{
+				/*Debug.LogError("Mismatch between steamVR and leap child count. Oculus Bone:" + oculusBone + " leap bone: " + leapBone);
+				Debug.Break();*/
+			}
+		}
+
+		void DoSkeletalTracking()
+		{
+			// do any pre-flight checks here
+			// confidence maybe?
+			if(true)
+			{
+				handAnimator.enabled = false;
+				BoneBasis basis = new BoneBasis() { Forward = fingerForward, Up = fingerUp };
+
+				// do our wrist pose
+				OVRBone wristBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_WristRoot];
+
+				Vector3 wristPos = wristBone.Transform.position;
+				Quaternion wristboneOrientation = controllerHand.GetLocalBasis();
+
+				controllerHand.Wrist.SetPositionAndRotation(wristBone.Transform.position,
+					GlobalRotationFromBasis(wristBone.Transform, basis) * wristboneOrientation);
+
+				// do our fingers
+				OVRBone indexRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index1];
+				OVRBone middleRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1];
+				OVRBone ringRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring1];
+				OVRBone pinkyRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky0];
+				OVRBone thumbRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb0];
+
+				MatchBones(indexRootBone.Transform.parent, controllerHand.IndexMetacarpal,
+					basis, wristboneOrientation);
+				MatchBones(middleRootBone.Transform.parent, controllerHand.MiddleMetacarpal,
+					basis, wristboneOrientation);
+				MatchBones(ringRootBone.Transform.parent, controllerHand.RingMetacarpal,
+					basis, wristboneOrientation);
+				MatchBones(pinkyRootBone.Transform.parent, controllerHand.PinkyMetacarpal,
+					basis, wristboneOrientation);
+			}
+		}
+
 		bool IsLeft()
 		{
 			return controllerHand.IsLeft;
@@ -161,6 +224,7 @@ namespace HandshakeVR
 
 		void ProcessOVRTouchInput()
 		{
+			handAnimator.enabled = true;
 			OVRInput.Controller controller = (IsLeft()) ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch;
 
 			triggerTouch = OVRInput.Get(OVRInput.NearTouch.PrimaryIndexTrigger, controller);
@@ -269,12 +333,12 @@ namespace HandshakeVR
 		{
 			if(drawBindPose && hand && skeleton && skeleton.Bones.Count > 0)
 			{
-				DrawBone(skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_WristRoot].Transform);
+				DrawBone(skeleton.BindPoses[(int)OVRSkeleton.BoneId.Hand_WristRoot].Transform);
 			}
 
 			if(drawSkeleton && hand && skeleton && skeleton.Bones.Count > 0)
 			{
-				DrawBone(skeleton.BindPoses[(int)OVRSkeleton.BoneId.Hand_WristRoot].Transform);
+				DrawBone(skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_WristRoot].Transform);
 			}
 		}
 	}
