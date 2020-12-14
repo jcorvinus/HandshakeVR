@@ -622,7 +622,7 @@ PrefabInstance:
     - target: {fileID: 1078686206451172873, guid: 81251f2a1fb3527428b70da2d46fdab9,
         type: 3}
       propertyPath: perPlatformData.Array.data[2].HideLeapHandsOnSwitch
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3224706849146016469, guid: 81251f2a1fb3527428b70da2d46fdab9,
         type: 3}
