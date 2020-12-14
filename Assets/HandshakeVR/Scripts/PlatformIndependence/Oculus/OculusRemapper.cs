@@ -155,30 +155,12 @@ namespace HandshakeVR
 			else if(debugMesh != null) debugMesh.gameObject.SetActive(false);
 		}
 
-		void MatchBones(Transform oculusBone, Transform leapBone, BoneBasis basis,
-			Quaternion leapOrientation, int depth = 0)
+		void MatchBone(Transform oculusBone, Transform leapBone, BoneBasis basis,
+			Quaternion leapOrientation)
 		{
-			if (depth == 0) leapBone.transform.position = oculusBone.transform.position;
-			else
-			{
-				controllerHand.SetTransformWithConstraint(leapBone, oculusBone.transform.position, GlobalRotationFromBasis(oculusBone, basis) * leapOrientation);
-			}
-
-			/*int depthLimit = 2;
-			if (depth >= depthLimit) return;*/
-
-			if (oculusBone.childCount == leapBone.childCount)
-			{
-				if (oculusBone.childCount == 1)
-				{
-					MatchBones(oculusBone.GetChild(0), leapBone.GetChild(0), basis, leapOrientation, depth + 1);
-				}
-			}
-			else
-			{
-				/*Debug.LogError("Mismatch between steamVR and leap child count. Oculus Bone:" + oculusBone + " leap bone: " + leapBone);
-				Debug.Break();*/
-			}
+			controllerHand.SetTransformWithConstraint(leapBone,
+			oculusBone.transform.position,
+			GlobalRotationFromBasis(oculusBone, basis) * leapOrientation);
 		}
 
 		void DoSkeletalTracking()
@@ -187,7 +169,7 @@ namespace HandshakeVR
 			// confidence maybe?
 			if(true)
 			{
-				handAnimator.enabled = false;
+				handAnimator.enabled = true;
 				BoneBasis basis = new BoneBasis() { Forward = fingerForward, Up = fingerUp };
 
 				// do our wrist pose
@@ -196,24 +178,75 @@ namespace HandshakeVR
 				Vector3 wristPos = wristBone.Transform.position;
 				Quaternion wristboneOrientation = controllerHand.GetLocalBasis();
 
-				controllerHand.Wrist.SetPositionAndRotation(wristBone.Transform.position,
-					GlobalRotationFromBasis(wristBone.Transform, basis) * wristboneOrientation);
+				/*controllerHand.Wrist.SetPositionAndRotation(wristBone.Transform.position,
+					GlobalRotationFromBasis(wristBone.Transform, basis) * wristboneOrientation);*/
+					controllerHand.Wrist.rotation = GlobalRotationFromBasis(wristBone.Transform, basis) * wristboneOrientation;
 
-				// do our fingers
-				OVRBone indexRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index1];
-				OVRBone middleRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1];
-				OVRBone ringRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring1];
-				OVRBone pinkyRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky0];
+				// do our fingers. Skip metacarpals, Oculus does not provide them.
+				// we could possibly compute the missing bone rotation, if needed.
+				// do the index bones
+				OVRBone indexProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index1];
+				OVRBone indexMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index2];
+				OVRBone indexDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index3];
+				Transform indexProximal = controllerHand.IndexMetacarpal.GetChild(0);
+				Transform indexMedial = indexProximal.GetChild(0);
+				Transform indexDistal = indexMedial.GetChild(0);
+
+				MatchBone(indexProximalBone.Transform, indexProximal, basis, wristboneOrientation);
+				MatchBone(indexMedialBone.Transform, indexMedial, basis, wristboneOrientation);
+				MatchBone(indexDistalBone.Transform, indexDistal, basis, wristboneOrientation);
+
+				// do the middle bones
+				OVRBone middleProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1];
+				OVRBone middleMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle2];
+				OVRBone middleDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle3];
+				Transform middleProximal = controllerHand.MiddleMetacarpal.GetChild(0);
+				Transform middleMedial = middleProximal.GetChild(0);
+				Transform middleDistal = middleMedial.GetChild(0);
+
+				MatchBone(middleProximalBone.Transform, middleProximal, basis, wristboneOrientation);
+				MatchBone(middleMedialBone.Transform, middleMedial, basis, wristboneOrientation);
+				MatchBone(middleDistalBone.Transform, middleDistal, basis, wristboneOrientation);
+
+				// do the ring bones
+				OVRBone ringProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring1];
+				OVRBone ringMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring2];
+				OVRBone ringDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring3];
+				Transform ringProximal = controllerHand.RingMetacarpal.GetChild(0);
+				Transform ringMedial = ringProximal.GetChild(0);
+				Transform ringDistal = ringMedial.GetChild(0);
+
+				MatchBone(ringProximalBone.Transform, ringProximal, basis, wristboneOrientation);
+				MatchBone(ringMedialBone.Transform, ringMedial, basis, wristboneOrientation);
+				MatchBone(ringDistalBone.Transform, ringDistal, basis, wristboneOrientation);
+
+				// do the pinky bones
+				OVRBone pinkyMetacarpalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky0];
+				OVRBone pinkyProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky1];
+				OVRBone pinkyMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky2];
+				OVRBone pinkyDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky2];
+				Transform pinkyMetacarpal = controllerHand.PinkyMetacarpal;
+				Transform pinkyPromial = pinkyMetacarpal.GetChild(0);
+				Transform pinkyMedial = pinkyPromial.GetChild(0);
+				Transform pinkyDistal = pinkyMedial.GetChild(0);
+
+				MatchBone(pinkyMetacarpalBone.Transform, pinkyMetacarpal, basis, wristboneOrientation);
+				MatchBone(pinkyProximalBone.Transform, pinkyPromial, basis, wristboneOrientation);
+				MatchBone(pinkyMedialBone.Transform, pinkyMedial, basis, wristboneOrientation);
+				MatchBone(pinkyDistalBone.Transform, pinkyDistal, basis, wristboneOrientation);
+
+				// do the thumb bones
 				OVRBone thumbRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb0];
+				OVRBone thumbMetacarpalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb1];
+				OVRBone thumbProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb2];
+				OVRBone thumbDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb3];
+				Transform thumbMetacarpal = controllerHand.ThumbMetacarpal; // naming gets weird here, sorry.
+				Transform thumbProximal = thumbMetacarpal.GetChild(0);
+				Transform thumbDistal = thumbProximal.GetChild(0);
 
-				MatchBones(indexRootBone.Transform.parent, controllerHand.IndexMetacarpal,
-					basis, wristboneOrientation);
-				MatchBones(middleRootBone.Transform.parent, controllerHand.MiddleMetacarpal,
-					basis, wristboneOrientation);
-				MatchBones(ringRootBone.Transform.parent, controllerHand.RingMetacarpal,
-					basis, wristboneOrientation);
-				MatchBones(pinkyRootBone.Transform.parent, controllerHand.PinkyMetacarpal,
-					basis, wristboneOrientation);
+				MatchBone(thumbMetacarpalBone.Transform, thumbMetacarpal, basis, wristboneOrientation);
+				MatchBone(thumbProximalBone.Transform, thumbProximal, basis, wristboneOrientation);
+				MatchBone(thumbDistalBone.Transform, thumbDistal, basis, wristboneOrientation);
 			}
 		}
 
