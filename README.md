@@ -27,8 +27,8 @@ This project is currently set up for Unity version 2018.4.11f1. Get this version
 SteamVR:
 https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647
 
-Leap Core Assets & Interaction Engine. Version 4.4.0:
-https://developer.leapmotion.com/releases
+Leap Core Assets & Interaction Engine. Version 4.6.0:
+https://developer.leapmotion.com/unity/#5436356
 
 Oculus Unity Integration:
 https://developer.oculus.com/downloads/package/unity-integration/
