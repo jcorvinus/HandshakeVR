@@ -19,7 +19,7 @@ The main principle, is that Handshake ingests hand tracking and controller data 
 
 ![Data Flow](https://github.com/jcorvinus/HandshakeVR/blob/master/Docs/HandFlowSimple.png)
 
-Data flow starts at the bottom and go up. This is a simplified diagram, a more detailed entity component diagram is coming soon.
+Data flow starts at the bottom and goes up. This is a simplified diagram, a more detailed entity component diagram is coming soon.
 
 ## Great, how do I start using it?
 This project is currently set up for Unity version 2018.4.11f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
@@ -27,8 +27,8 @@ This project is currently set up for Unity version 2018.4.11f1. Get this version
 SteamVR:
 https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647
 
-Leap Core Assets & Interaction Engine:
-https://developer.leapmotion.com/unity/#5436356
+Leap Core Assets & Interaction Engine. Version 4.4.0:
+https://developer.leapmotion.com/releases
 
 Oculus Unity Integration:
 https://developer.oculus.com/downloads/package/unity-integration/
