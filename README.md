@@ -14,6 +14,13 @@ If you want:
 - If you want to give your users the option of upgrading to higher quality finger tracking than they'll get from the Knuckles controller, with no changes needed to their software. (**Seriously people start writing more Leap compatible software**)
 - If you're a Interaction Engine developer and want the ability to hold objects behind you, well outside of the Leap Motion's regular FOV.
 
+## How does it work?
+The main principle, is that Handshake ingests hand tracking and controller data from various sources and converts them to the hand data format used by Ultraleap.
+
+![Data Flow](https://github.com/jcorvinus/HandshakeVR/blob/master/Docs/HandFlowSimple.png)
+
+Data flow starts at the bottom and go up. This is a simplified diagram, a more detailed entity component diagram is coming soon.
+
 ## Great, how do I start using it?
 This project is currently set up for Unity version 2018.4.11f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
 
