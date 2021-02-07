@@ -224,7 +224,7 @@ namespace HandshakeVR
 				OVRBone pinkyMetacarpalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky0];
 				OVRBone pinkyProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky1];
 				OVRBone pinkyMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky2];
-				OVRBone pinkyDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky2];
+				OVRBone pinkyDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky3];
 				Transform pinkyMetacarpal = controllerHand.PinkyMetacarpal;
 				Transform pinkyPromial = pinkyMetacarpal.GetChild(0);
 				Transform pinkyMedial = pinkyPromial.GetChild(0);
