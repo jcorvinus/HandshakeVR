@@ -65,7 +65,7 @@
             #pragma target 3.0
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
+            //#include "UnityCG.cginc"
 			#include "Assets/LeapMotion/Core/Resources/LeapCG.cginc"
 
             uniform sampler2D _CameraDepthTexture;

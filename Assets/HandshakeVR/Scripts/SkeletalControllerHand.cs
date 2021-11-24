@@ -214,7 +214,7 @@ namespace HandshakeVR
 
 				// update the rest of the finger values.
 				Vector tipPosition = tip.transform.position.ToVector();
-				Vector direction = new Vector(0, 0, 0);
+				Vector direction = distalTransform.forward.ToVector();
 
 				float fingerLength =
 					Vector3.Distance(proximalTransform.position, intermediateTransform.position) +
@@ -226,6 +226,10 @@ namespace HandshakeVR
 				hand.Fingers[fingerIndex].TipPosition = tipPosition;
 				hand.Fingers[fingerIndex].Direction = direction;
 				hand.Fingers[fingerIndex].Length = fingerLength;
+				hand.Fingers[fingerIndex].IsExtended = 
+					Mathf.Abs(Vector3.Dot(proximalTransform.forward, wrist.forward)) > 0.1f;
+				hand.Fingers[fingerIndex].TimeVisible = timeVisible;
+				//hand.Fingers[fingerIndex].
 			}
 
 			// fill out rest of hand
@@ -254,7 +258,7 @@ namespace HandshakeVR
 
 			Vector palmPosition = GetPalmPosition().ToVector();
 			Vector palmNormal = GetPalmNormal().ToVector();
-			Vector palmVelocity = new Vector(0, 0, 0);
+			Vector palmVelocity = leapHand.PalmPosition - palmPosition;
 
 			//palmWidth = 85f * MM_TO_M;
 
