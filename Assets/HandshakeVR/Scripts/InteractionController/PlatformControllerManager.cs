@@ -18,6 +18,7 @@ namespace HandshakeVR
 
 		[SerializeField] PlatformInfo[] platforms;
 		PlatformInfo currentPlatform;
+		ProviderSwitcher switcher;
 
 		[Tooltip("Specifies how long to disable the hand's contact ability after a grab. Prevents items from popping out of the user's hand.")]
 		[SerializeField] float disableContactAfterGraspTime = 0.25f;
@@ -57,8 +58,17 @@ namespace HandshakeVR
 							controller.OnGraspEnd += ClearRightControllerStates;
 						}
 
-						leftHand.graspingEnabled = false;
-						rightHand.graspingEnabled = false;
+						bool leftHandEnabled = true;
+						bool rightHandEnabled = true;
+
+						if (switcher)
+						{
+							leftHandEnabled = switcher.LeftControllerHand.ActiveProvider.TrackingType() == HandTrackingType.Emulation;
+							rightHandEnabled = switcher.RightControllerHand.ActiveProvider.TrackingType() == HandTrackingType.Emulation;
+						}
+
+						leftHand.graspingEnabled = leftHandEnabled;
+						rightHand.graspingEnabled = rightHandEnabled;
 					}
 					else
 					{
@@ -94,6 +104,7 @@ namespace HandshakeVR
 		{
 			PlatformInfo platform = platforms.First(item => item.Platform == PlatformID.SteamVR);
 			currentPlatform = platform;
+			switcher = GetComponent<ProviderSwitcher>();
 
 			leftControllers = platform.Controllers.Where(item => item.isLeft).ToArray();
 			rightControllers = platform.Controllers.Where(item => item.isRight).ToArray();

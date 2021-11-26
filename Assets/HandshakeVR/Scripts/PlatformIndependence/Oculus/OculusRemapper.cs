@@ -6,20 +6,9 @@ using Oculus;
 
 namespace HandshakeVR
 {
-	public class OculusRemapper : MonoBehaviour
+	public class OculusRemapper : HandInputProvider
 	{
-		[System.Serializable]
-		public struct ControllerOffset
-		{
-			[SerializeField] public Vector3 LocalPositionLeft;
-			[SerializeField] public Vector3 LocalRotationLeft;
-
-			[SerializeField] public Vector3 LocalPositionRight;
-			[SerializeField] public Vector3 LocalRotationRight;
-		}
-
 		[SerializeField] Transform controllerTransform;
-		SkeletalControllerHand controllerHand;
 		[SerializeField] RuntimeAnimatorController animatorController;
 
 		ControllerOffset ovrTouchOffset = new ControllerOffset()
@@ -36,7 +25,6 @@ namespace HandshakeVR
 		[SerializeField]
 		Vector3 localRotOffset = new Vector3(56.448f, 116.685f, 78.11401f);
 
-		Animator handAnimator;
 		bool poseCanGrip;
 
 		int xAxisHash, yAxisHash, gripHash;
@@ -69,10 +57,31 @@ namespace HandshakeVR
 		[SerializeField] bool drawBindPose;
 		[SerializeField] bool drawBasis;
 
-		private void Awake()
+		public override HandTrackingType TrackingType()
 		{
-			controllerHand = GetComponent<SkeletalControllerHand>();
-			handAnimator = GetComponent<Animator>();
+			OVRInput.Controller controllerType = OVRInput.GetActiveController();
+			switch (controllerType)
+			{
+				// touch cases
+				case OVRInput.Controller.LTouch:
+				case OVRInput.Controller.RTouch:
+				case OVRInput.Controller.Touch:
+					return HandTrackingType.Emulation;
+
+				// hands cases
+				case OVRInput.Controller.Hands:
+				case OVRInput.Controller.LHand:
+				case OVRInput.Controller.RHand:
+					return HandTrackingType.Skeletal;
+
+				default:
+					return HandTrackingType.None;
+			}
+		}
+
+		protected override void Awake()
+		{
+			base.Awake();
 
 			hand = controllerTransform.GetComponentInChildren<OVRHand>();
 			skeleton = hand.GetComponent<OVRSkeleton>();
@@ -169,6 +178,7 @@ namespace HandshakeVR
 			// confidence maybe?
 			if(true)
 			{
+				controllerHand.Confidence = skeleton.IsDataHighConfidence ? 1 : 0;
 				handAnimator.enabled = true;
 				BoneBasis basis = new BoneBasis() { Forward = fingerForward, Up = fingerUp };
 

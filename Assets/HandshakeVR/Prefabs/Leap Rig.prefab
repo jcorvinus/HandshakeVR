@@ -2565,8 +2565,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4559664500776802}
   - component: {fileID: 114439838037908914}
-  - component: {fileID: 114595917563214128}
   - component: {fileID: 114122041849216412}
+  - component: {fileID: 2079831163202881513}
   m_Layer: 2
   m_Name: Intersection_Test_R
   m_TagString: Untagged
@@ -2621,18 +2621,6 @@ MonoBehaviour:
   wristJoint: {fileID: 0}
   elbowJoint: {fileID: 0}
   filtering: 0.5
---- !u!114 &114595917563214128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214739470563172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcd03e00992e084c8be61565d44b8bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114122041849216412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2656,6 +2644,18 @@ MonoBehaviour:
   - {fileID: 137474690646290576}
   staticIntersectColor: {r: 0.19215688, g: 0.9058824, b: 0.8941177, a: 1}
   grabIntersectColor: {r: 0.078431375, g: 0.76470596, b: 0.22352943, a: 1}
+--- !u!114 &2079831163202881513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214739470563172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf525f5829143b49be02bf4d1abc4e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1229977398705672
 GameObject:
   m_ObjectHideFlags: 0
@@ -3356,7 +3356,7 @@ GameObject:
   - component: {fileID: 4989518419865056}
   - component: {fileID: 95209771521667368}
   - component: {fileID: 114801027607174016}
-  - component: {fileID: 114037639420073382}
+  - component: {fileID: 7721341949117935457}
   m_Layer: 0
   m_Name: LoPoly Rigged Hand Left
   m_TagString: Untagged
@@ -3512,7 +3512,7 @@ MonoBehaviour:
   - {x: -0.05474715, y: 0.01102949, z: 0.005800249}
   - {x: -0.027678918, y: -3.5527135e-16, z: -1.1324275e-16}
   - {x: -0.030591473, y: 9.992007e-17, z: 4.440892e-18}
---- !u!114 &114037639420073382
+--- !u!114 &7721341949117935457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3521,7 +3521,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1308988964311592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcd03e00992e084c8be61565d44b8bd, type: 3}
+  m_Script: {fileID: 11500000, guid: abf525f5829143b49be02bf4d1abc4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1311552098097034
@@ -3535,7 +3535,7 @@ GameObject:
   - component: {fileID: 4485310488479248}
   - component: {fileID: 95699330602761440}
   - component: {fileID: 114251282332800256}
-  - component: {fileID: 114462598922244740}
+  - component: {fileID: 7760144332195636117}
   m_Layer: 0
   m_Name: LoPoly Rigged Hand Right
   m_TagString: Untagged
@@ -3691,7 +3691,7 @@ MonoBehaviour:
   - {x: 0.054747183, y: -0.0110294875, z: -0.0058002416}
   - {x: 0.027678946, y: 0.000000028804266, z: 0.0000000623105}
   - {x: 0.030591402, y: -0.000000005796997, z: -0.00000008704517}
---- !u!114 &114462598922244740
+--- !u!114 &7760144332195636117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3700,7 +3700,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1311552098097034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcd03e00992e084c8be61565d44b8bd, type: 3}
+  m_Script: {fileID: 11500000, guid: abf525f5829143b49be02bf4d1abc4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1314199801301002
@@ -5605,6 +5605,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizeBones: 0
   visualizeBasis: 0
+  visualizeDirections: 0
+  visualizeVelocity: 0
   handedness: 0
 --- !u!1 &1477405028088064
 GameObject:
@@ -8222,8 +8224,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4335342649292894}
   - component: {fileID: 114582451306270358}
-  - component: {fileID: 114767105518832992}
   - component: {fileID: 114824147945293114}
+  - component: {fileID: 6955143066950475410}
   m_Layer: 2
   m_Name: Intersection_Test_L
   m_TagString: Untagged
@@ -8278,18 +8280,6 @@ MonoBehaviour:
   wristJoint: {fileID: 0}
   elbowJoint: {fileID: 0}
   filtering: 0.5
---- !u!114 &114767105518832992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731557521459894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcd03e00992e084c8be61565d44b8bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114824147945293114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8313,6 +8303,18 @@ MonoBehaviour:
   - {fileID: 137075742733756436}
   staticIntersectColor: {r: 0.19285254, g: 0.9044118, b: 0.89573425, a: 1}
   grabIntersectColor: {r: 0.078719705, g: 0.7647059, b: 0.22537878, a: 1}
+--- !u!114 &6955143066950475410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731557521459894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf525f5829143b49be02bf4d1abc4e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1735673920402118
 GameObject:
   m_ObjectHideFlags: 0
@@ -9109,7 +9111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54fe8063f186643a2e7fc485499e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerHand: {fileID: 0}
   wrist: {fileID: 4312833101513000}
   wristBasis:
     Forward: {x: 0, y: 0, z: -1}
@@ -10727,7 +10728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54fe8063f186643a2e7fc485499e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerHand: {fileID: 0}
   wrist: {fileID: 4314826047246052}
   wristBasis:
     Forward: {x: 0, y: 0, z: 1}
@@ -10977,6 +10977,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizeBones: 0
   visualizeBasis: 0
+  visualizeDirections: 0
+  visualizeVelocity: 0
   handedness: 1
 --- !u!1 &1921086932365936
 GameObject:

@@ -451,8 +451,11 @@ namespace HandshakeVR
 
         private void OnDrawGizmos()
 		{
-			Gizmos.color = (isPinchGrip) ? Color.green : Color.white;
-            Gizmos.DrawWireSphere(position, GetGrabDistance());
+			if (steamVRRemapper && isTracked)
+			{
+				Gizmos.color = (isPinchGrip) ? Color.green : Color.white;
+				Gizmos.DrawWireSphere(position, GetGrabDistance());
+			}
         }
     }
 }

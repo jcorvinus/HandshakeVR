@@ -833,6 +833,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizeBones: 0
   visualizeBasis: 0
+  visualizeDirections: 0
+  visualizeVelocity: 0
   handedness: 1
 --- !u!1001 &1231683538
 PrefabInstance:
@@ -1254,7 +1256,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1414390517}
   - component: {fileID: 1414390516}
-  - component: {fileID: 1414390515}
   m_Layer: 0
   m_Name: HandVisualizer
   m_TagString: Untagged
@@ -1262,33 +1263,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1414390515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414390514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b77174815b904166ad047382f534c36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  Period: 0.1
-  HandModel: {fileID: 1462341359}
-  FingerName: 1
-  PointingType: 1
-  PointingDirection: {x: 0, y: 0, z: 1}
-  TargetObject: {fileID: 0}
-  OnAngle: 15
-  OffAngle: 25
-  ShowGizmos: 1
 --- !u!114 &1414390516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,12 +1283,12 @@ MonoBehaviour:
       m_Calls: []
   Period: 0.1
   HandModel: {fileID: 1462341359}
-  Thumb: 2
-  Index: 2
-  Middle: 2
-  Ring: 2
-  Pinky: 2
-  MinimumExtendedCount: 0
+  Thumb: 0
+  Index: 0
+  Middle: 0
+  Ring: 0
+  Pinky: 0
+  MinimumExtendedCount: 5
   MaximumExtendedCount: 5
   ShowGizmos: 1
 --- !u!4 &1414390517
@@ -1433,6 +1407,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizeBones: 0
   visualizeBasis: 0
+  visualizeDirections: 0
+  visualizeVelocity: 0
   handedness: 0
 --- !u!1 &1494286953
 GameObject:

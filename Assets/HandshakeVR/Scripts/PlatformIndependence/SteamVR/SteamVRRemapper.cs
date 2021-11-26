@@ -6,13 +6,9 @@ using Valve.VR;
 
 namespace HandshakeVR
 {
-    public class SteamVRRemapper : MonoBehaviour
-    {
+    public class SteamVRRemapper : HandInputProvider
+	{
 		enum SteamVR_ControllerType { Unknown = -1, Vive = 0, Touch = 1, Knuckles = 2 }
-
-        [Tooltip("This is our leap hand data generator")]
-        [SerializeField]
-        SkeletalControllerHand controllerHand;
 
         [Tooltip("These refer to our SteamVR skeleton, which will get retargeted onto the leap skeleton")]
         [Header("SteamVR skeleton variables")]
@@ -69,14 +65,14 @@ namespace HandshakeVR
         [SerializeField]
         bool drawSkeleton = false;
 
-        private void Awake()
-        {
+		protected override void Awake()
+		{
+			base.Awake();
+
 			isPinchingHash = Animator.StringToHash("IsPinching");
 			pinchAmtHash = Animator.StringToHash("PinchAmt");
 			isGrabbedHash = Animator.StringToHash("IsGrabbed");
 			pinchThumbHorizHash = Animator.StringToHash("ThumbHoriz");
-
-            if(!controllerHand) controllerHand = GetComponent<SkeletalControllerHand>();
 
 			animator = steamVRPose.GetComponentInChildren<Animator>();
 		}
@@ -96,6 +92,20 @@ namespace HandshakeVR
             fingerMetacarpals[3] = wrist.Find("finger_pinky_meta_r");
             fingerMetacarpals[4] = wrist.Find("finger_thumb_0_r");
         }
+
+		public override HandTrackingType TrackingType()
+		{
+			switch (skeletonBehavior.skeletalTrackingLevel)
+			{
+				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Estimated:
+				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Partial:
+					return HandTrackingType.Emulation;
+				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Full:
+					return HandTrackingType.Skeletal;
+				default:
+					return HandTrackingType.Emulation;
+			}
+		}
 
 		private void GetControllerType()
 		{
@@ -251,34 +261,28 @@ namespace HandshakeVR
 
         public bool IsTracking { get { return steamVRPose.isValid; } }
 
-        void MatchBones(Transform steamVRBone, Transform leapBone, BoneBasis basis,
-            Quaternion leapOrientation, int depth =0)
-        {
-            if (depth == 0) leapBone.transform.position = steamVRBone.transform.position;
-            else
-            {
-                controllerHand.SetTransformWithConstraint(leapBone, steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
-            }
+		void MatchBones(Transform steamVRBone, Transform leapBone, BoneBasis basis,
+			Quaternion leapOrientation, int depth = 0)
+		{
+			if (depth == 0) leapBone.transform.position = steamVRBone.transform.position;
+			else
+			{
+				controllerHand.SetTransformWithConstraint(leapBone, steamVRBone.transform.position, GlobalRotationFromBasis(steamVRBone, basis) * leapOrientation);
+			}
 
-            if(steamVRBone.childCount == leapBone.childCount)
-            {
-                if(steamVRBone.childCount == 1)
-                {
-                    MatchBones(steamVRBone.GetChild(0), leapBone.GetChild(0), basis, leapOrientation, depth + 1);
-                }
-            }
-            else
-            {
-                Debug.LogError("Mismatch between steamVR and leap child count. Steam Bone:" + steamVRBone + " leap bone: " + leapBone);
-                Debug.Break();
-            }
-        }
-
-        Quaternion GlobalRotationFromBasis(Transform bone, BoneBasis basis)
-        {
-            return Quaternion.LookRotation(bone.TransformDirection(basis.Forward),
-                bone.TransformDirection(basis.Up));
-        }
+			if (steamVRBone.childCount == leapBone.childCount)
+			{
+				if (steamVRBone.childCount == 1)
+				{
+					MatchBones(steamVRBone.GetChild(0), leapBone.GetChild(0), basis, leapOrientation, depth + 1);
+				}
+			}
+			else
+			{
+				Debug.LogError("Mismatch between steamVR and leap child count. Steam Bone:" + steamVRBone + " leap bone: " + leapBone);
+				Debug.Break();
+			}
+		}
 
         private void DrawBones(Transform parent, BoneBasis basis)
         {
@@ -292,24 +296,6 @@ namespace HandshakeVR
 
                 DrawBones(parent.GetChild(i), basis);
             }
-        }
-
-        private void DrawBasis(Transform bone, BoneBasis basis)
-        {
-            Quaternion rotation = GlobalRotationFromBasis(bone, basis);
-
-            Vector3 up, forward, right;
-
-            up = rotation * Vector3.up;
-            forward = rotation * Vector3.forward;
-            right = rotation * Vector3.right;
-
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(bone.position, bone.position + (up * 0.025f));
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(bone.position, bone.position + (right * 0.025f));
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(bone.position, bone.position + (forward * 0.025f));
         }
 
         private void DrawPalm(Transform bone, BoneBasis basis)

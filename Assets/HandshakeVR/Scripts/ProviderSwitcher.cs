@@ -43,6 +43,9 @@ namespace HandshakeVR
 		SkeletalControllerHand leftSkeletalControllerHand;
 		SkeletalControllerHand rightSkeletalControllerHand;
 
+		public SkeletalControllerHand LeftControllerHand { get { return leftSkeletalControllerHand; } }
+		public SkeletalControllerHand RightControllerHand { get { return rightSkeletalControllerHand; } }
+
         [Header("Debugging")]
         [SerializeField]
         bool manualProviderSwitching = false;

@@ -20,6 +20,8 @@ namespace HandshakeVR
 
 	[SerializeField] private bool visualizeBones = true;
 	[SerializeField] private bool visualizeBasis = true;
+	[SerializeField] private bool visualizeDirections = false;
+	[SerializeField] private bool visualizeVelocity = false;
 
 	/** The colors used for each bone. */
 	protected Color[] colors = { Color.gray, Color.yellow, Color.cyan, Color.magenta };
@@ -106,6 +108,26 @@ namespace HandshakeVR
 						DrawBasis(bone.PrevJoint, bone.Basis, .01f);
 				}
 			}
+		}
+
+		if(visualizeDirections)
+		{
+			// draw the hand direction
+			Debug.DrawLine(hand.PalmPosition.ToVector3(),
+				(hand.PalmPosition.ToVector3() + (hand.Direction.ToVector3() * 0.1f)));
+
+			for (int f = 0; f < 5; f++)
+			{ //Fingers
+				Finger finger = hand.Fingers[f];
+				Debug.DrawLine(finger.TipPosition.ToVector3(),
+					finger.TipPosition.ToVector3() + (finger.Direction.ToVector3() * 0.1f));
+			}
+		}
+
+		if(visualizeVelocity)
+		{
+			Debug.DrawLine(hand.PalmPosition.ToVector3(),
+				(hand.PalmPosition.ToVector3() + hand.PalmVelocity.ToVector3()), Color.green);
 		}
 	}
 
