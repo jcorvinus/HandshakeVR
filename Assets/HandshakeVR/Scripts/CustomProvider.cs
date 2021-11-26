@@ -33,11 +33,9 @@ namespace HandshakeVR
 
 		[UnityEngine.Serialization.FormerlySerializedAs("rightHand")]
 		[SerializeField] SkeletalControllerHand rightControllerHand;
-		//Leap.Hand rightLeapHand;
 
 		[UnityEngine.Serialization.FormerlySerializedAs("leftHand")]
 		[SerializeField] SkeletalControllerHand leftControllerHand;
-		//Leap.Hand leftLeapHand;		
 
 		[SerializeField]
 		bool isActive = false;
@@ -54,20 +52,14 @@ namespace HandshakeVR
 			leftControllerHand.LeapProvider = this;
 		}
 
-		// Use this for initialization
-		//IEnumerator Start()
-		//{
-		//	yield return new WaitForSeconds(0.1f);
-
-		//	isActive = true;
-		//}
-
 		// Update is called once per frame
 		void Update()
 		{
 			if (isActive)
 			{
-				//GenerateFrame();
+				// todo: it might be an OK idea here to generate a frame
+				// and maybe smooth it out so that there's no jitter between fixed and visual updates?
+				// actually I don't see any jitter so far, so idk.
 				DispatchUpdateFrameEvent(currentFrame);
 			}
 		}
@@ -88,16 +80,11 @@ namespace HandshakeVR
 
 			LeapTransform leapTransform = new LeapTransform(Vector.Zero, LeapQuaternion.Identity, Vector.Ones);
 
-			/*if (rightControllerHand != null && rightControllerHand.IsActive) hands.Add(rightControllerHand.GenerateHandData(frameID).Transform(leapTransform));
-			if (leftControllerHand != null && leftControllerHand.IsActive) hands.Add(leftControllerHand.GenerateHandData(frameID).Transform(leapTransform));*/
-
 			if (rightControllerHand != null && rightControllerHand.IsActive) hands.Add(rightControllerHand.LeapHand.Transform(leapTransform));
 			if (leftControllerHand != null && leftControllerHand.IsActive) hands.Add(leftControllerHand.LeapHand.Transform(leapTransform));
 
-			//currentFrame = new Leap.Frame(frameID, timeStamp, 60, hands);
 			currentFrame.Id = frameID;
 			currentFrame.Timestamp = timeStamp;
-			//frame.Hands = hands;
 
 			frameID++;
 			timeStamp++;
