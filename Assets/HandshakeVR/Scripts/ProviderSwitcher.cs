@@ -15,7 +15,10 @@ namespace HandshakeVR
 {
     public class ProviderSwitcher : MonoBehaviour
     {
-        [SerializeField]
+		public delegate void SwitchHandler(ProviderSwitcher sender, bool providerIsDefault);
+		public event SwitchHandler ProviderSwitched;
+
+		[SerializeField]
         LeapServiceProvider defaultProvider;
 
         [SerializeField]
@@ -171,6 +174,11 @@ namespace HandshakeVR
 
             Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
 			customProvider.IsActive = !isDefault;
+
+			if (ProviderSwitched != null)
+			{
+				ProviderSwitched(this, isDefault);
+			}
 		}			
 
         [ExposeMethodInEditor]
