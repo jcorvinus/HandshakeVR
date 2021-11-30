@@ -177,6 +177,16 @@ namespace HandshakeVR
 			return false;
 		}
 
+		bool HandIsGrasping(bool left)
+		{
+			return (left) ? leftHand.isGraspingObject : rightHand.isGraspingObject;
+		}
+
+		public bool AnyControllersOrHandGrasping(bool left)
+		{
+			return AnyControllerGrasping(left) || HandIsGrasping(left);
+		}
+
 		void DoContactTimer(bool left)
 		{
 			if(left)
@@ -210,6 +220,20 @@ namespace HandshakeVR
 					rightContactEnabled = setContactEnabled;
 					if (rightHand.contactEnabled != setContactEnabled) rightHand.contactEnabled = setContactEnabled;
 				}
+			}
+		}
+
+		public void SetInteractionEnable(bool enable, bool isLeft)
+		{
+			if (isLeft)
+			{
+				foreach (InteractionController controller in leftControllers) controller.enabled = enable;
+				leftHand.enabled = enable;
+			}
+			else
+			{
+				foreach (InteractionController controller in rightControllers) controller.enabled = enable;
+				rightHand.enabled = enable;
 			}
 		}
 

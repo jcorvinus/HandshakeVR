@@ -24,11 +24,17 @@ namespace HandshakeVR
         [SerializeField]
         CustomProvider customProvider;
 
-        bool isDefault = true;
+		// hands can be enabled/disabled so that you can replace them with embodied tools.
+		private bool leftHandEnabled;
+		private bool rightHandEnabled;
+		public bool LeftHandEnabled { get { return leftHandEnabled; } set { leftHandEnabled = value; } }
+		public bool RightHandEnabled { get { return rightHandEnabled; } set { rightHandEnabled = value; } }
+
+		bool isDefault = true;
 
         public bool IsDefault { get { return isDefault; } }
 
-        [SerializeField]
+		[SerializeField]
         HandModelManager modelManager;
 
         Leap.Unity.Interaction.InteractionManager interactionManager;
