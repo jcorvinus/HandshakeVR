@@ -65,20 +65,17 @@ namespace HandshakeVR
 			primaryHoverPoints.Add(skeletalControllerHand.IndexMetacarpal.GetChild(0).GetChild(0).GetChild(0));
 
 			switcher = FindObjectOfType<ProviderSwitcher>();
-			pinchGrabDetector = GetComponent<PinchDetector>();
 		}
 
-		private void Start()
+		protected override void Start()
 		{
 			base.Start();
 
 			if (isPinchGrip)
 			{
-				HandModelBase handModelBase = (_isLeft) ? switcher.LeftAbstractHandModel : switcher.RightAbstractHandModel;
+				DataHand dataHand = (_isLeft) ? switcher.LeftAbstractHandModel : switcher.RightAbstractHandModel;
 
-				PinchDetector pinchDetector = pinchGrabDetector;
-				pinchDetector.HandModel = handModelBase;
-				pinchDetector.enabled = true;
+				pinchGrabDetector = dataHand.PinchDetector;
 			}
 		}
 

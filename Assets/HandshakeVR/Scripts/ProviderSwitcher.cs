@@ -43,11 +43,11 @@ namespace HandshakeVR
         InteractionHand leftInteractionHand;
         InteractionHand rightInteractionHand;
 
-		Leap.Unity.HandModelBase leftAbstractHand;
-		Leap.Unity.HandModelBase rightAbstractHand;
+		DataHand leftAbstractHand;
+		DataHand rightAbstractHand;
 
-		public Leap.Unity.HandModelBase LeftAbstractHandModel { get { return leftAbstractHand; } }
-		public Leap.Unity.HandModelBase RightAbstractHandModel { get { return rightAbstractHand; } }
+		public DataHand LeftAbstractHandModel { get { return leftAbstractHand; } }
+		public DataHand RightAbstractHandModel { get { return rightAbstractHand; } }
 
 		SkeletalControllerHand leftSkeletalControllerHand;
 		SkeletalControllerHand rightSkeletalControllerHand;
@@ -67,8 +67,8 @@ namespace HandshakeVR
 
 			DataHand[] dataHands = modelManager.GetComponentsInChildren<DataHand>(true);
 
-			leftAbstractHand = (HandModelBase)dataHands.First(item => item is DataHand && item.Handedness == Chirality.Left);
-			rightAbstractHand = (HandModelBase)dataHands.First(item => item is DataHand && item.Handedness == Chirality.Right);
+			leftAbstractHand = dataHands.First(item => item is DataHand && item.Handedness == Chirality.Left);
+			rightAbstractHand = dataHands.First(item => item is DataHand && item.Handedness == Chirality.Right);
 
             if(interactionManager)
             { 

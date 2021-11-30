@@ -15,9 +15,8 @@ namespace HandshakeVR
 	/// Especially useful for using detectors
 	/// when using the SteamVR hand model
 	/// </summary>
-	public class DataHand : HandModelBase
+	public class DataHand : HandModel
 	{
-		private Hand hand_;
 
 		[SerializeField] private bool visualizeBones = true;
 		[SerializeField] private bool visualizeBasis = true;
@@ -54,17 +53,6 @@ namespace HandshakeVR
 			{
 				return ModelType.Physics;
 			}
-		}
-
-		[SerializeField]
-		private Chirality handedness;
-		public override Chirality Handedness
-		{
-			get
-			{
-				return handedness;
-			}
-			set { }
 		}
 
 		public override Hand GetLeapHand()
