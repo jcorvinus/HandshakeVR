@@ -84,15 +84,18 @@ namespace HandshakeVR
 		*/
 		public override void UpdateHand()
 		{
-			if (IsTracked)
+			if (pinchDetector)
 			{
-				normalizedPinchValue = 1 - Mathf.InverseLerp(pinchDetector.ActivateDistance, pinchMax, pinchDetector.Distance);
-				normalizedPinchActivationValue = Mathf.InverseLerp(0, pinchDetector.ActivateDistance, pinchDetector.Distance);
-			}
-			else
-			{
-				normalizedPinchValue = 0;
-				normalizedPinchActivationValue = 0;
+				if (IsTracked)
+				{
+					normalizedPinchValue = 1 - Mathf.InverseLerp(pinchDetector.ActivateDistance, pinchMax, pinchDetector.Distance);
+					normalizedPinchActivationValue = Mathf.InverseLerp(0, pinchDetector.ActivateDistance, pinchDetector.Distance);
+				}
+				else
+				{
+					normalizedPinchValue = 0;
+					normalizedPinchActivationValue = 0;
+				}
 			}
 
 			DrawDebugLines();
