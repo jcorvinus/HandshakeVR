@@ -33,11 +33,12 @@ namespace HandshakeVR
 		}
 
 		// reference our current platform info asset here
-		[SerializeField] PlatformInfo currentPlatform;
+		//[SerializeField] PlatformInfo currentPlatform;
+		PlatformID currentPlatformID = PlatformID.None;
 		[SerializeField] PlatformReferences[] perPlatformData;
 
 		PlatformReferences currentPlatformReferences;
-		public PlatformID Platform { get { return currentPlatform.PlatformID; } }
+		public PlatformID Platform { get { return currentPlatformID; } }
 
 		private static PlatformManager instance;
 		public static PlatformManager Instance { get { return instance; } }
@@ -45,6 +46,27 @@ namespace HandshakeVR
 		private void Awake()
 		{
 			instance = this;
+
+			string deviceName = UnityEngine.XR.XRSettings.loadedDeviceName;
+
+			Debug.Log(deviceName);
+
+			switch (deviceName)
+			{
+				case ("Oculus"):
+					currentPlatformID = PlatformID.Oculus;
+					break;
+
+				case ("OpenVR"):
+					currentPlatformID = PlatformID.SteamVR;
+					break;
+
+				default:
+					currentPlatformID = PlatformID.None;
+					break;
+			}
+
+
 			// set up our platform properly.
 			// find our platform info
 			PlatformReferences platformData = perPlatformData.First(item => item.ID == Platform);
