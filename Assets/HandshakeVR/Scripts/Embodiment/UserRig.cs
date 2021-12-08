@@ -46,6 +46,8 @@ namespace HandshakeVR
 		Transform rightWrist;
 		Transform rightPalm;
 
+		public Camera ViewCamera { get { return viewCamera; } }
+
 		private Vector3 leftShoulder;
 		private Vector3 rightShoulder;
 		bool userPresence;
