@@ -42,7 +42,9 @@ namespace HandshakeVR
 		[SerializeField] Transform leftEye;
 		[SerializeField] Transform rightEye;
 		Transform leftWrist;
+		Transform leftPalm;
 		Transform rightWrist;
+		Transform rightPalm;
 
 		private Vector3 leftShoulder;
 		private Vector3 rightShoulder;
@@ -71,13 +73,10 @@ namespace HandshakeVR
 			Leap.Unity.Attachments.AttachmentPointBehaviour[] rightPoints = rightAttachHand.GetComponentsInChildren<Leap.Unity.Attachments.AttachmentPointBehaviour>(true);
 
 			leftWrist = leftPoints.FirstOrDefault(item => item.attachmentPoint == Leap.Unity.Attachments.AttachmentPointFlags.Wrist).transform;
+			leftPalm = leftPoints.FirstOrDefault(item => item.attachmentPoint == Leap.Unity.Attachments.AttachmentPointFlags.Palm).transform;
+
 			rightWrist = rightPoints.FirstOrDefault(item => item.attachmentPoint == Leap.Unity.Attachments.AttachmentPointFlags.Wrist).transform;
-		}
-
-		// Start is called before the first frame update
-		void Start()
-		{
-
+			rightPalm = rightPoints.FirstOrDefault(item => item.attachmentPoint == Leap.Unity.Attachments.AttachmentPointFlags.Palm).transform;
 		}
 
 		private void Update()
@@ -98,8 +97,63 @@ namespace HandshakeVR
 #endif
 		}
 
-		#region Body Estimation
-		Quaternion GetShoulderBasis(Vector3 headForward)
+		/// <summary>
+		/// Will let you retrieve a reference to a known tracked body part.
+		/// </summary>
+		/// <param name="bodyRef"></param>
+		/// <returns></returns>
+		public Transform GetTransformForBone(BodyReference bodyRef)
+		{
+			switch (bodyRef)
+			{
+				case BodyReference.Head:
+					return viewCamera.transform;
+
+				case BodyReference.LeftPalm:
+					return leftPalm;
+
+				case BodyReference.LeftWrist:
+					return leftWrist;
+
+				/*case BodyReference.LeftIndexTip:
+					break;
+
+				case BodyReference.LeftMiddleTip:
+					break;
+
+				case BodyReference.LeftRingTip:
+					break;
+
+				case BodyReference.LeftPinkyTip:
+					break;*/
+
+				case BodyReference.RightPalm:
+					return rightPalm;
+
+				case BodyReference.RightWrist:
+					return rightWrist;
+
+				/*case BodyReference.RightIndexTip:
+					break;
+
+				case BodyReference.RightMiddleTip:
+					break;
+
+				case BodyReference.RightRingTip:
+					break;
+
+				case BodyReference.RightPinkyTip:
+					break;*/
+
+				default:
+					break;
+			}
+
+			return null;
+		}
+
+#region Body Estimation
+Quaternion GetShoulderBasis(Vector3 headForward)
 		{
 			return Quaternion.LookRotation(Vector3.ProjectOnPlane(headForward, Vector3.up),
 				Vector3.up);
