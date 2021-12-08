@@ -30,6 +30,9 @@ namespace HandshakeVR
 		}
 		#endregion
 
+		private static UserRig instance;
+		public static UserRig Instance { get { return instance; } }
+
 		PlatformManager platformManager;
 
 		UserHand leftHand;
@@ -47,6 +50,8 @@ namespace HandshakeVR
 
 		private void Awake()
 		{
+			instance = this;
+
 			UserHand[] hands = GetComponentsInChildren<UserHand>(true);
 
 			leftHand = hands.First<UserHand>(item => item.IsLeft);
