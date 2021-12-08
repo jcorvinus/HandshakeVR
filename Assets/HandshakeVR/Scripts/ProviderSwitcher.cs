@@ -24,40 +24,6 @@ namespace HandshakeVR
         [SerializeField]
         CustomProvider customProvider;
 
-		// hands can be enabled/disabled so that you can replace them with embodied tools.
-		private bool leftHandEnabled=true;
-		private bool rightHandEnabled=true;
-		public bool LeftHandEnabled
-		{
-			get { return leftHandEnabled; }
-			set
-			{
-				leftHandEnabled = value;
-				leftRigidEnabler.IsDisabled = !value;
-				leftRiggedEnabler.IsDisabled = !value;
-				if (controllerManager) controllerManager.SetInteractionEnable(value, true);
-
-				bool graphicsEnabled = isDefault || !platformManager.HideLeapHandsOnSwitch();
-				PlatformManager.Instance.SetPlatformVisualHands((!graphicsEnabled && leftHandEnabled),
-					(!graphicsEnabled && rightHandEnabled));
-			}
-		}
-		public bool RightHandEnabled
-		{
-			get { return rightHandEnabled; }
-			set
-			{
-				rightHandEnabled = value;
-				rightRigidEnabler.IsDisabled = !value;
-				rightRiggedEnabler.IsDisabled = !value;
-				if(controllerManager) controllerManager.SetInteractionEnable(value, false);
-
-				bool graphicsEnabled = isDefault || !platformManager.HideLeapHandsOnSwitch();
-				PlatformManager.Instance.SetPlatformVisualHands((!graphicsEnabled && leftHandEnabled),
-					(!graphicsEnabled && rightHandEnabled));
-			}
-		}
-
 		bool isDefault = true;
 
         public bool IsDefault { get { return isDefault; } }
@@ -67,16 +33,12 @@ namespace HandshakeVR
 
         Leap.Unity.Interaction.InteractionManager interactionManager;
 		PlatformControllerManager controllerManager;
+		UserRig userRig;
 		PlatformManager platformManager;
         InteractionHand leftInteractionHand;
         InteractionHand rightInteractionHand;
 
-		DataHand leftAbstractHand;
-		DataHand rightAbstractHand;
-		public DataHand LeftAbstractHandModel { get { return leftAbstractHand; } }
-		public DataHand RightAbstractHandModel { get { return rightAbstractHand; } }
-
-		OverridableHandEnableDisable leftRiggedEnabler, rightRiggedEnabler, leftRigidEnabler, rightRigidEnabler;
+		public PlatformControllerManager ControllerManager { get { return controllerManager; } }
 
 		SkeletalControllerHand leftSkeletalControllerHand;
 		SkeletalControllerHand rightSkeletalControllerHand;
@@ -90,30 +52,10 @@ namespace HandshakeVR
 
         private void Awake()
         {
+			userRig = GetComponentInParent<UserRig>();
 			platformManager = GetComponent<PlatformManager>();
             interactionManager = Leap.Unity.Interaction.InteractionManager.instance;
 			if(interactionManager != null) controllerManager = interactionManager.GetComponent<PlatformControllerManager>();
-
-			DataHand[] dataHands = modelManager.GetComponentsInChildren<DataHand>(true);
-
-			leftAbstractHand = dataHands.First(item => item is DataHand && item.Handedness == Chirality.Left);
-			rightAbstractHand = dataHands.First(item => item is DataHand && item.Handedness == Chirality.Right);
-
-			RiggedHand leftRiggedHand, rightRiggedHand;
-			RigidHand leftRigidHand, rightRigidHand;
-
-			RiggedHand[] riggedHands = modelManager.GetComponentsInChildren<RiggedHand>(true);
-			leftRiggedHand = riggedHands.First(item => item is RiggedHand && item.Handedness == Chirality.Left);
-			rightRiggedHand = riggedHands.First(item => item is RiggedHand && item.Handedness == Chirality.Right);
-
-			RigidHand[] rigidHands = modelManager.GetComponentsInChildren<RigidHand>(true);
-			leftRigidHand = rigidHands.First(item => item is RigidHand && item.Handedness == Chirality.Left);
-			rightRigidHand = rigidHands.First(item => item is RigidHand && item.Handedness == Chirality.Right);
-
-			leftRiggedEnabler = leftRiggedHand.GetComponent<OverridableHandEnableDisable>();
-			rightRiggedEnabler = rightRiggedHand.GetComponent<OverridableHandEnableDisable>();
-			leftRigidEnabler = leftRigidHand.GetComponent<OverridableHandEnableDisable>();
-			rightRigidEnabler = rightRigidHand.GetComponent<OverridableHandEnableDisable>();
 
             if(interactionManager)
             { 
@@ -221,8 +163,8 @@ namespace HandshakeVR
             }
 
             modelManager.GraphicsEnabled = isDefault || !platformManager.HideLeapHandsOnSwitch();
-			PlatformManager.Instance.SetPlatformVisualHands((!modelManager.GraphicsEnabled && leftHandEnabled),
-				(!modelManager.GraphicsEnabled && rightHandEnabled));
+			PlatformManager.Instance.SetPlatformVisualHands((!modelManager.GraphicsEnabled && userRig.LeftHand.HandEnabled),
+				(!modelManager.GraphicsEnabled && userRig.RightHand.HandEnabled));
 
             Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
 			customProvider.IsActive = !isDefault;
@@ -231,7 +173,7 @@ namespace HandshakeVR
 			{
 				ProviderSwitched(this, isDefault);
 			}
-		}			
+		}
 
         [ExposeMethodInEditor]
         void SwitchProviders()

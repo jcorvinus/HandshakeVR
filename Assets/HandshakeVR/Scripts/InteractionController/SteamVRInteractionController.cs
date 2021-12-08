@@ -31,7 +31,7 @@ namespace HandshakeVR
         [SerializeField]
         InteractionHand handToOverride;
 
-        ProviderSwitcher switcher;
+        UserRig userRig;
 
         private List<Vector3> _graspManipulatorPoints = new List<Vector3>(3);
 
@@ -64,7 +64,7 @@ namespace HandshakeVR
 
 			primaryHoverPoints.Add(skeletalControllerHand.IndexMetacarpal.GetChild(0).GetChild(0).GetChild(0));
 
-			switcher = FindObjectOfType<ProviderSwitcher>();
+			userRig = FindObjectOfType<UserRig>();
 		}
 
 		protected override void Start()
@@ -73,7 +73,7 @@ namespace HandshakeVR
 
 			if (isPinchGrip)
 			{
-				DataHand dataHand = (_isLeft) ? switcher.LeftAbstractHandModel : switcher.RightAbstractHandModel;
+				DataHand dataHand = (_isLeft) ? userRig.LeftHand.DataHand : userRig.RightHand.DataHand;
 
 				pinchGrabDetector = dataHand.PinchDetector;
 			}

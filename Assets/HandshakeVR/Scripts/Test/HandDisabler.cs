@@ -8,30 +8,30 @@ namespace HandshakeVR
 {
 	public class HandDisabler : MonoBehaviour
 	{
-		[SerializeField] ProviderSwitcher switcher;
+		[SerializeField] UserRig userRig;
 
 		[ExposeMethodInEditor]
 		void DisableLeftHand()
 		{
-			switcher.LeftHandEnabled = false;
+			userRig.LeftHand.HandEnabled = false;
 		}
 
 		[ExposeMethodInEditor]
 		void DisableRightHand()
 		{
-			switcher.RightHandEnabled = false;
+			userRig.RightHand.HandEnabled = false;
 		}
 
 		[ExposeMethodInEditor]
 		void EnableLeftHand()
 		{
-			switcher.LeftHandEnabled = true;
+			userRig.LeftHand.HandEnabled = true;
 		}
 
 		[ExposeMethodInEditor]
 		void EnableRightHand()
 		{
-			switcher.RightHandEnabled = true;
+			userRig.RightHand.HandEnabled = true;
 		}
 	}
 }

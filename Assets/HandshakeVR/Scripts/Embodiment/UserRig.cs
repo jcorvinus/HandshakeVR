@@ -34,6 +34,7 @@ namespace HandshakeVR
 		public static UserRig Instance { get { return instance; } }
 
 		PlatformManager platformManager;
+		ProviderSwitcher providerSwitcher;
 
 		UserHand leftHand;
 		UserHand rightHand;
@@ -46,7 +47,11 @@ namespace HandshakeVR
 		Transform rightWrist;
 		Transform rightPalm;
 
+		public ProviderSwitcher ProviderSwitcher { get { return providerSwitcher; } }
+		public PlatformManager PlatformManager { get { return platformManager; } }
 		public Camera ViewCamera { get { return viewCamera; } }
+		public UserHand LeftHand { get { return leftHand; } }
+		public UserHand RightHand { get { return rightHand; } }
 
 		private Vector3 leftShoulder;
 		private Vector3 rightShoulder;
@@ -62,6 +67,9 @@ namespace HandshakeVR
 			rightHand = hands.First<UserHand>(item => !item.IsLeft);
 
 			GetHandPoints();
+
+			providerSwitcher = GetComponentInChildren<ProviderSwitcher>();
+			platformManager = providerSwitcher.GetComponent<PlatformManager>();
 		}
 
 		void GetHandPoints()
