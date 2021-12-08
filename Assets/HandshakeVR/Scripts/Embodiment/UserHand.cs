@@ -39,8 +39,9 @@ namespace HandshakeVR
 
 				if (controllerManager) controllerManager.SetInteractionEnable(value, isLeft);
 
+				bool hideLeapHandsOnSwitch = userRig.PlatformManager.HideLeapHandsOnSwitch();
 				bool graphicsEnabled = userRig.ProviderSwitcher.IsDefault || 
-					userRig.PlatformManager.HideLeapHandsOnSwitch();
+					!hideLeapHandsOnSwitch;
 
 				if(IsLeft)
 				{
