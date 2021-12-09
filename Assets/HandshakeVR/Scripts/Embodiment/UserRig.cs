@@ -52,6 +52,7 @@ namespace HandshakeVR
 		public Camera ViewCamera { get { return viewCamera; } }
 		public UserHand LeftHand { get { return leftHand; } }
 		public UserHand RightHand { get { return rightHand; } }
+		public Transform CombinedEye { get { return combinedEye; } }
 
 		private Vector3 leftShoulder;
 		private Vector3 rightShoulder;
