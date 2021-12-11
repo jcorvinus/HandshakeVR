@@ -33,8 +33,10 @@ namespace HandshakeVR
 	{
 		public System.Action<UserHand> OnTrackingGained;
 		public System.Action<UserHand> OnTrackingLost;
+		public System.Action<UserHand, HandTrackingType, HandTrackingType> OnTrackingTypeChanged;
 
 		bool previousWasTracking = false;
+		HandTrackingType previousTrackingType = HandTrackingType.Skeletal;
 		UserRig userRig;
 		SkeletalControllerHand skeletalControllerHand;
 		DataHand dataHand;
@@ -123,9 +125,15 @@ namespace HandshakeVR
 				{
 					if (OnTrackingLost != null) OnTrackingLost(this);
 				}
+				previousWasTracking = dataHand.IsTracked;
 			}
 
-			previousWasTracking = dataHand.IsTracked;
+			HandTrackingType currentTrackingType = ActiveInputProvider.TrackingType();
+			if (currentTrackingType != previousTrackingType) // we have a tracking type change
+			{
+				if (OnTrackingTypeChanged != null) OnTrackingTypeChanged(this, previousTrackingType, currentTrackingType);
+				previousTrackingType = currentTrackingType;
+			}
 		}
 	}
 }
