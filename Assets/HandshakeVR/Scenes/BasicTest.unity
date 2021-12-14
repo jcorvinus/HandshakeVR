@@ -816,6 +816,16 @@ PrefabInstance:
       propertyPath: _systemGestureMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 584662273d60a0f47bd7fecbb570e66e, type: 2}
+    - target: {fileID: 4482371348563187710, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320614048707729859, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7602688685518446593, guid: 81251f2a1fb3527428b70da2d46fdab9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -955,6 +965,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.88297534
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614580403840327431, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81251f2a1fb3527428b70da2d46fdab9, type: 3}

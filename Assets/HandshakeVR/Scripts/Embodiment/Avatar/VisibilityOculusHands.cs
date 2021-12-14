@@ -8,7 +8,6 @@ namespace HandshakeVR.Avatar
 {
 	public class VisibilityOculusHands : AvatarVisibility
 	{
-		[SerializeField] Renderer skeletalRenderer;
 		[SerializeField] OVRMeshRenderer ovrRenderer;
 
 		public override void SetVisibility(bool visible)

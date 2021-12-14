@@ -124,6 +124,11 @@ namespace HandshakeVR
 			if (currentPlatformReferences.RightPlatformHandVisual) currentPlatformReferences.RightPlatformHandVisual.SetVisibility(rightEnable);
 		}
 
+		public Avatar.AvatarVisibility GetPlatformVisualHand(bool left)
+		{
+			return (left) ? currentPlatformReferences.LeftPlatformHandVisual : currentPlatformReferences.RightPlatformHandVisual;
+		}
+
 		public bool GetControllerTrackingValidity(bool isLeft)
 		{
 			for(int i=0; i < currentPlatformReferences.TrackerValidity.Length; i++)
