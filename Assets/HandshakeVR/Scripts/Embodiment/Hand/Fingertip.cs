@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Leap.Unity;
+
 namespace HandshakeVR
 {
     /// <summary>
@@ -25,6 +27,9 @@ namespace HandshakeVR
 
         void Awake()
         {
+			UserRig userRig = GetComponentInParent<UserRig>();
+			RigidHand rigidHand = GetComponentInParent<RigidHand>();
+			userHand = (rigidHand.Handedness == Chirality.Left) ? userRig.LeftHand : userRig.RightHand;
             fingertipData.Owner = this.gameObject.GetComponent<CapsuleCollider>();
             fingertipData.HandModel = userHand;
             otherObjectList = new List<GameObject>();
