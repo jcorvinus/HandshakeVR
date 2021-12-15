@@ -204,61 +204,76 @@ namespace HandshakeVR
 				MatchBone(indexProximalBone.Transform, indexProximal, fingerBasis, wristboneOrientation);
 				MatchBone(indexMedialBone.Transform, indexMedial, fingerBasis, wristboneOrientation);
 				MatchBone(indexDistalBone.Transform, indexDistal, fingerBasis, wristboneOrientation);
-				indexMedial.transform.localScale = new Vector3(1, 1, 0);
-				indexDistal.transform.localScale = new Vector3(1, 1, 0);
-				//MatchBone(indexDistalTip.Transform, indexTip, fingerBasis, wristboneOrientation);
+				Vector3 indexTipLocal = indexDistal.InverseTransformPoint(indexDistalTip.Transform.position);
+				indexTip.transform.localPosition = indexTipLocal;
 
 				// do the middle bones
 				OVRBone middleProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1];
 				OVRBone middleMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle2];
 				OVRBone middleDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle3];
+				OVRBone middleDistalTip = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_MiddleTip];
 				Transform middleProximal = controllerHand.MiddleMetacarpal.GetChild(0);
 				Transform middleMedial = middleProximal.GetChild(0);
 				Transform middleDistal = middleMedial.GetChild(0);
+				Transform middleTip = middleDistal.GetChild(0);
 
 				MatchBone(middleProximalBone.Transform, middleProximal, fingerBasis, wristboneOrientation);
 				MatchBone(middleMedialBone.Transform, middleMedial, fingerBasis, wristboneOrientation);
 				MatchBone(middleDistalBone.Transform, middleDistal, fingerBasis, wristboneOrientation);
+				Vector3 middleTipLocal = middleDistal.InverseTransformPoint(middleDistalTip.Transform.position);
+				middleTip.localPosition = middleTipLocal;
 
 				// do the ring bones
 				OVRBone ringProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring1];
 				OVRBone ringMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring2];
 				OVRBone ringDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring3];
+				OVRBone ringDistalTip = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_RingTip];
 				Transform ringProximal = controllerHand.RingMetacarpal.GetChild(0);
 				Transform ringMedial = ringProximal.GetChild(0);
 				Transform ringDistal = ringMedial.GetChild(0);
+				Transform ringTip = ringDistal.GetChild(0);
 
 				MatchBone(ringProximalBone.Transform, ringProximal, fingerBasis, wristboneOrientation);
 				MatchBone(ringMedialBone.Transform, ringMedial, fingerBasis, wristboneOrientation);
 				MatchBone(ringDistalBone.Transform, ringDistal, fingerBasis, wristboneOrientation);
+				Vector3 ringTipLocal = ringDistal.InverseTransformPoint(ringDistalTip.Transform.position);
+				ringTip.transform.localPosition = ringTipLocal;
 
 				// do the pinky bones
 				OVRBone pinkyMetacarpalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky0];
 				OVRBone pinkyProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky1];
 				OVRBone pinkyMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky2];
 				OVRBone pinkyDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky3];
+				OVRBone pinkyDistalTip = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_PinkyTip];
 				Transform pinkyMetacarpal = controllerHand.PinkyMetacarpal;
 				Transform pinkyPromial = pinkyMetacarpal.GetChild(0);
 				Transform pinkyMedial = pinkyPromial.GetChild(0);
 				Transform pinkyDistal = pinkyMedial.GetChild(0);
+				Transform pinkyTip = pinkyDistal.GetChild(0);
 
 				MatchBone(pinkyMetacarpalBone.Transform, pinkyMetacarpal, fingerBasis, wristboneOrientation);
 				MatchBone(pinkyProximalBone.Transform, pinkyPromial, fingerBasis, wristboneOrientation);
 				MatchBone(pinkyMedialBone.Transform, pinkyMedial, fingerBasis, wristboneOrientation);
 				MatchBone(pinkyDistalBone.Transform, pinkyDistal, fingerBasis, wristboneOrientation);
+				Vector3 pinkyLocal = pinkyDistal.InverseTransformPoint(pinkyDistalTip.Transform.position);
+				pinkyTip.transform.localPosition = pinkyLocal;
 
 				// do the thumb bones
 				OVRBone thumbRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb0];
 				OVRBone thumbMetacarpalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb1];
 				OVRBone thumbProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb2];
 				OVRBone thumbDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb3];
+				OVRBone thumbDistalTip = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_ThumbTip];
 				Transform thumbMetacarpal = controllerHand.ThumbMetacarpal; // naming gets weird here, sorry.
 				Transform thumbProximal = thumbMetacarpal.GetChild(0);
 				Transform thumbDistal = thumbProximal.GetChild(0);
+				Transform thumbTip = thumbDistal.GetChild(0);
 
 				MatchBone(thumbMetacarpalBone.Transform, thumbMetacarpal, fingerBasis, wristboneOrientation);
 				MatchBone(thumbProximalBone.Transform, thumbProximal, fingerBasis, wristboneOrientation);
 				MatchBone(thumbDistalBone.Transform, thumbDistal, fingerBasis, wristboneOrientation);
+				Vector3 thumbLocal = thumbDistal.InverseTransformPoint(thumbDistalTip.Transform.position);
+				thumbTip.localPosition = thumbLocal;
 			}
 		}
 
