@@ -87,6 +87,8 @@ namespace HandshakeVR
 			skeleton = hand.GetComponent<OVRSkeleton>();
 
 			GetControllerHashes();
+
+			fingerBasis = new BoneBasis() { Forward = fingerForward, Up = fingerUp };
 		}
 
 		void GetControllerHashes()
@@ -136,7 +138,6 @@ namespace HandshakeVR
 				case OVRInput.Controller.RTouch:
 				case OVRInput.Controller.Touch:
 					ApplySpecificControllerOffset(ovrTouchOffset, controllerHand.Wrist.parent);
-
 					ProcessOVRTouchInput();
 					break;
 
@@ -144,8 +145,6 @@ namespace HandshakeVR
 				case OVRInput.Controller.Hands:
 				case OVRInput.Controller.LHand:
 				case OVRInput.Controller.RHand:
-					/*controllerHand.Wrist.transform.localPosition = Vector3.zero;
-					controllerHand.Wrist.localRotation = Quaternion.identity;*/
 					DoSkeletalTracking();
 					break;
 
@@ -172,6 +171,8 @@ namespace HandshakeVR
 			GlobalRotationFromBasis(oculusBone, basis) * leapOrientation);
 		}
 
+		BoneBasis fingerBasis;
+
 		void DoSkeletalTracking()
 		{
 			// do any pre-flight checks here
@@ -180,17 +181,13 @@ namespace HandshakeVR
 			{
 				controllerHand.Confidence = skeleton.IsDataHighConfidence ? 1 : 0;
 				handAnimator.enabled = true;
-				BoneBasis basis = new BoneBasis() { Forward = fingerForward, Up = fingerUp };
 
 				// do our wrist pose
 				OVRBone wristBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_WristRoot];
 
 				Vector3 wristPos = wristBone.Transform.position;
 				Quaternion wristboneOrientation = controllerHand.GetLocalBasis();
-
-				/*controllerHand.Wrist.SetPositionAndRotation(wristBone.Transform.position,
-					GlobalRotationFromBasis(wristBone.Transform, basis) * wristboneOrientation);*/
-					controllerHand.Wrist.rotation = GlobalRotationFromBasis(wristBone.Transform, basis) * wristboneOrientation;
+				controllerHand.Wrist.rotation = GlobalRotationFromBasis(wristBone.Transform, fingerBasis) * wristboneOrientation;
 
 				// do our fingers. Skip metacarpals, Oculus does not provide them.
 				// we could possibly compute the missing bone rotation, if needed.
@@ -198,13 +195,18 @@ namespace HandshakeVR
 				OVRBone indexProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index1];
 				OVRBone indexMedialBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index2];
 				OVRBone indexDistalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Index3];
+				OVRBone indexDistalTip = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip];
 				Transform indexProximal = controllerHand.IndexMetacarpal.GetChild(0);
 				Transform indexMedial = indexProximal.GetChild(0);
 				Transform indexDistal = indexMedial.GetChild(0);
+				Transform indexTip = indexDistal.GetChild(0);
 
-				MatchBone(indexProximalBone.Transform, indexProximal, basis, wristboneOrientation);
-				MatchBone(indexMedialBone.Transform, indexMedial, basis, wristboneOrientation);
-				MatchBone(indexDistalBone.Transform, indexDistal, basis, wristboneOrientation);
+				MatchBone(indexProximalBone.Transform, indexProximal, fingerBasis, wristboneOrientation);
+				MatchBone(indexMedialBone.Transform, indexMedial, fingerBasis, wristboneOrientation);
+				MatchBone(indexDistalBone.Transform, indexDistal, fingerBasis, wristboneOrientation);
+				indexMedial.transform.localScale = new Vector3(1, 1, 0);
+				indexDistal.transform.localScale = new Vector3(1, 1, 0);
+				//MatchBone(indexDistalTip.Transform, indexTip, fingerBasis, wristboneOrientation);
 
 				// do the middle bones
 				OVRBone middleProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1];
@@ -214,9 +216,9 @@ namespace HandshakeVR
 				Transform middleMedial = middleProximal.GetChild(0);
 				Transform middleDistal = middleMedial.GetChild(0);
 
-				MatchBone(middleProximalBone.Transform, middleProximal, basis, wristboneOrientation);
-				MatchBone(middleMedialBone.Transform, middleMedial, basis, wristboneOrientation);
-				MatchBone(middleDistalBone.Transform, middleDistal, basis, wristboneOrientation);
+				MatchBone(middleProximalBone.Transform, middleProximal, fingerBasis, wristboneOrientation);
+				MatchBone(middleMedialBone.Transform, middleMedial, fingerBasis, wristboneOrientation);
+				MatchBone(middleDistalBone.Transform, middleDistal, fingerBasis, wristboneOrientation);
 
 				// do the ring bones
 				OVRBone ringProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring1];
@@ -226,9 +228,9 @@ namespace HandshakeVR
 				Transform ringMedial = ringProximal.GetChild(0);
 				Transform ringDistal = ringMedial.GetChild(0);
 
-				MatchBone(ringProximalBone.Transform, ringProximal, basis, wristboneOrientation);
-				MatchBone(ringMedialBone.Transform, ringMedial, basis, wristboneOrientation);
-				MatchBone(ringDistalBone.Transform, ringDistal, basis, wristboneOrientation);
+				MatchBone(ringProximalBone.Transform, ringProximal, fingerBasis, wristboneOrientation);
+				MatchBone(ringMedialBone.Transform, ringMedial, fingerBasis, wristboneOrientation);
+				MatchBone(ringDistalBone.Transform, ringDistal, fingerBasis, wristboneOrientation);
 
 				// do the pinky bones
 				OVRBone pinkyMetacarpalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky0];
@@ -240,10 +242,10 @@ namespace HandshakeVR
 				Transform pinkyMedial = pinkyPromial.GetChild(0);
 				Transform pinkyDistal = pinkyMedial.GetChild(0);
 
-				MatchBone(pinkyMetacarpalBone.Transform, pinkyMetacarpal, basis, wristboneOrientation);
-				MatchBone(pinkyProximalBone.Transform, pinkyPromial, basis, wristboneOrientation);
-				MatchBone(pinkyMedialBone.Transform, pinkyMedial, basis, wristboneOrientation);
-				MatchBone(pinkyDistalBone.Transform, pinkyDistal, basis, wristboneOrientation);
+				MatchBone(pinkyMetacarpalBone.Transform, pinkyMetacarpal, fingerBasis, wristboneOrientation);
+				MatchBone(pinkyProximalBone.Transform, pinkyPromial, fingerBasis, wristboneOrientation);
+				MatchBone(pinkyMedialBone.Transform, pinkyMedial, fingerBasis, wristboneOrientation);
+				MatchBone(pinkyDistalBone.Transform, pinkyDistal, fingerBasis, wristboneOrientation);
 
 				// do the thumb bones
 				OVRBone thumbRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb0];
@@ -254,9 +256,9 @@ namespace HandshakeVR
 				Transform thumbProximal = thumbMetacarpal.GetChild(0);
 				Transform thumbDistal = thumbProximal.GetChild(0);
 
-				MatchBone(thumbMetacarpalBone.Transform, thumbMetacarpal, basis, wristboneOrientation);
-				MatchBone(thumbProximalBone.Transform, thumbProximal, basis, wristboneOrientation);
-				MatchBone(thumbDistalBone.Transform, thumbDistal, basis, wristboneOrientation);
+				MatchBone(thumbMetacarpalBone.Transform, thumbMetacarpal, fingerBasis, wristboneOrientation);
+				MatchBone(thumbProximalBone.Transform, thumbProximal, fingerBasis, wristboneOrientation);
+				MatchBone(thumbDistalBone.Transform, thumbDistal, fingerBasis, wristboneOrientation);
 			}
 		}
 
@@ -320,38 +322,6 @@ namespace HandshakeVR
 			handAnimator.SetLayerWeight(2, 1);
 
 			poseCanGrip = grabValue > 0;
-
-			/*if (OVRInput.GetUp(OVRInput.Button.Two, controller))
-			{
-				DispatchSwitchEvent();
-			}
-
-			if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller)) DispatchToolActivateEvent();
-			else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, controller)) DispatchToolDeactivateEvent();*/
-		}
-
-		Quaternion GlobalRotationFromBasis(Transform bone, BoneBasis basis)
-		{
-			return Quaternion.LookRotation(bone.TransformDirection(basis.Forward),
-				bone.TransformDirection(basis.Up));
-		}
-
-		private void DrawBasis(Transform bone, BoneBasis basis)
-		{
-			Quaternion rotation = GlobalRotationFromBasis(bone, basis);
-
-			Vector3 up, forward, right;
-
-			up = rotation * Vector3.up;
-			forward = rotation * Vector3.forward;
-			right = rotation * Vector3.right;
-
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawLine(bone.position, bone.position + (up * 0.025f));
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(bone.position, bone.position + (right * 0.025f));
-			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(bone.position, bone.position + (forward * 0.025f));
 		}
 
 		void DrawBone(Transform bone)

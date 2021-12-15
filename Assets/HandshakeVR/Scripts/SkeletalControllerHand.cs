@@ -81,6 +81,13 @@ namespace HandshakeVR
 		private Leap.Hand leapHand;
 		public Leap.Hand LeapHand { get { return leapHand; } }
 
+		Arm arm;
+		Bone[] thumbBones;
+		Bone[] indexBones;
+		Bone[] middleBones;
+		Bone[] ringBones;
+		Bone[] pinkyBones;
+
         #region Bone References
         [Header("Bones")]
         [SerializeField] Transform thumbMetaCarpal;
@@ -129,6 +136,13 @@ namespace HandshakeVR
 		{
 			handID = !isLeft ? 0 : 1;
 			leapHand = TestHandFactory.MakeTestHand(IsLeft, 0, handID, TestHandFactory.UnitType.UnityUnits); //GenerateHandData(0);
+			arm = leapHand.Arm;
+			fingers = leapHand.Fingers;
+			thumbBones = leapHand.Fingers[(int)Finger.FingerType.TYPE_THUMB].bones;
+			indexBones = leapHand.Fingers[(int)Finger.FingerType.TYPE_INDEX].bones;
+			middleBones = leapHand.Fingers[(int)Finger.FingerType.TYPE_MIDDLE].bones;
+			ringBones = leapHand.Fingers[(int)Finger.FingerType.TYPE_RING].bones;
+			pinkyBones = leapHand.Fingers[(int)Finger.FingerType.TYPE_PINKY].bones;
 			previousHand = new Hand();
 			previousHand.CopyFrom(leapHand);
 			SetHandData(leapHand, 0);
@@ -202,18 +216,13 @@ namespace HandshakeVR
 
 			Quaternion forearmRotation = GetForearmRotation();
 
-			// might be possible to create this as a bone? Not sure what magic the constructor does.
-			Arm arm = new Arm(forearmStart, forearmEnd, (forearmStart + forearmEnd) * 0.5f,
-				(forearmEnd - forearmStart).Normalized, forearmLength, 0.09f,
-				forearmRotation.ToLeapQuaternion());
-
-			/*hand.Arm.PrevJoint = forearmStart;
-			hand.Arm.NextJoint = forearmEnd;
-			hand.Arm.Center = (forearmStart + forearmEnd) * 0.5f;
-			hand.Arm.Direction = (forearmEnd - forearmStart).Normalized;
-			hand.Arm.Length = forearmLength;
-			hand.Arm.Width = 0.09f;
-			hand.Arm.Rotation = forearmRotation.ToLeapQuaternion();*/
+			arm.PrevJoint = forearmStart;
+			arm.NextJoint = forearmEnd;
+			arm.Center = (forearmStart + forearmEnd) * 0.5f;
+			arm.Direction = (forearmEnd - forearmStart).Normalized;
+			arm.Length = forearmLength;
+			arm.Width = 0.09f;
+			arm.Rotation = forearmRotation.ToLeapQuaternion();
 
 			Vector palmPosition = GetPalmPosition().ToVector();
 			Vector palmNormal = GetPalmNormal().ToVector();
@@ -226,20 +235,7 @@ namespace HandshakeVR
 
 			LeapQuaternion rotation = GetHandRotation().ToLeapQuaternion();
 
-			/*hand.FrameId = frameID;
-			hand.PalmPosition = palmPosition;
-			hand.PalmVelocity = palmVelocity;
-			hand.PalmNormal = palmNormal;
-			hand.Direction = handDirection;
-			hand.Rotation = rotation;
-			hand.PalmWidth = palmWidth;
-			hand.StabilizedPalmPosition = palmPosition;
-			hand.WristPosition = wrist.position.ToVector();
-			hand.TimeVisible = timeVisible;
-			hand.Confidence = confidence;*/
-
-			//Finger[] fingers = new Finger[5];
-			fingers.Clear();
+			fingers = hand.Fingers;
 
 			// fingers
 			for (int fingerIndex = 0; fingerIndex < 5; fingerIndex++)
@@ -249,22 +245,30 @@ namespace HandshakeVR
 
 				Transform metaCarpalTransform = null;
 
+				// set up our bones
+				Bone[] bones = null;
+
 				switch (fingerType)
 				{
 					case Finger.FingerType.TYPE_THUMB:
 						metaCarpalTransform = thumbMetaCarpal;
+						bones = thumbBones;
 						break;
 					case Finger.FingerType.TYPE_INDEX:
 						metaCarpalTransform = indexMetaCarpal;
+						bones = indexBones;
 						break;
 					case Finger.FingerType.TYPE_MIDDLE:
 						metaCarpalTransform = middleMetaCarpal;
+						bones = middleBones;
 						break;
 					case Finger.FingerType.TYPE_RING:
 						metaCarpalTransform = ringMetaCarpal;
+						bones = ringBones;
 						break;
 					case Finger.FingerType.TYPE_PINKY:
 						metaCarpalTransform = pinkyMetaCarpal;
+						bones = pinkyBones;
 						break;
 					default:
 						Debug.LogError("Invalid finger type for finger index: " + fingerIndex);
@@ -288,56 +292,63 @@ namespace HandshakeVR
 				fingerDots[fingerIndex] = fingerDot;
 				bool isExtended = Mathf.Abs(fingerDot) < 0.5f;
 
-				// set up our bones
-				Bone[] bones = new Bone[4];
-
 				//Finger finger = hand.Fingers[fingerIndex];
-				bones[(int)Bone.BoneType.TYPE_METACARPAL] = SetBone(metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, _fingerWidth);
-				bones[(int)Bone.BoneType.TYPE_PROXIMAL] = SetBone(proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, _fingerWidth);
-				bones[(int)Bone.BoneType.TYPE_INTERMEDIATE] = SetBone(intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, _fingerWidth);
-				bones[(int)Bone.BoneType.TYPE_DISTAL] = SetBone(distalTransform, tip, Bone.BoneType.TYPE_DISTAL, _fingerWidth);
+				SetBone(bones[(int)Bone.BoneType.TYPE_METACARPAL], metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, _fingerWidth);
+				SetBone(bones[(int)Bone.BoneType.TYPE_PROXIMAL], proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, _fingerWidth);
+				SetBone(bones[(int)Bone.BoneType.TYPE_INTERMEDIATE], intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, _fingerWidth);
+				SetBone(bones[(int)Bone.BoneType.TYPE_DISTAL], distalTransform, tip, Bone.BoneType.TYPE_DISTAL, _fingerWidth);
 
-				Finger finger = new Finger(frameID, handID, fingerIndex, visibleTime, tipPosition,
-					direction, fingerWidth, fingerLength, isExtended, (Finger.FingerType)fingerIndex, bones[(int)Bone.BoneType.TYPE_METACARPAL],
-					bones[(int)Bone.BoneType.TYPE_PROXIMAL], bones[(int)Bone.BoneType.TYPE_INTERMEDIATE],
-					bones[(int)Bone.BoneType.TYPE_DISTAL]);
-				fingers.Add(finger);
-
-				// update the rest of the finger values.
-				/*hand.Fingers[fingerIndex].Id = (int)fingerType;
-				hand.Fingers[fingerIndex].HandId = handID;
-				hand.Fingers[fingerIndex].TipPosition = tipPosition;
-				hand.Fingers[fingerIndex].Direction = direction;
-				hand.Fingers[fingerIndex].Length = fingerLength;				
-				hand.Fingers[fingerIndex].IsExtended = ;
-				hand.Fingers[fingerIndex].TimeVisible = timeVisible;*/
+				//fingers.Add(finger);
+				fingers[fingerIndex].bones = bones;
+				fingers[fingerIndex].HandId = handID;
+				fingers[fingerIndex].TimeVisible = visibleTime;
+				fingers[fingerIndex].TipPosition = tipPosition;
+				fingers[fingerIndex].Direction = direction;
+				fingers[fingerIndex].Width = fingerWidth;
+				fingers[fingerIndex].Length = fingerLength;
+				fingers[fingerIndex].IsExtended = isExtended;
+				fingers[fingerIndex].Type = (Finger.FingerType)fingerIndex;
+				fingers[fingerIndex].Id = fingerIndex;
+				fingers[fingerIndex].HandId = handID;
 			}
 
-			leapHand = new Hand(frameID, handID, confidence, gripStrength, 0, pinchStrength,
-				0, palmWidth, isLeft, visibleTime, arm, fingers, palmPosition, palmPosition, palmVelocity,
-				palmNormal, rotation, handDirection, wrist.position.ToVector());
-			//leapHand.CopyFrom(newHand);
+			hand.FrameId = frameID;
+			hand.PalmPosition = palmPosition;
+			hand.PalmVelocity = palmVelocity;
+			hand.PalmNormal = palmNormal;
+			hand.Direction = handDirection;
+			hand.Rotation = rotation;
+			hand.PalmWidth = palmWidth;
+			hand.StabilizedPalmPosition = palmPosition;
+			hand.WristPosition = wrist.position.ToVector();
+			hand.GrabAngle = 0;
+			hand.GrabStrength = gripStrength;
+			hand.TimeVisible = visibleTime;
+			hand.Confidence = confidence;
+			hand.PinchStrength = pinchStrength;
+			hand.PinchDistance = (fingers[(int)Finger.FingerType.TYPE_INDEX].TipPosition.ToVector3() -
+				fingers[(int)Finger.FingerType.TYPE_THUMB].TipPosition.ToVector3()).magnitude;
+			hand.Arm = arm;
+			hand.Fingers = fingers;
+			hand.IsLeft = isLeft;
 		}
 
-		private Bone SetBone(Transform prev, Transform next, Bone.BoneType type, float fingerWidth)
+		private void SetBone(Bone bone, Transform prev, Transform next, Bone.BoneType type, 
+			float fingerWidth)
 		{
 			Vector3 up, forward, right;
 			GetBasis(prev, out right, out forward, out up);
-			float metaDist = Vector3.Distance(prev.position, next.position);
-			Vector3 metaCenter = (prev.position + next.position) * 0.5f;
+			float boneDist = Vector3.Distance(prev.position, next.position);
+			Vector3 boneCenter = (prev.position + next.position) * 0.5f;
 
-			/*bone.PrevJoint = prev.position.ToVector();
+			bone.PrevJoint = prev.position.ToVector();
 			bone.NextJoint = next.position.ToVector();
-			bone.Center = metaCenter.ToVector();
+			bone.Center = boneCenter.ToVector();
 			bone.Direction = forward.ToVector();
-			bone.Length = metaDist;
+			bone.Length = boneDist;
 			bone.Width = fingerWidth;
 			bone.Type = type;
-			bone.Rotation = Quaternion.LookRotation(forward, up).ToLeapQuaternion();*/
-
-			return new Bone(prev.position.ToVector(), next.position.ToVector(),
-				metaCenter.ToVector(), forward.ToVector(), metaDist, fingerWidth,
-				type, Quaternion.LookRotation(forward, up).ToLeapQuaternion());
+			bone.Rotation = Quaternion.LookRotation(forward, up).ToLeapQuaternion();
 		}
 
 		private void GetBasis(Transform reference, out Vector3 right, out Vector3 forward, out Vector3 up)
@@ -450,13 +461,32 @@ namespace HandshakeVR
             return boneConstraints[index];
         }
 
+		bool AnyBoneConstraint(int instanceID)
+		{
+			for(int i=0; i < boneConstraints.Length; i++)
+			{
+				BoneConstraint constraint = boneConstraints[i];
+				if (constraint.BoneToConstrain.GetInstanceID() == instanceID) return true;
+			}
+			return false;
+		}
+
+		BoneConstraint First(int instanceID)
+		{
+			for (int i = 0; i < boneConstraints.Length; i++)
+			{
+				BoneConstraint constraint = boneConstraints[i];
+				if (constraint.BoneToConstrain.GetInstanceID() == instanceID) return constraint;
+			}
+			return new BoneConstraint();
+		}
+
         public void SetTransformWithConstraint(Transform bone, Vector3 position, Quaternion globalRotation)
         {
-            if(boneConstraints.Any(item => item.BoneToConstrain.GetInstanceID() == bone.GetInstanceID()))
+			if (AnyBoneConstraint(bone.GetInstanceID()))
             {
                 // get our constraint object
-                BoneConstraint constraint = boneConstraints.First(item => item.BoneToConstrain.GetInstanceID() ==
-                bone.GetInstanceID());
+                BoneConstraint constraint = First(bone.GetInstanceID());
 
                 SetTransformWithConstraint(constraint, bone, position, globalRotation);
             }
