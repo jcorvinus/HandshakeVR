@@ -48,6 +48,7 @@ namespace HandshakeVR
 		[SerializeField] Vector3 fingerUp;
 		OVRHand hand;
 		OVRSkeleton skeleton;
+		const float tipScale=0.659f;
 
 		[Header("Debug Vars")]
 		[SerializeField] bool drawDebugMesh;
@@ -204,8 +205,7 @@ namespace HandshakeVR
 				MatchBone(indexProximalBone.Transform, indexProximal, fingerBasis, wristboneOrientation);
 				MatchBone(indexMedialBone.Transform, indexMedial, fingerBasis, wristboneOrientation);
 				MatchBone(indexDistalBone.Transform, indexDistal, fingerBasis, wristboneOrientation);
-				Vector3 indexTipLocal = indexDistal.InverseTransformPoint(indexDistalTip.Transform.position);
-				indexTip.transform.localPosition = indexTipLocal;
+				Vector3 indexTipLocal = indexDistal.InverseTransformPoint(indexDistalTip.Transform.position);				
 
 				// do the middle bones
 				OVRBone middleProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1];
@@ -221,7 +221,6 @@ namespace HandshakeVR
 				MatchBone(middleMedialBone.Transform, middleMedial, fingerBasis, wristboneOrientation);
 				MatchBone(middleDistalBone.Transform, middleDistal, fingerBasis, wristboneOrientation);
 				Vector3 middleTipLocal = middleDistal.InverseTransformPoint(middleDistalTip.Transform.position);
-				middleTip.localPosition = middleTipLocal;
 
 				// do the ring bones
 				OVRBone ringProximalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Ring1];
@@ -237,7 +236,6 @@ namespace HandshakeVR
 				MatchBone(ringMedialBone.Transform, ringMedial, fingerBasis, wristboneOrientation);
 				MatchBone(ringDistalBone.Transform, ringDistal, fingerBasis, wristboneOrientation);
 				Vector3 ringTipLocal = ringDistal.InverseTransformPoint(ringDistalTip.Transform.position);
-				ringTip.transform.localPosition = ringTipLocal;
 
 				// do the pinky bones
 				OVRBone pinkyMetacarpalBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Pinky0];
@@ -256,7 +254,6 @@ namespace HandshakeVR
 				MatchBone(pinkyMedialBone.Transform, pinkyMedial, fingerBasis, wristboneOrientation);
 				MatchBone(pinkyDistalBone.Transform, pinkyDistal, fingerBasis, wristboneOrientation);
 				Vector3 pinkyLocal = pinkyDistal.InverseTransformPoint(pinkyDistalTip.Transform.position);
-				pinkyTip.transform.localPosition = pinkyLocal;
 
 				// do the thumb bones
 				OVRBone thumbRootBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Thumb0];
@@ -273,6 +270,16 @@ namespace HandshakeVR
 				MatchBone(thumbProximalBone.Transform, thumbProximal, fingerBasis, wristboneOrientation);
 				MatchBone(thumbDistalBone.Transform, thumbDistal, fingerBasis, wristboneOrientation);
 				Vector3 thumbLocal = thumbDistal.InverseTransformPoint(thumbDistalTip.Transform.position);
+
+				// Apply our tip shortening
+				Vector3 scaleFactor = new Vector3(
+					(fingerForward.x != 0) ? tipScale : 1,
+					(fingerForward.y != 0) ? tipScale : 1,
+					(fingerForward.z != 0) ? tipScale : 1); // do this once at startup maybe?
+				indexTip.transform.localPosition = Vector3.Scale(indexTipLocal, scaleFactor);
+				middleTip.localPosition = Vector3.Scale(middleTipLocal, scaleFactor);
+				ringTip.transform.localPosition = Vector3.Scale(ringTipLocal, scaleFactor);
+				pinkyTip.transform.localPosition = Vector3.Scale(pinkyLocal, scaleFactor);
 				thumbTip.localPosition = thumbLocal;
 			}
 		}
