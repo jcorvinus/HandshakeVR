@@ -22,12 +22,6 @@ namespace HandshakeVR
 			public MonoBehaviour[] BehavioursToDisable;
 			public TrackerValidity[] TrackerValidity;
 
-			[Header("Visuals")]
-			[Tooltip("Use this to show the platform's hand model, instead of the Leap one.")]
-			public bool HideLeapHandsOnSwitch;
-			public Avatar.AvatarVisibility LeftPlatformHandVisual;
-			public Avatar.AvatarVisibility RightPlatformHandVisual;
-
 			[Header("Haptics")]
 			public ControllerHaptics[] Haptics;
 		}
@@ -101,32 +95,6 @@ namespace HandshakeVR
 			}
 
 			currentPlatformReferences = platformData;
-		}
-		
-		public bool HideLeapHandsOnSwitch()
-		{
-			return currentPlatformReferences.HideLeapHandsOnSwitch;
-		}
-
-		public void SetPlatformVisualHands(bool leftEnabled, bool rightEnabled)
-		{
-			if(currentPlatformReferences.LeftPlatformHandVisual) currentPlatformReferences.LeftPlatformHandVisual.SetVisibility(leftEnabled);
-			if(currentPlatformReferences.RightPlatformHandVisual) currentPlatformReferences.RightPlatformHandVisual.SetVisibility(rightEnabled);
-		}
-
-		public void SetPlatformVisualLeftHandEnable(bool leftEnable)
-		{
-			if (currentPlatformReferences.LeftPlatformHandVisual) currentPlatformReferences.LeftPlatformHandVisual.SetVisibility(leftEnable);
-		}
-
-		public void SetPlatformVisualRightHandEnable(bool rightEnable)
-		{
-			if (currentPlatformReferences.RightPlatformHandVisual) currentPlatformReferences.RightPlatformHandVisual.SetVisibility(rightEnable);
-		}
-
-		public Avatar.AvatarVisibility GetPlatformVisualHand(bool left)
-		{
-			return (left) ? currentPlatformReferences.LeftPlatformHandVisual : currentPlatformReferences.RightPlatformHandVisual;
 		}
 
 		public bool GetControllerTrackingValidity(bool isLeft)

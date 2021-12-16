@@ -71,47 +71,10 @@ namespace HandshakeVR
 				PlatformControllerManager controllerManager = userRig.ProviderSwitcher.ControllerManager;
 
 				if (controllerManager) controllerManager.SetInteractionEnable(value, isLeft);
-
-				bool graphicsEnabled = GetGraphicsEnabled();
-
-				if(IsLeft)
-				{
-					PlatformManager.Instance.SetPlatformVisualLeftHandEnable(!graphicsEnabled &&
-						handEnabled);
-				}
-				else
-				{
-					PlatformManager.Instance.SetPlatformVisualRightHandEnable(!graphicsEnabled &&
-						handEnabled);
-				}
 			}
-		}
-
-		private bool GetGraphicsEnabled()
-		{
-			bool hideLeapHandsOnSwitch = userRig.PlatformManager.HideLeapHandsOnSwitch();
-			bool graphicsEnabled = userRig.ProviderSwitcher.IsDefault ||
-				!hideLeapHandsOnSwitch;
-
-			return graphicsEnabled;
 		}
 
 		public DataHand DataHand { get { return dataHand; } }
-
-		public Renderer HandVisualRenderer()
-		{
-			// if our platform hand isn't visible, just get the rigged hand skin
-			bool graphicsEnabled = GetGraphicsEnabled();
-
-			if (graphicsEnabled) return riggedHandRenderer;
-			else
-			{
-				return PlatformManager.Instance.GetPlatformVisualHand(isLeft).SkeletalRenderer;
-
-				// else get the avatar visibility for our current platform hand,
-				// fetch the renderer and return it.
-			}
-		}
 
 		private void Awake()
 		{

@@ -60,6 +60,7 @@ namespace HandshakeVR
 				// todo: it might be an OK idea here to generate a frame
 				// and maybe smooth it out so that there's no jitter between fixed and visual updates?
 				// actually I don't see any jitter so far, so idk.
+				GenerateFrame();
 				DispatchUpdateFrameEvent(currentFrame);
 			}
 		}

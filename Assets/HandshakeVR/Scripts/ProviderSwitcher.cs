@@ -153,18 +153,7 @@ namespace HandshakeVR
                     rightInteractionHand.leapProvider = customProvider;
                 }
 				if (controllerManager) controllerManager.ControllersEnabled = true;
-
-				for (int i=0; i < modelManager.transform.childCount; i++) // this method will fail if the hand objects aren't children of the model manager
-                {
-					HandModel handModel = modelManager.transform.GetChild(i).GetComponent<HandModel>();
-
-                    if(handModel != null && handModel.HandModelType == ModelType.Graphics) modelManager.transform.GetChild(i).gameObject.SetActive(!platformManager.HideLeapHandsOnSwitch());
-                }
             }
-
-            modelManager.GraphicsEnabled = isDefault || !platformManager.HideLeapHandsOnSwitch();
-			PlatformManager.Instance.SetPlatformVisualHands((!modelManager.GraphicsEnabled && userRig.LeftHand.HandEnabled),
-				(!modelManager.GraphicsEnabled && userRig.RightHand.HandEnabled));
 
             Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
 			customProvider.IsActive = !isDefault;
