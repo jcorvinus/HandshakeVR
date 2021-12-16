@@ -280,7 +280,7 @@ namespace HandshakeVR
 				middleTip.localPosition = Vector3.Scale(middleTipLocal, scaleFactor);
 				ringTip.transform.localPosition = Vector3.Scale(ringTipLocal, scaleFactor);
 				pinkyTip.transform.localPosition = Vector3.Scale(pinkyLocal, scaleFactor);
-				thumbTip.localPosition = thumbLocal;
+				thumbTip.localPosition = Vector3.Scale(thumbLocal, scaleFactor * 1.25f);
 			}
 		}
 

@@ -224,6 +224,38 @@ namespace HandshakeVR
 			}
 		}
 
+		void UpdateAnimatorTouch()
+		{
+			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
+			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
+
+			animator.SetBool(isGrabbedHash, grabGrip.GetState(inputSource));
+
+			faceButtonTouch = (aButtonTouch.GetState(inputSource) || bButtonTouch.GetState(inputSource) ||
+				trackpadTouch.GetState(inputSource));
+
+			isTriggerTouch = triggerTouch.GetState(inputSource);
+			isPinching = faceButtonTouch;
+			if (faceButtonTouch)
+			{
+				pinchThumbHoriz += (trackpadTouch.GetState(inputSource) ? -1 : 1) * Time.deltaTime * 6;
+				pinchThumbHoriz = Mathf.Clamp01(pinchThumbHoriz);
+			}
+
+			animator.SetBool(isPinchingHash, isPinching);
+			animator.SetFloat(pinchAmtHash, skeletonBehavior.fingerCurls[1]);
+			animator.SetFloat(pinchThumbHorizHash, pinchThumbHoriz);
+
+			pinchTweenTime += (isPinching) ? Time.deltaTime : -Time.deltaTime;
+			pinchTweenTime = Mathf.Clamp(pinchTweenTime, 0, pinchTweenDuration);
+			pinchTValue = Mathf.InverseLerp(0, pinchTweenDuration, pinchTweenTime);
+			if (skeletonBehavior)
+			{
+				skeletonBehavior.indexSkeletonBlend = 1 - pinchTValue;
+				skeletonBehavior.thumbSkeletonBlend = 1 - pinchTValue;
+			}
+		}
+
 		private void Update()
         {
 			if (controllerHand.IsActive)
@@ -231,6 +263,7 @@ namespace HandshakeVR
 				if (steamVRControllerType == SteamVR_ControllerType.Unknown) GetControllerType();
 				if (steamVRControllerType == SteamVR_ControllerType.Knuckles) UpdateAnimatorKnuckles();
 				else if (steamVRControllerType == SteamVR_ControllerType.Vive) UpdateAnimatorVive();
+				else if (steamVRControllerType == SteamVR_ControllerType.Touch) UpdateAnimatorTouch();
 
 				animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 
@@ -244,13 +277,61 @@ namespace HandshakeVR
 				{
 					Transform fingerRoot = null;
 
-					if (fingerIndx == 0) fingerRoot = controllerHand.IndexMetacarpal;
-					else if (fingerIndx == 1) fingerRoot = controllerHand.MiddleMetacarpal;
-					else if (fingerIndx == 2) fingerRoot = controllerHand.RingMetacarpal;
-					else if (fingerIndx == 3) fingerRoot = controllerHand.PinkyMetacarpal;
-					else fingerRoot = controllerHand.ThumbMetacarpal;
+					switch (fingerIndx)
+					{
+						case (0):
+							fingerRoot = controllerHand.IndexMetacarpal;
+							break;
+						case (1):
+							fingerRoot = controllerHand.MiddleMetacarpal;
+							break;
+						case (2):
+							fingerRoot = controllerHand.RingMetacarpal;
+							break;
+						case (3):
+							fingerRoot = controllerHand.PinkyMetacarpal;
+							break;
+						default:
+							fingerRoot = controllerHand.ThumbMetacarpal;
+							break;
+					}
 
 					MatchBones(fingerMetacarpals[fingerIndx], fingerRoot, fingerBasis, wristBoneOrientation);
+
+					Transform steamVRTip, controllerTip;
+					float tipScale = 0.659f;
+
+					switch (fingerIndx)
+					{
+						case (0):
+							steamVRTip = skeletonBehavior.indexTip;
+							controllerTip = fingerRoot.GetChild(0).GetChild(0).GetChild(0).GetChild(0);
+							break;
+						case (1):
+							steamVRTip = skeletonBehavior.middleTip;
+							controllerTip = fingerRoot.GetChild(0).GetChild(0).GetChild(0).GetChild(0);
+							break;
+						case (2):
+							steamVRTip = skeletonBehavior.ringTip;
+							controllerTip = fingerRoot.GetChild(0).GetChild(0).GetChild(0).GetChild(0);
+							break;
+						case (3):
+							steamVRTip = skeletonBehavior.pinkyTip;
+							controllerTip = fingerRoot.GetChild(0).GetChild(0).GetChild(0).GetChild(0);
+							break;
+						default:
+							steamVRTip = skeletonBehavior.thumbTip;
+							controllerTip = fingerRoot.GetChild(0).GetChild(0).GetChild(0);
+							tipScale *= 1.25f;
+							break;
+					}
+
+					Vector3 scaleFactor = new Vector3(
+					fingerBasis.Forward.x != 0 ? tipScale : 1,
+					fingerBasis.Forward.y != 0 ? tipScale : 1,
+					fingerBasis.Forward.z != 0 ? tipScale : 1);
+					Vector3 tipLocal = steamVRTip.transform.parent.InverseTransformPoint(steamVRTip.position);
+					controllerTip.transform.localPosition = Vector3.Scale(tipLocal, scaleFactor);
 				}
 			}
 			else
