@@ -29,6 +29,8 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_default_PinchGrip;
         
+        private static SteamVR_Action_Boolean p_default_headsetonhead;
+        
         private static SteamVR_Action_Vibration p_default_Haptic;
         
         private static SteamVR_Action_Boolean p_handPoseAssist_TrackpadTouch;
@@ -88,6 +90,14 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.p_default_PinchGrip.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean default_headsetonhead
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_headsetonhead.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
@@ -156,6 +166,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_SkeletonRightHand,
                     SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.default_PinchGrip,
+                    SteamVR_Actions.default_headsetonhead,
                     SteamVR_Actions.default_Haptic,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
@@ -170,6 +181,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_SkeletonRightHand,
                     SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.default_PinchGrip,
+                    SteamVR_Actions.default_headsetonhead,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
                     SteamVR_Actions.handPoseAssist_BButtonTouch,
@@ -186,6 +198,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_GrabGrip,
                     SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.default_PinchGrip,
+                    SteamVR_Actions.default_headsetonhead,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
                     SteamVR_Actions.handPoseAssist_BButtonTouch,
@@ -202,6 +215,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_GrabGrip,
                     SteamVR_Actions.default_SceneChange,
                     SteamVR_Actions.default_PinchGrip,
+                    SteamVR_Actions.default_headsetonhead,
                     SteamVR_Actions.handPoseAssist_TrackpadTouch,
                     SteamVR_Actions.handPoseAssist_AButtonTouch,
                     SteamVR_Actions.handPoseAssist_BButtonTouch,
@@ -218,6 +232,7 @@ namespace Valve.VR
             SteamVR_Actions.p_default_SkeletonRightHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/default/in/SkeletonRightHand")));
             SteamVR_Actions.p_default_SceneChange = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SceneChange")));
             SteamVR_Actions.p_default_PinchGrip = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/PinchGrip")));
+            SteamVR_Actions.p_default_headsetonhead = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/headsetonhead")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
             SteamVR_Actions.p_handPoseAssist_TrackpadTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandPoseAssist/in/TrackpadTouch")));
             SteamVR_Actions.p_handPoseAssist_AButtonTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandPoseAssist/in/AButtonTouch")));

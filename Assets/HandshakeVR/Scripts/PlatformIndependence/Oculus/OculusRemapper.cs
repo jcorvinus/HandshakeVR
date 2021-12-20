@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
+using System.Linq;
 
 using Oculus;
 
@@ -48,6 +50,8 @@ namespace HandshakeVR
 		[SerializeField] Vector3 fingerUp;
 		OVRHand hand;
 		OVRSkeleton skeleton;
+		OVRPlugin.Skeleton2 rawSkeleton;
+		FieldInfo skeletonField = null;
 		const float tipScale=0.659f;
 
 		[Header("Debug Vars")]
@@ -108,6 +112,11 @@ namespace HandshakeVR
 			handAnimator.enabled = true;
 
 			ApplySpecificControllerOffset(ovrTouchOffset, controllerHand.Wrist);
+
+			// get our skeleton2
+			FieldInfo[] privateFields = typeof(OVRSkeleton).GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+			skeletonField = privateFields.First<FieldInfo>(item => item.Name == "_skeleton");
+			rawSkeleton = (OVRPlugin.Skeleton2)skeletonField.GetValue(skeleton);
 		}
 
 		private void ApplySpecificControllerOffset(ControllerOffset offset, Transform offsetTransform)
@@ -176,9 +185,11 @@ namespace HandshakeVR
 
 		void DoSkeletalTracking()
 		{
+			rawSkeleton = (OVRPlugin.Skeleton2)skeletonField.GetValue(skeleton);
+
 			// do any pre-flight checks here
 			// confidence maybe?
-			if(true)
+			if (true)
 			{
 				controllerHand.Confidence = skeleton.IsDataHighConfidence ? 1 : 0;
 				handAnimator.enabled = true;
@@ -202,6 +213,7 @@ namespace HandshakeVR
 				Transform indexDistal = indexMedial.GetChild(0);
 				Transform indexTip = indexDistal.GetChild(0);
 
+				controllerHand.FingerWidth[(int)Leap.Finger.FingerType.TYPE_INDEX] = rawSkeleton.BoneCapsules[(int)OVRSkeleton.BoneId.Hand_Index1].Radius * 0.5f;
 				MatchBone(indexProximalBone.Transform, indexProximal, fingerBasis, wristboneOrientation);
 				MatchBone(indexMedialBone.Transform, indexMedial, fingerBasis, wristboneOrientation);
 				MatchBone(indexDistalBone.Transform, indexDistal, fingerBasis, wristboneOrientation);
@@ -217,6 +229,7 @@ namespace HandshakeVR
 				Transform middleDistal = middleMedial.GetChild(0);
 				Transform middleTip = middleDistal.GetChild(0);
 
+				controllerHand.FingerWidth[(int)Leap.Finger.FingerType.TYPE_MIDDLE] = rawSkeleton.BoneCapsules[(int)OVRSkeleton.BoneId.Hand_Middle1].Radius * 0.5f;
 				MatchBone(middleProximalBone.Transform, middleProximal, fingerBasis, wristboneOrientation);
 				MatchBone(middleMedialBone.Transform, middleMedial, fingerBasis, wristboneOrientation);
 				MatchBone(middleDistalBone.Transform, middleDistal, fingerBasis, wristboneOrientation);
@@ -232,6 +245,7 @@ namespace HandshakeVR
 				Transform ringDistal = ringMedial.GetChild(0);
 				Transform ringTip = ringDistal.GetChild(0);
 
+				controllerHand.FingerWidth[(int)Leap.Finger.FingerType.TYPE_RING] = rawSkeleton.BoneCapsules[(int)OVRSkeleton.BoneId.Hand_Ring1].Radius * 0.5f;
 				MatchBone(ringProximalBone.Transform, ringProximal, fingerBasis, wristboneOrientation);
 				MatchBone(ringMedialBone.Transform, ringMedial, fingerBasis, wristboneOrientation);
 				MatchBone(ringDistalBone.Transform, ringDistal, fingerBasis, wristboneOrientation);
@@ -249,6 +263,7 @@ namespace HandshakeVR
 				Transform pinkyDistal = pinkyMedial.GetChild(0);
 				Transform pinkyTip = pinkyDistal.GetChild(0);
 
+				controllerHand.FingerWidth[(int)Leap.Finger.FingerType.TYPE_PINKY] = rawSkeleton.BoneCapsules[(int)OVRSkeleton.BoneId.Hand_Pinky1].Radius * 0.5f;
 				MatchBone(pinkyMetacarpalBone.Transform, pinkyMetacarpal, fingerBasis, wristboneOrientation);
 				MatchBone(pinkyProximalBone.Transform, pinkyPromial, fingerBasis, wristboneOrientation);
 				MatchBone(pinkyMedialBone.Transform, pinkyMedial, fingerBasis, wristboneOrientation);
@@ -266,6 +281,7 @@ namespace HandshakeVR
 				Transform thumbDistal = thumbProximal.GetChild(0);
 				Transform thumbTip = thumbDistal.GetChild(0);
 
+				controllerHand.FingerWidth[(int)Leap.Finger.FingerType.TYPE_THUMB] = rawSkeleton.BoneCapsules[(int)OVRSkeleton.BoneId.Hand_Thumb0].Radius * 0.5f;
 				MatchBone(thumbMetacarpalBone.Transform, thumbMetacarpal, fingerBasis, wristboneOrientation);
 				MatchBone(thumbProximalBone.Transform, thumbProximal, fingerBasis, wristboneOrientation);
 				MatchBone(thumbDistalBone.Transform, thumbDistal, fingerBasis, wristboneOrientation);

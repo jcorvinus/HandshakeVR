@@ -65,6 +65,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean headsetonhead
+        {
+            get
+            {
+                return SteamVR_Actions.default_headsetonhead;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

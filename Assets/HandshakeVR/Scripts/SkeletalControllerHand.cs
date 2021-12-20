@@ -51,7 +51,15 @@ namespace HandshakeVR
         [SerializeField] float palmForwardOfffset = 0;
         [SerializeField] float palmNormalOffset = 0;
 
-        [SerializeField] float fingerWidth = 8;
+		//[SerializeField] float fingerWidth = 0.016f;
+		float[] fingerWidth = new float[]
+		{
+			0.008f,
+			0.008f,
+			0.008f,
+			0.008f,
+			0.008f
+		};
 
         float forearmLength = 0.27f;
 		List<Finger> fingers = new List<Finger>(5);
@@ -73,6 +81,7 @@ namespace HandshakeVR
 		public float Confidence { get { return confidence; } set { confidence = value; } }
 		public float GripStrength { get { return gripStrength; } set { gripStrength = value; } }
 		public float PinchStrength { get { return pinchStrength; } set { pinchStrength = value; } }
+		public float[] FingerWidth { get { return fingerWidth; } set { fingerWidth = value; } }
 
 		bool isActive = false;
 		public bool IsActive { get { return isActive; } set { isActive = value; } }
@@ -231,8 +240,6 @@ namespace HandshakeVR
 				new Vector(0, 0, 0);
 			Vector handDirection = wrist.TransformDirection(modelFingerPointing).ToVector();
 
-			//palmWidth = 85f * MM_TO_M;
-
 			LeapQuaternion rotation = GetHandRotation().ToLeapQuaternion();
 
 			fingers = hand.Fingers;
@@ -241,7 +248,6 @@ namespace HandshakeVR
 			for (int fingerIndex = 0; fingerIndex < 5; fingerIndex++)
 			{
 				Leap.Finger.FingerType fingerType = (Leap.Finger.FingerType)fingerIndex;
-				float _fingerWidth = fingerWidth * MM_TO_M;
 
 				Transform metaCarpalTransform = null;
 
@@ -292,19 +298,17 @@ namespace HandshakeVR
 				fingerDots[fingerIndex] = fingerDot;
 				bool isExtended = Mathf.Abs(fingerDot) < 0.5f;
 
-				//Finger finger = hand.Fingers[fingerIndex];
-				SetBone(bones[(int)Bone.BoneType.TYPE_METACARPAL], metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, _fingerWidth);
-				SetBone(bones[(int)Bone.BoneType.TYPE_PROXIMAL], proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, _fingerWidth);
-				SetBone(bones[(int)Bone.BoneType.TYPE_INTERMEDIATE], intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, _fingerWidth);
-				SetBone(bones[(int)Bone.BoneType.TYPE_DISTAL], distalTransform, tip, Bone.BoneType.TYPE_DISTAL, _fingerWidth);
+				SetBone(bones[(int)Bone.BoneType.TYPE_METACARPAL], metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, fingerWidth[fingerIndex]);
+				SetBone(bones[(int)Bone.BoneType.TYPE_PROXIMAL], proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, fingerWidth[fingerIndex]);
+				SetBone(bones[(int)Bone.BoneType.TYPE_INTERMEDIATE], intermediateTransform, distalTransform, Bone.BoneType.TYPE_INTERMEDIATE, fingerWidth[fingerIndex]);
+				SetBone(bones[(int)Bone.BoneType.TYPE_DISTAL], distalTransform, tip, Bone.BoneType.TYPE_DISTAL, fingerWidth[fingerIndex]);
 
-				//fingers.Add(finger);
 				fingers[fingerIndex].bones = bones;
 				fingers[fingerIndex].HandId = handID;
 				fingers[fingerIndex].TimeVisible = visibleTime;
 				fingers[fingerIndex].TipPosition = tipPosition;
 				fingers[fingerIndex].Direction = direction;
-				fingers[fingerIndex].Width = _fingerWidth;
+				fingers[fingerIndex].Width = fingerWidth[fingerIndex];
 				fingers[fingerIndex].Length = fingerLength;
 				fingers[fingerIndex].IsExtended = isExtended;
 				fingers[fingerIndex].Type = (Finger.FingerType)fingerIndex;
