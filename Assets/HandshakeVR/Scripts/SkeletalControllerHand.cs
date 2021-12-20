@@ -304,7 +304,7 @@ namespace HandshakeVR
 				fingers[fingerIndex].TimeVisible = visibleTime;
 				fingers[fingerIndex].TipPosition = tipPosition;
 				fingers[fingerIndex].Direction = direction;
-				fingers[fingerIndex].Width = fingerWidth;
+				fingers[fingerIndex].Width = _fingerWidth;
 				fingers[fingerIndex].Length = fingerLength;
 				fingers[fingerIndex].IsExtended = isExtended;
 				fingers[fingerIndex].Type = (Finger.FingerType)fingerIndex;
