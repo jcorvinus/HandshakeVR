@@ -192,7 +192,7 @@ namespace HandshakeVR
 			if (true)
 			{
 				controllerHand.Confidence = skeleton.IsDataHighConfidence ? 1 : 0;
-				handAnimator.enabled = true;
+				handAnimator.enabled = false;
 
 				// do our wrist pose
 				OVRBone wristBone = skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_WristRoot];
