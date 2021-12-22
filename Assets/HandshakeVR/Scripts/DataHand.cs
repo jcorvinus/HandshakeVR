@@ -144,8 +144,10 @@ namespace HandshakeVR
 				for (int f = 0; f < 5; f++)
 				{ //Fingers
 					Finger finger = hand.Fingers[f];
+					bool isExtended = finger.IsExtended;
 					Debug.DrawLine(finger.TipPosition.ToVector3(),
-						finger.TipPosition.ToVector3() + (finger.Direction.ToVector3() * 0.1f));
+						finger.TipPosition.ToVector3() + (finger.Direction.ToVector3() * 0.1f),
+						isExtended ? Color.green : Color.red);
 				}
 			}
 

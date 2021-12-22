@@ -127,6 +127,7 @@ namespace HandshakeVR
         bool drawBasis = true;
         [SerializeField]
         bool drawConstraints = true;
+		[SerializeField]
 		bool visualizeDirections = false;
 
         protected Color[] colors = { Color.gray, Color.yellow, Color.cyan, Color.magenta };
@@ -289,7 +290,7 @@ namespace HandshakeVR
 				Transform distalTransform = intermediateTransform.GetChild(0);
 				Transform tip = distalTransform.GetChild(0);
 				Vector tipPosition = tip.transform.position.ToVector();
-				Vector direction = distalTransform.forward.ToVector();
+				Vector direction = distalTransform.TransformVector(modelFingerPointing).ToVector();
 
 				float fingerLength =
 					Vector3.Distance(proximalTransform.position, intermediateTransform.position) +
@@ -297,7 +298,7 @@ namespace HandshakeVR
 					Vector3.Distance(distalTransform.position, tip.position); // add up joint lengths for this
 				float fingerDot = Vector3.Dot(direction.ToVector3(), handDirection.ToVector3());
 				fingerDots[fingerIndex] = fingerDot;
-				bool isExtended = Mathf.Abs(fingerDot) > 0.5f;
+				bool isExtended = fingerDot > 0.5f;
 
 				SetBone(bones[(int)Bone.BoneType.TYPE_METACARPAL], metaCarpalTransform, proximalTransform, Bone.BoneType.TYPE_METACARPAL, fingerWidth[fingerIndex]);
 				SetBone(bones[(int)Bone.BoneType.TYPE_PROXIMAL], proximalTransform, intermediateTransform, Bone.BoneType.TYPE_PROXIMAL, fingerWidth[fingerIndex]);
@@ -654,7 +655,7 @@ namespace HandshakeVR
 					float fingerDot = Vector3.Dot(forward, handDirection);
 					if (fingerDots == null || fingerDots.Length != 5) fingerDots = new float[5];
 					fingerDots[f] = fingerDot;
-					bool isExtended = Mathf.Abs(fingerDot) > 0.5f;
+					bool isExtended = fingerDot > 0.5f;
 
 					Debug.DrawLine(tip.position,
 						tip.position + (forward * 0.1f), isExtended ? Color.green : Color.red);
