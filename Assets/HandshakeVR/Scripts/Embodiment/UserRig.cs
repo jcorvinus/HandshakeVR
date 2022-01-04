@@ -95,18 +95,6 @@ namespace HandshakeVR
 		{
 			UpdateUserPresence();
 			UpdateBodyEstimation();
-
-#if SteamVR
-			if (!debugDisableEyeTracking)
-			{
-				// vive anipal 
-				bool isProEye = ViveSR.anipal.Eye.SRanipal_Eye_API.IsViveProEye();
-
-				useEyeTracking = isProEye && (ViveSR.anipal.Eye.SRanipal_Eye_Framework.Status ==
-					ViveSR.anipal.Eye.SRanipal_Eye_Framework.FrameworkStatus.WORKING);
-			}
-			else useEyeTracking = false;
-#endif
 		}
 
 		/// <summary>
