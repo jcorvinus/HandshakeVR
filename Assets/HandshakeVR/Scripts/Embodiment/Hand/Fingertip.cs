@@ -27,7 +27,7 @@ namespace HandshakeVR
 
         void Awake()
         {
-			UserRig userRig = GetComponentInParent<UserRig>();
+			UserRig userRig = UserRig.Instance;
 			RigidHand rigidHand = GetComponentInParent<RigidHand>();
 			userHand = (rigidHand.Handedness == Chirality.Left) ? userRig.LeftHand : userRig.RightHand;
             fingertipData.Owner = this.gameObject.GetComponent<CapsuleCollider>();
