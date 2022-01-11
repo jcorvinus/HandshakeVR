@@ -53,6 +53,13 @@ namespace HandshakeVR
 		public bool IsTracked { get { return dataHand.IsTracked; } }
 		public HandInputProvider ActiveInputProvider { get { return skeletalControllerHand.ActiveProvider; } }
 		public bool DisableUINonIndexFingertips { get { return disableUINonIndexFingertips; } }
+		HandTrackingType CurrentTrackingType
+		{
+			get
+			{
+				return userRig.ProviderSwitcher.IsDefault ? HandTrackingType.Skeletal : ActiveInputProvider.TrackingType();
+			}
+		}
 
 		// hands can be enabled or disabled so that you can replace them with embodied tools.
 		// disabling a hand will not disable the Data Hand underneath it - this is so that you can
@@ -149,7 +156,7 @@ namespace HandshakeVR
 				previousWasTracking = dataHand.IsTracked;
 			}
 
-			HandTrackingType currentTrackingType = ActiveInputProvider.TrackingType();
+			HandTrackingType currentTrackingType = CurrentTrackingType;
 			if (currentTrackingType != previousTrackingType) // we have a tracking type change
 			{
 				if (OnTrackingTypeChanged != null) OnTrackingTypeChanged(this, previousTrackingType, currentTrackingType);
