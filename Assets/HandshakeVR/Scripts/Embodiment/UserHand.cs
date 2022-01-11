@@ -53,7 +53,7 @@ namespace HandshakeVR
 		public bool IsTracked { get { return dataHand.IsTracked; } }
 		public HandInputProvider ActiveInputProvider { get { return skeletalControllerHand.ActiveProvider; } }
 		public bool DisableUINonIndexFingertips { get { return disableUINonIndexFingertips; } }
-		HandTrackingType CurrentTrackingType
+		public HandTrackingType CurrentTrackingType
 		{
 			get
 			{
