@@ -831,11 +831,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handedness: 1
+  handModelPalmWidth: 0.085
+  fingers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  palm: {fileID: 0}
+  forearm: {fileID: 0}
+  wristJoint: {fileID: 0}
+  elbowJoint: {fileID: 0}
   visualizeBones: 0
   visualizeBasis: 0
   visualizeDirections: 0
   visualizeVelocity: 0
-  handedness: 1
 --- !u!1001 &1231683538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1405,11 +1416,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handedness: 0
+  handModelPalmWidth: 0.085
+  fingers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  palm: {fileID: 0}
+  forearm: {fileID: 0}
+  wristJoint: {fileID: 0}
+  elbowJoint: {fileID: 0}
   visualizeBones: 0
   visualizeBasis: 0
   visualizeDirections: 0
   visualizeVelocity: 0
-  handedness: 0
 --- !u!1 &1494286953
 GameObject:
   m_ObjectHideFlags: 0
@@ -6828,7 +6850,6 @@ MonoBehaviour:
   palmWidth: 0.085
   palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
-  fingerWidth: 16
   modelPalmFacing: {x: 0, y: -1, z: 0}
   modelFingerPointing: {x: 1, y: 0, z: 0}
   isLeft: 0
@@ -6874,6 +6895,7 @@ MonoBehaviour:
   drawBones: 0
   drawBasis: 0
   drawConstraints: 0
+  visualizeDirections: 0
 --- !u!114 &114509228276915741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7149,7 +7171,6 @@ MonoBehaviour:
   palmWidth: 0.085
   palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
-  fingerWidth: 16
   modelPalmFacing: {x: 0, y: 1, z: 0}
   modelFingerPointing: {x: -1, y: 0, z: 0}
   isLeft: 1
@@ -7195,6 +7216,7 @@ MonoBehaviour:
   drawBones: 0
   drawBasis: 0
   drawConstraints: 0
+  visualizeDirections: 0
 --- !u!114 &114765592590766659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7207,7 +7229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54fe8063f186643a2e7fc485499e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerHand: {fileID: 0}
   wrist: {fileID: 4314827100995325}
   wristBasis:
     Forward: {x: 0, y: 0, z: 1}
@@ -7254,7 +7275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54fe8063f186643a2e7fc485499e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerHand: {fileID: 0}
   wrist: {fileID: 4312834187112753}
   wristBasis:
     Forward: {x: 0, y: 0, z: -1}
@@ -7507,7 +7527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679c3011376db4b469059791695c4ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlatform: {fileID: 11400000, guid: 5b02281cadcf2b44cb0a8a785c41de9e, type: 2}
   perPlatformData:
   - ID: 0
     ObjectsToEnable: []
@@ -7515,9 +7534,6 @@ MonoBehaviour:
     BehavioursToEnable: []
     BehavioursToDisable: []
     TrackerValidity: []
-    HideLeapHandsOnSwitch: 0
-    LeftPlatformHandVisual: {fileID: 0}
-    RightPlatformHandVisual: {fileID: 0}
     Haptics: []
   - ID: 1
     ObjectsToEnable:
@@ -7532,9 +7548,6 @@ MonoBehaviour:
     TrackerValidity:
     - {fileID: 5699461041489732957}
     - {fileID: 5482665113790839140}
-    HideLeapHandsOnSwitch: 1
-    LeftPlatformHandVisual: {fileID: 6319662773160138144}
-    RightPlatformHandVisual: {fileID: 5766990783415916719}
     Haptics:
     - {fileID: 733970498994402094}
     - {fileID: 65609368563225627}
@@ -7551,9 +7564,6 @@ MonoBehaviour:
     TrackerValidity:
     - {fileID: 2364839825505348944}
     - {fileID: 3609407247300693056}
-    HideLeapHandsOnSwitch: 0
-    LeftPlatformHandVisual: {fileID: 3521875535550611438}
-    RightPlatformHandVisual: {fileID: 5576141792416235914}
     Haptics:
     - {fileID: 1722751595474516451}
     - {fileID: 5932058672621335170}
@@ -10917,8 +10927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a136e42b28b7c9440930135c68bab8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletalRenderer: {fileID: 3224289177280479478}
-  ovrRenderer: {fileID: 3225692064599474498}
 --- !u!114 &3609407247300693056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13651,8 +13659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a136e42b28b7c9440930135c68bab8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletalRenderer: {fileID: 8530782321824997982}
-  ovrRenderer: {fileID: 8511347449464398826}
 --- !u!114 &5699461041489732957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13678,8 +13684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260979d278e8f0940b12a7f428568a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 1213166988760479}
 --- !u!114 &5932058672621335170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13719,8 +13723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260979d278e8f0940b12a7f428568a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 1300349573148165}
 --- !u!114 &6325415743604410106
 MonoBehaviour:
   m_ObjectHideFlags: 0

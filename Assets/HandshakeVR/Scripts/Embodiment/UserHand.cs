@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
+using System.Linq;
 
 using Leap.Unity;
 
@@ -40,10 +42,9 @@ namespace HandshakeVR
 		UserRig userRig;
 		SkeletalControllerHand skeletalControllerHand;
 		DataHand dataHand;
-		RiggedHand riggedhand;
-		Renderer riggedHandRenderer;
-		RigidHand rigidHand;
-		OverridableHandEnableDisable riggedEnabler, rigidEnabler;
+		HandModelManager[] handModelManagers;
+		List<Leap.Unity.HandModelManager.ModelGroup>[] modelGroupLists;
+		FieldInfo modelGroupField;
 
 		private bool handEnabled = true;
 		bool disableUINonIndexFingertips = false;
@@ -64,9 +65,27 @@ namespace HandshakeVR
 			{
 				handEnabled = value;
 
-				// do all of our enabling/disabling of the various sub-components
-				rigidEnabler.IsDisabled = !value;
-				riggedEnabler.IsDisabled = !value;
+				for (int listIndx = 0; listIndx < modelGroupLists.Length; listIndx++)
+				{
+					List<HandModelManager.ModelGroup> modelGroupList = modelGroupLists[listIndx];
+
+					for (int modelGroupIndx = 0; modelGroupIndx < modelGroupLists.Length; modelGroupIndx++)
+					{
+						HandModelManager.ModelGroup modelGroup = modelGroupList[modelGroupIndx];
+						HandModelBase handModel = (IsLeft) ? modelGroup.LeftModel : modelGroup.RightModel;
+
+						if (handModel)
+						{
+							bool isDataHand = handModel is DataHand;
+							if (!isDataHand)
+							{
+								// need to find a way to optimize this out with better caching & tracking
+								OverridableHandEnableDisable enabler = handModel.GetComponent<OverridableHandEnableDisable>();
+								enabler.IsDisabled = !value;
+							}
+						}
+					}
+				}
 
 				PlatformControllerManager controllerManager = userRig.ProviderSwitcher.ControllerManager;
 
@@ -84,20 +103,35 @@ namespace HandshakeVR
 			ProviderSwitcher providerSwitcher = userRig.ProviderSwitcher;
 
 			// get all of our handed stuff
-			HandModelManager modelManager = userRig.GetComponentInChildren<HandModelManager>();
-			DataHand[] dataHands = modelManager.GetComponentsInChildren<DataHand>(true);
-			Chirality chirality = (IsLeft) ? Chirality.Left : Chirality.Right;
-			dataHand = dataHands.First(item => item is DataHand && item.Handedness == chirality);
+			// break into the model manager
+			handModelManagers = userRig.GetComponentsInChildren<HandModelManager>(true);
 
-			RiggedHand[] riggedHands = modelManager.GetComponentsInChildren<RiggedHand>(true);
-			riggedhand = riggedHands.First(item => item is RiggedHand && item.Handedness == chirality);
-			riggedHandRenderer = riggedhand.GetComponentsInChildren<Renderer>(true)[0];
+			FieldInfo[] privateFields = typeof(HandModelManager).GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+			modelGroupField = privateFields.First<FieldInfo>(item => item.Name == "ModelPool");
+			modelGroupLists = new List<HandModelManager.ModelGroup>[handModelManagers.Length];
 
-			RigidHand[] rigidHands = modelManager.GetComponentsInChildren<RigidHand>(true);
-			rigidHand = rigidHands.First(item => item is RigidHand && item.Handedness == chirality);
+			// we need our datahands
+			foreach (HandModelManager modelManager in handModelManagers)
+			{
+				DataHand[] dataHands = modelManager.GetComponentsInChildren<DataHand>(true);
 
-			riggedEnabler = riggedhand.GetComponent<OverridableHandEnableDisable>();
-			rigidEnabler = rigidHand.GetComponent<OverridableHandEnableDisable>();
+				if (dataHands != null && dataHands.Length == 2)
+				{
+					Chirality chirality = (IsLeft) ? Chirality.Left : Chirality.Right;
+					dataHand = dataHands.First(item => item is DataHand && item.Handedness == chirality);
+				}
+				else continue;
+			}
+
+			GetModelGroupLists();
+		}
+
+		void GetModelGroupLists()
+		{
+			for(int i=0; i < handModelManagers.Length; i++)
+			{
+				modelGroupLists[i] = (List<HandModelManager.ModelGroup>)modelGroupField.GetValue(handModelManagers[i]);
+			}
 		}
 
 		void Update()
