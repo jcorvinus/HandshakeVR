@@ -51,13 +51,13 @@ namespace HandshakeVR
 		[SerializeField] bool isLeft;
 		public bool IsLeft { get { return isLeft; } }
 		public bool IsTracked { get { return dataHand.IsTracked; } }
-		public HandInputProvider ActiveInputProvider { get { return skeletalControllerHand.ActiveProvider; } }
+		HandInputProvider activeInputProvider { get { return skeletalControllerHand.ActiveProvider; } }
 		public bool DisableUINonIndexFingertips { get { return disableUINonIndexFingertips; } }
 		public HandTrackingType CurrentTrackingType
 		{
 			get
 			{
-				return userRig.ProviderSwitcher.IsDefault ? HandTrackingType.Skeletal : ActiveInputProvider.TrackingType();
+				return userRig.ProviderSwitcher.IsDefault ? HandTrackingType.Skeletal : activeInputProvider.TrackingType();
 			}
 		}
 
