@@ -76,7 +76,7 @@ namespace HandshakeVR
 				{
 					List<HandModelManager.ModelGroup> modelGroupList = modelGroupLists[listIndx];
 
-					for (int modelGroupIndx = 0; modelGroupIndx < modelGroupLists.Length; modelGroupIndx++)
+					for (int modelGroupIndx = 0; modelGroupIndx < modelGroupList.Count; modelGroupIndx++)
 					{
 						HandModelManager.ModelGroup modelGroup = modelGroupList[modelGroupIndx];
 						HandModelBase handModel = (IsLeft) ? modelGroup.LeftModel : modelGroup.RightModel;
@@ -153,6 +153,7 @@ namespace HandshakeVR
 				{
 					if (OnTrackingLost != null) OnTrackingLost(this);
 				}
+
 				previousWasTracking = dataHand.IsTracked;
 			}
 
