@@ -38,4 +38,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/HandshakeVR/Scenes/GraphicRenderer/CurvedUI.unity
     guid: 101116593c5eaf9419911aaa00b45bab
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: dc3e3b9e047291345ac2d0094636105c,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c7f2dc437bada4448800e2648ca0c669,
+      type: 2}

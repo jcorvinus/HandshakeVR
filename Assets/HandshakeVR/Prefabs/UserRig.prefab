@@ -6161,6 +6161,7 @@ GameObject:
   - component: {fileID: 81896125488609100}
   - component: {fileID: 20034780686463196}
   - component: {fileID: 114325742512613982}
+  - component: {fileID: 7915172909745499427}
   m_Layer: 0
   m_Name: ViewCamera
   m_TagString: MainCamera
@@ -6261,6 +6262,24 @@ MonoBehaviour:
   _temporalWarpingMode: 0
   _customWarpAdjustment: 17
   _updateHandInPrecull: 0
+--- !u!114 &7915172909745499427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520490014071238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 0
+  m_PoseSource: 2
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 1
 --- !u!1 &1520627010192392
 GameObject:
   m_ObjectHideFlags: 0
@@ -9023,7 +9042,6 @@ MonoBehaviour:
   palmWidth: 0.085
   palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
-  fingerWidth: 16
   modelPalmFacing: {x: 0, y: -1, z: 0}
   modelFingerPointing: {x: 1, y: 0, z: 0}
   isLeft: 0
@@ -9069,6 +9087,7 @@ MonoBehaviour:
   drawBones: 0
   drawBasis: 0
   drawConstraints: 0
+  visualizeDirections: 0
 --- !u!95 &95119487780664478
 Animator:
   serializedVersion: 3
@@ -10654,7 +10673,6 @@ MonoBehaviour:
   palmWidth: 0.085
   palmForwardOfffset: 0.06
   palmNormalOffset: 0.005
-  fingerWidth: 16
   modelPalmFacing: {x: 0, y: 1, z: 0}
   modelFingerPointing: {x: -1, y: 0, z: 0}
   isLeft: 1
@@ -10700,6 +10718,7 @@ MonoBehaviour:
   drawBones: 0
   drawBasis: 0
   drawConstraints: 0
+  visualizeDirections: 0
 --- !u!95 &95532336884584336
 Animator:
   serializedVersion: 3
