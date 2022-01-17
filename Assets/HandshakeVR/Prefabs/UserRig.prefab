@@ -5104,9 +5104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
-  vibration:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
+  vibrationActionName: /actions/default/out/Haptic
 --- !u!1 &1396745778646040
 GameObject:
   m_ObjectHideFlags: 0
@@ -5986,9 +5984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
-  vibration:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
+  vibrationActionName: /actions/default/out/Haptic
 --- !u!1 &1507430319387778
 GameObject:
   m_ObjectHideFlags: 0
@@ -10734,7 +10730,7 @@ MonoBehaviour:
   fingerBasis:
     Forward: {x: 1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
-  poseGameObject: {fileID: 8980501289451424577}
+  poseGameObject: {fileID: 1393295431413752}
   drawSkeleton: 0
 --- !u!114 &6341289972597108324
 MonoBehaviour:
