@@ -7,7 +7,7 @@ using Leap.Unity;
 using Leap.Unity.Query;
 using Leap.Unity.Interaction;
 
-using Valve.VR;
+//using Valve.VR;
 
 using CatchCo;
 

@@ -5,7 +5,9 @@ using Leap.Unity.Query;
 using Leap.Unity.Space;
 using UnityEngine.Serialization;
 
+#if UNITY_STANDALONE
 using Valve.VR;
+#endif
 using Leap.Unity;
 using Leap.Unity.Interaction;
 
@@ -22,8 +24,10 @@ namespace HandshakeVR
         SteamVRRemapper steamVRRemapper;
 		PinchDetector pinchGrabDetector;
 
-        [SerializeField]
-        SteamVR_Action_Boolean grabAction;
+		[SerializeField] string grabActionName = "/actions/default/in/GrabGrip";
+#if UNITY_STANDALONE
+		SteamVR_Action_Boolean grabAction;
+#endif
 
 		[SerializeField]
 		public new List<Transform> primaryHoverPoints = new List<Transform>(1);
@@ -46,7 +50,10 @@ namespace HandshakeVR
 
         private void Awake()
         {
-            SkeletalControllerHand[] controllerHands = FindObjectsOfType<SkeletalControllerHand>();
+#if UNITY_STANDALONE
+			grabAction = SteamVR_Input.GetBooleanAction(grabActionName);
+#endif
+			SkeletalControllerHand[] controllerHands = FindObjectsOfType<SkeletalControllerHand>();
 
             foreach (SkeletalControllerHand controllerHand in controllerHands)
             {
@@ -378,20 +385,7 @@ namespace HandshakeVR
 			_graspButtonDown = false;
 			_graspButtonUp = false;
 
-			/*bool graspButton = (isPinchGrip) ? pinchGrabDetector.IsActive : grabAction.state;
-
-			if(graspButton != _graspButtonLastFrame)
-			{
-				if(graspButton)
-				{
-					_graspButtonDown = true;
-				}
-				else
-				{
-					_graspButtonUp = true;
-				}
-			}*/
-
+#if UNITY_STANDALONE
 			bool graspButton = _graspButtonLastFrame;
 
 			if (!_graspButtonLastFrame)
@@ -416,6 +410,7 @@ namespace HandshakeVR
 			}
 
 			_graspButtonLastFrame = graspButton;
+#endif
 		}
 
 		protected override void getColliderBoneTargetPositionRotation(int contactBoneIndex, out Vector3 targetPosition, out Quaternion targetRotation)

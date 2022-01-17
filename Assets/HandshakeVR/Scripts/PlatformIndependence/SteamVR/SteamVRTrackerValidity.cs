@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_STANDALONE
 using Valve.VR;
+#endif
 
 namespace HandshakeVR
 {
 	public class SteamVRTrackerValidity : TrackerValidity
 	{
+#if UNITY_STANDALONE
 		SteamVR_Behaviour_Pose pose;
 
 		private void Awake()
@@ -19,5 +22,6 @@ namespace HandshakeVR
 		{
 			isValid = pose.isValid;
 		}
+#endif
 	}
 }

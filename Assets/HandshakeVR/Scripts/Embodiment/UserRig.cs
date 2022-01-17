@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_STANDALONE
 using Valve.VR;
+#endif
 
 namespace HandshakeVR
 {
 	public class UserRig : MonoBehaviour
 	{
-		#region Defines
+#region Defines
 		public enum BodyReference
 		{
 			Head,
@@ -28,7 +30,7 @@ namespace HandshakeVR
 			RightRingTip,
 			RightPinkyTip*/
 		}
-		#endregion
+#endregion
 
 		private static UserRig instance;
 		public static UserRig Instance { get { return instance; } }
@@ -184,14 +186,16 @@ Quaternion GetShoulderBasis(Vector3 headForward)
 					userPresence = OVRManager.isHmdPresent;
 					break;
 				case PlatformID.SteamVR:
+					#if UNITY_STANDALONE
 					SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("headsetonhead");
 					userPresence = headsetOnHead.GetState(SteamVR_Input_Sources.Head);
+					#endif
 					break;
 				default:
 					break;
 			}
 		}
-		#endregion
+#endregion
 
 		private void OnDrawGizmos()
 		{

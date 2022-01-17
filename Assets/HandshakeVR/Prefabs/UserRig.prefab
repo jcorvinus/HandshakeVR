@@ -9127,31 +9127,7 @@ MonoBehaviour:
   fingerBasis:
     Forward: {x: -1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
-  steamVRPose: {fileID: 114530473879428212}
-  skeletonBehavior: {fileID: 114427705730889696}
-  trackpadTouch:
-    actionPath: /actions/HandPoseAssist/in/TrackpadTouch
-    needsReinit: 0
-  aButtonTouch:
-    actionPath: /actions/HandPoseAssist/in/AButtonTouch
-    needsReinit: 0
-  bButtonTouch:
-    actionPath: /actions/HandPoseAssist/in/BButtonTouch
-    needsReinit: 0
-  triggerTouch:
-    actionPath: /actions/HandPoseAssist/in/TriggerTouch
-    needsReinit: 0
-  triggerPull:
-    actionPath: /actions/HandPoseAssist/in/TriggerPull
-    needsReinit: 0
-  grabGrip:
-    actionPath: /actions/default/in/GrabGrip
-    needsReinit: 0
-  viveThumbHoriz:
-    actionPath: /actions/HandPoseAssist/in/ThumbHorizontal
-    needsReinit: 0
-  assistActionset:
-    actionSetPath: /actions/HandPoseAssist
+  poseGameObject: {fileID: 1496670861649422}
   drawSkeleton: 0
 --- !u!114 &8027809468077282867
 MonoBehaviour:
@@ -10758,31 +10734,7 @@ MonoBehaviour:
   fingerBasis:
     Forward: {x: 1, y: 0, z: 0}
     Up: {x: 0, y: 1, z: 0}
-  steamVRPose: {fileID: 114734113485747038}
-  skeletonBehavior: {fileID: 114549947989364682}
-  trackpadTouch:
-    actionPath: /actions/HandPoseAssist/in/TrackpadTouch
-    needsReinit: 0
-  aButtonTouch:
-    actionPath: /actions/HandPoseAssist/in/AButtonTouch
-    needsReinit: 0
-  bButtonTouch:
-    actionPath: /actions/HandPoseAssist/in/BButtonTouch
-    needsReinit: 0
-  triggerTouch:
-    actionPath: /actions/HandPoseAssist/in/TriggerTouch
-    needsReinit: 0
-  triggerPull:
-    actionPath: /actions/HandPoseAssist/in/TriggerPull
-    needsReinit: 0
-  grabGrip:
-    actionPath: /actions/default/in/GrabGrip
-    needsReinit: 0
-  viveThumbHoriz:
-    actionPath: /actions/HandPoseAssist/in/ThumbHorizontal
-    needsReinit: 0
-  assistActionset:
-    actionSetPath: /actions/HandPoseAssist
+  poseGameObject: {fileID: 8980501289451424577}
   drawSkeleton: 0
 --- !u!114 &6341289972597108324
 MonoBehaviour:

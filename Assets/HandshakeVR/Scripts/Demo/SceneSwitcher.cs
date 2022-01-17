@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_STANDALONE
 using Valve.VR;
+#endif
 
 namespace HandshakeVR
 {
@@ -12,7 +14,10 @@ namespace HandshakeVR
         static SceneSwitcher instance;
         public static SceneSwitcher Instance { get { return instance; } }
 
-		[SerializeField] SteamVR_Action_Boolean sceneChangeAction;
+		string sceneChangeActionName = "actions/default/in/SceneChange";
+#if UNITY_STANDALONE
+		SteamVR_Action_Boolean sceneChangeAction;
+#endif
 
 		string[] sceneList = new string[]
         {
@@ -37,13 +42,16 @@ namespace HandshakeVR
                 instance = this;
                 DontDestroyOnLoad(this.gameObject);
 
+#if UNITY_STANDALONE
+				sceneChangeAction = SteamVR_Input.GetBooleanAction(sceneChangeActionName);
 				sceneChangeAction.onStateDown += (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) => 
 				{
 					if (fromSource == SteamVR_Input_Sources.RightHand) NextScene();
 					else PreviousScene();
 				};
-            }
-            else Destroy(gameObject);
+#endif
+			}
+			else Destroy(gameObject);
         }
 
         // Use this for initialization

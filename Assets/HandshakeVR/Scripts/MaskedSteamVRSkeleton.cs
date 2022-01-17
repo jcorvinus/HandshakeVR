@@ -4,11 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_STANDALONE
 using Valve.VR;
+#endif
 
 namespace HandshakeVR
 {
-	public class MaskedSteamVRSkeleton : SteamVR_Behaviour_Skeleton
+	public class MaskedSteamVRSkeleton :
+#if UNITY_STANDALONE
+		SteamVR_Behaviour_Skeleton
+#else
+		MonoBehaviour
+#endif
 	{
 		/// <summary>
 		/// How much of a blend to apply to the transform positions and rotations. 
@@ -31,6 +38,7 @@ namespace HandshakeVR
 		[Range(0, 1)]
 		public float pinkySkeletonBlend = 1;
 
+#if UNITY_STANDALONE
 		SteamVR_Skeleton_FingerIndexEnum GetFingerForBone(int boneID)
 		{
 			SteamVR_Skeleton_JointIndexEnum jointIndexEnum = (SteamVR_Skeleton_JointIndexEnum)boneID;
@@ -144,5 +152,6 @@ namespace HandshakeVR
 				}
 			}
 		}
+#endif
 	}
 }

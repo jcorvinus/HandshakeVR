@@ -99,9 +99,7 @@ MonoBehaviour:
   _graspingEnabled: 1
   _isLeft: 1
   isPinchGrip: 1
-  grabAction:
-    actionPath: /actions/default/in/PinchGrip
-    needsReinit: 0
+  grabActionName: /actions/default/in/PinchGrip
   primaryHoverPoints: []
   handToOverride: {fileID: 114261481388025906}
   maxGraspDistance: 0.035
@@ -155,9 +153,7 @@ MonoBehaviour:
   _graspingEnabled: 1
   _isLeft: 0
   isPinchGrip: 1
-  grabAction:
-    actionPath: /actions/default/in/PinchGrip
-    needsReinit: 0
+  grabActionName: /actions/default/in/PinchGrip
   primaryHoverPoints: []
   handToOverride: {fileID: 114663581530864466}
   maxGraspDistance: 0.035
@@ -261,9 +257,7 @@ MonoBehaviour:
   _graspingEnabled: 1
   _isLeft: 1
   isPinchGrip: 0
-  grabAction:
-    actionPath: /actions/default/in/GrabGrip
-    needsReinit: 0
+  grabActionName: /actions/default/in/GrabGrip
   primaryHoverPoints: []
   handToOverride: {fileID: 114261481388025906}
   maxGraspDistance: 0.035
@@ -408,9 +402,7 @@ MonoBehaviour:
   _graspingEnabled: 1
   _isLeft: 0
   isPinchGrip: 0
-  grabAction:
-    actionPath: /actions/default/in/GrabGrip
-    needsReinit: 0
+  grabActionName: /actions/default/in/GrabGrip
   primaryHoverPoints: []
   handToOverride: {fileID: 114663581530864466}
   maxGraspDistance: 0.035

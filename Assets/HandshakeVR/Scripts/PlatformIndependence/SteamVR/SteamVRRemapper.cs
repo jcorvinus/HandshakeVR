@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_STANDALONE
 using Valve.VR;
+#endif
 
 namespace HandshakeVR
 {
@@ -33,22 +35,33 @@ namespace HandshakeVR
         [SerializeField]
         BoneBasis fingerBasis;
 
-		[SerializeField]
-        SteamVR_Behaviour_Pose steamVRPose;
-		[SerializeField]
+		[SerializeField] GameObject poseGameObject;
+#if UNITY_STANDALONE
+		SteamVR_Behaviour_Pose steamVRPose;
 		MaskedSteamVRSkeleton skeletonBehavior;
+#endif
 
-		#region SteamVR Pinch Pose
+#region SteamVR Pinch Pose
 		Animator animator;
-		[SerializeField] SteamVR_Action_Boolean trackpadTouch;
-		[SerializeField] SteamVR_Action_Boolean aButtonTouch;
-		[SerializeField] SteamVR_Action_Boolean bButtonTouch;
-		[SerializeField] SteamVR_Action_Boolean triggerTouch;
-		[SerializeField] SteamVR_Action_Single triggerPull;
-		[SerializeField] SteamVR_Action_Boolean grabGrip;
-		[SerializeField] SteamVR_Action_Vector2 viveThumbHoriz;
+		string trackpadTouchName = "/actions/HandPoseAssist/in/TrackpadTouch";
+		string aButtonTouchName = "/actions/HandPoseAssist/in/AButtonTouch";
+		string bButtonTouchName = "/actions/HandPoseAssist/in/BButtonTouch";
+		string triggerTouchName = "/actions/HandPoseAssist/in/TriggerTouch";
+		string triggerPullName = "/actions/HandPoseAssist/in/TriggerPull";
+		string grabGripName = "/actions/default/in/GrabGrip";
+		string viveThumbHorizName = "/actions/HandPoseAssist/in/ThumbHorizontal";
+		string assistActionSetName = "/actions/HandPoseAssist";
 
-		[SerializeField] SteamVR_ActionSet assistActionset;
+#if UNITY_STANDALONE
+		SteamVR_Action_Boolean trackpadTouch;
+		SteamVR_Action_Boolean aButtonTouch;
+		SteamVR_Action_Boolean bButtonTouch;
+		SteamVR_Action_Boolean triggerTouch;
+		SteamVR_Action_Single triggerPull;
+		SteamVR_Action_Boolean grabGrip;
+		SteamVR_Action_Vector2 viveThumbHoriz;
+		SteamVR_ActionSet assistActionset;
+#endif
 
 		int isPinchingHash;
 		int pinchAmtHash;
@@ -59,7 +72,7 @@ namespace HandshakeVR
 		float pinchTweenTime = 0;
 		float pinchTValue = 0;
 		float pinchThumbHoriz = 0;
-		#endregion
+#endregion
 
 		[Header("Debug Vars")]
         [SerializeField]
@@ -69,12 +82,25 @@ namespace HandshakeVR
 		{
 			base.Awake();
 
+#if UNITY_STANDALONE
+			steamVRPose = poseGameObject.GetComponent<SteamVR_Behaviour_Pose>();
+			skeletonBehavior = steamVRPose.GetComponentInChildren<MaskedSteamVRSkeleton>();
+			trackpadTouch = SteamVR_Input.GetBooleanAction(trackpadTouchName);
+			aButtonTouch = SteamVR_Input.GetBooleanAction(aButtonTouchName);
+			bButtonTouch = SteamVR_Input.GetBooleanAction(bButtonTouchName);
+			triggerTouch = SteamVR_Input.GetBooleanAction(triggerTouchName);
+			triggerPull = SteamVR_Input.GetSingleAction(triggerPullName);
+			grabGrip = SteamVR_Input.GetBooleanAction(grabGripName);
+			viveThumbHoriz = SteamVR_Input.GetVector2Action(viveThumbHorizName);
+			assistActionset = SteamVR_Input.GetActionSet(assistActionSetName);
+#endif
+
 			isPinchingHash = Animator.StringToHash("IsPinching");
 			pinchAmtHash = Animator.StringToHash("PinchAmt");
 			isGrabbedHash = Animator.StringToHash("IsGrabbed");
 			pinchThumbHorizHash = Animator.StringToHash("ThumbHoriz");
 
-			animator = steamVRPose.GetComponentInChildren<Animator>();
+			animator = poseGameObject.GetComponentInChildren<Animator>();
 		}
 
         private void Start()
@@ -95,6 +121,7 @@ namespace HandshakeVR
 
 		public override HandTrackingType TrackingType()
 		{
+#if UNITY_STANDALONE
 			switch (skeletonBehavior.skeletalTrackingLevel)
 			{
 				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Estimated:
@@ -102,13 +129,17 @@ namespace HandshakeVR
 					return HandTrackingType.Emulation;
 				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Full:
 					return HandTrackingType.Skeletal;
-				default:
+			default:
 					return HandTrackingType.Emulation;
 			}
+#else
+			return HandTrackingType.Emulation;
+#endif
 		}
 
 		private void GetControllerType()
 		{
+#if UNITY_STANDALONE
 			// string property for?
 			Valve.VR.ETrackedPropertyError error = Valve.VR.ETrackedPropertyError.TrackedProp_Success;
 			Valve.VR.ETrackedDeviceProperty manufacturerNameProperty = Valve.VR.ETrackedDeviceProperty.Prop_ManufacturerName_String;
@@ -153,6 +184,7 @@ namespace HandshakeVR
 			{
 				steamVRControllerType = SteamVR_ControllerType.Unknown;
 			}
+#endif
 		}
 
 		bool isPinching;
@@ -161,6 +193,7 @@ namespace HandshakeVR
 
 		void UpdateAnimatorKnuckles()
 		{
+#if UNITY_STANDALONE
 			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
 			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
 
@@ -189,10 +222,12 @@ namespace HandshakeVR
 				skeletonBehavior.indexSkeletonBlend = 1 - pinchTValue;
 				skeletonBehavior.thumbSkeletonBlend = 1 - pinchTValue;
 			}
+#endif
 		}
 
 		void UpdateAnimatorVive()
 		{
+			#if UNITY_STANDALONE
 			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
 			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
 
@@ -222,10 +257,12 @@ namespace HandshakeVR
 				skeletonBehavior.indexSkeletonBlend = 1 - pinchTValue;
 				skeletonBehavior.thumbSkeletonBlend = 1 - pinchTValue;
 			}
+#endif
 		}
 
 		void UpdateAnimatorTouch()
 		{
+			#if UNITY_STANDALONE
 			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
 			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
 
@@ -254,10 +291,12 @@ namespace HandshakeVR
 				skeletonBehavior.indexSkeletonBlend = 1 - pinchTValue;
 				skeletonBehavior.thumbSkeletonBlend = 1 - pinchTValue;
 			}
+#endif
 		}
 
 		private void Update()
         {
+			#if UNITY_STANDALONE
 			if (controllerHand.IsActive)
 			{
 				if (steamVRControllerType == SteamVR_ControllerType.Unknown) GetControllerType();
@@ -338,9 +377,20 @@ namespace HandshakeVR
 			{
 				animator.cullingMode = AnimatorCullingMode.CullCompletely;
 			}
+#endif
         }
 
-        public bool IsTracking { get { return steamVRPose.isValid; } }
+        public bool IsTracking
+		{
+			get
+			{
+#if UNITY_STANDALONE
+				return steamVRPose.isValid;
+#else
+				return false;
+#endif
+			}
+		}
 
 		void MatchBones(Transform steamVRBone, Transform leapBone, BoneBasis basis,
 			Quaternion leapOrientation, int depth = 0)

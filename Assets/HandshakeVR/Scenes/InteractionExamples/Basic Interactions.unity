@@ -150,9 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f9bd75cea7cd40b7462252915b3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breakAction:
-    actionPath: /actions/default/in/Break
-    needsReinit: 0
+  breakActionName: actions/default/in/Break
 --- !u!4 &29584866
 Transform:
   m_ObjectHideFlags: 0
@@ -416,7 +414,7 @@ Transform:
   - {fileID: 1583450222}
   - {fileID: 1209598583}
   m_Father: {fileID: 1322513354}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1239826270
 MonoBehaviour:
