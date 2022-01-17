@@ -80,7 +80,7 @@
             #include "UnityCG.cginc"
 			#include "Assets/LeapMotion/Core/Resources/LeapCG.cginc"
 
-            uniform sampler2D _CameraDepthTexture;
+			UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 					
 			uniform sampler2D _MainTex;
 			uniform float4 _MainTex_TexelSize;
