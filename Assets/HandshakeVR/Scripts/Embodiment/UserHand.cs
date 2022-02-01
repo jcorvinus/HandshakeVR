@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
+/*using System.Reflection;*/
 using System.Linq;
 
 using Leap.Unity;
@@ -43,8 +43,6 @@ namespace HandshakeVR
 		SkeletalControllerHand skeletalControllerHand;
 		DataHand dataHand;
 		HandModelManager[] handModelManagers;
-		List<Leap.Unity.HandModelManager.ModelGroup>[] modelGroupLists;
-		FieldInfo modelGroupField;
 
 		private bool handEnabled = true;
 		bool disableUINonIndexFingertips = false;
@@ -72,13 +70,13 @@ namespace HandshakeVR
 			{
 				handEnabled = value;
 
-				for (int listIndx = 0; listIndx < modelGroupLists.Length; listIndx++)
+				for (int managerIndex = 0; managerIndex < handModelManagers.Length; managerIndex++)
 				{
-					List<HandModelManager.ModelGroup> modelGroupList = modelGroupLists[listIndx];
+					HandModelManager modelManager = handModelManagers[managerIndex];
 
-					for (int modelGroupIndx = 0; modelGroupIndx < modelGroupList.Count; modelGroupIndx++)
+					for (int modelGroupIndx = 0; modelGroupIndx < modelManager.GetNumberOfGroups(); modelGroupIndx++)
 					{
-						HandModelManager.ModelGroup modelGroup = modelGroupList[modelGroupIndx];
+						HandModelManager.ModelGroup modelGroup = modelManager.GetModelGroupAtIndex(modelGroupIndx);
 						HandModelBase handModel = (IsLeft) ? modelGroup.LeftModel : modelGroup.RightModel;
 
 						if (handModel)
@@ -86,9 +84,8 @@ namespace HandshakeVR
 							bool isDataHand = handModel is DataHand;
 							if (!isDataHand)
 							{
-								// need to find a way to optimize this out with better caching & tracking
-								OverridableHandEnableDisable enabler = handModel.GetComponent<OverridableHandEnableDisable>();
-								enabler.IsDisabled = !value;
+								OverridableHandEnableDisable enabler = (IsLeft) ? modelGroup.LeftEnabler : modelGroup.RightEnabler;
+								if(enabler) enabler.IsDisabled = !value;
 							}
 						}
 					}
@@ -113,10 +110,6 @@ namespace HandshakeVR
 			// break into the model manager
 			handModelManagers = userRig.GetComponentsInChildren<HandModelManager>(true);
 
-			FieldInfo[] privateFields = typeof(HandModelManager).GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-			modelGroupField = privateFields.First<FieldInfo>(item => item.Name == "ModelPool");
-			modelGroupLists = new List<HandModelManager.ModelGroup>[handModelManagers.Length];
-
 			// we need our datahands
 			foreach (HandModelManager modelManager in handModelManagers)
 			{
@@ -128,16 +121,6 @@ namespace HandshakeVR
 					dataHand = dataHands.First(item => item is DataHand && item.Handedness == chirality);
 				}
 				else continue;
-			}
-
-			GetModelGroupLists();
-		}
-
-		void GetModelGroupLists()
-		{
-			for(int i=0; i < handModelManagers.Length; i++)
-			{
-				modelGroupLists[i] = (List<HandModelManager.ModelGroup>)modelGroupField.GetValue(handModelManagers[i]);
 			}
 		}
 

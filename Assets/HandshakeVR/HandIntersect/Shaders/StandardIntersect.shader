@@ -33,7 +33,7 @@
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
 		#pragma surface surf Standard fullforwardshadows vertex:vert
-		#include "Assets/LeapMotion/Core/Resources/LeapCG.cginc"
+		#include "Assets/ThirdParty/Ultraleap/Tracking/Core/Runtime/Resources/LeapCG.cginc"
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 
@@ -74,7 +74,7 @@
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-			#include "Assets/LeapMotion/Core/Resources/LeapCG.cginc"
+			#include "Assets/ThirdParty/Ultraleap/Tracking/Core/Runtime/Resources/LeapCG.cginc"
 
 			UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 					
