@@ -39,6 +39,8 @@ EditorBuildSettings:
     path: Assets/HandshakeVR/Scenes/GraphicRenderer/CurvedUI.unity
     guid: 101116593c5eaf9419911aaa00b45bab
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: dd1b6679673fffc418dd8413f484484a,
+      type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: dc3e3b9e047291345ac2d0094636105c,
       type: 2}
     Unity.XR.PXR.Settings: {fileID: 11400000, guid: 483766253fb6ead4ba41af9da38592c4,

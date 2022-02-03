@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Management;
 
 namespace HandshakeVR
 {
-	public enum PlatformID { None = 0, SteamVR = 1, Oculus = 2 }
+	public enum PlatformID { None = 0, SteamVR = 1, Oculus = 2, PicoXR = 3 }
 
 	public class PlatformManager : MonoBehaviour
 	{
@@ -41,25 +42,34 @@ namespace HandshakeVR
 		{
 			instance = this;
 
-			string deviceName = UnityEngine.XR.XRSettings.loadedDeviceName;
+			string deviceName = ""; //UnityEngine.XR.XRSettings.loadedDeviceName;
+			XRGeneralSettings xrSettings = XRGeneralSettings.Instance;
+			XRLoader activeLoader = xrSettings.Manager.activeLoader;
+
+			deviceName = activeLoader.GetType().ToString();
+			string[] deviceSplit = deviceName.Split('.');
+			deviceName = deviceSplit[deviceSplit.Length - 1];
 
 			Debug.Log(deviceName);
 
 			switch (deviceName)
 			{
-				case ("Oculus"):
+				case ("OculusLoader"):
 					currentPlatformID = PlatformID.Oculus;
 					break;
 
-				case ("OpenVR"):
+				case ("OpenVRLoader"):
 					currentPlatformID = PlatformID.SteamVR;
+					break;
+
+				case ("PXR_Loader"):
+					currentPlatformID = PlatformID.PicoXR;
 					break;
 
 				default:
 					currentPlatformID = PlatformID.None;
 					break;
 			}
-
 
 			// set up our platform properly.
 			// find our platform info

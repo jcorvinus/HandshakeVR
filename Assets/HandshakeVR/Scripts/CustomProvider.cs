@@ -12,11 +12,13 @@ namespace HandshakeVR
 {
 	public class CustomProvider : LeapProvider
 	{
+		[SerializeField] LeapServiceProvider defaultProvider;
+
 		public override Frame CurrentFixedFrame
 		{
 			get
 			{
-				return currentFrame;
+				return (IsActive) ? currentFrame : defaultProvider.CurrentFixedFrame;
 			}
 		}
 
@@ -24,7 +26,7 @@ namespace HandshakeVR
 		{
 			get
 			{
-				return currentFrame;
+				return (IsActive) ? currentFrame : defaultProvider.CurrentFrame;
 			}
 		}
 

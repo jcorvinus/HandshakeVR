@@ -5091,6 +5091,36 @@ PrefabInstance:
       propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 1095725082}
+    - target: {fileID: 114427705730889696, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: fallbackPoser
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114427705730889696, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: fallbackCurlAction.actionPath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114427705730889696, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: fallbackCurlAction.needsReinit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114549947989364682, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: fallbackPoser
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114549947989364682, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: fallbackCurlAction.actionPath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114549947989364682, guid: 81251f2a1fb3527428b70da2d46fdab9,
+        type: 3}
+      propertyPath: fallbackCurlAction.needsReinit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114824147945293114, guid: 81251f2a1fb3527428b70da2d46fdab9,
         type: 3}
       propertyPath: handMeshes.Array.size

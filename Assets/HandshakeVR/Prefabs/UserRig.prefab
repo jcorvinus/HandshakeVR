@@ -544,6 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editTimePose: 2
+  defaultProvider: {fileID: 114325742512613982}
   rightControllerHand: {fileID: 114503377457903724}
   leftControllerHand: {fileID: 114737013065035772}
   isActive: 0
@@ -559,7 +560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a24330a1e02ce468c384f6bc5b929c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultProvider: {fileID: 114325742512613982}
   customProvider: {fileID: 114221310039567002}
   modelManager: {fileID: 477901189758217980}
   manualProviderSwitching: 0
@@ -3964,6 +3964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
+  agnosticActionPath: /actions/default/in/Pose
 --- !u!114 &65609369624601602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4255,6 +4256,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8f4580c9f11c44fa352f7e08eee9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skeletonAction:
+    actionPath: 
+    needsReinit: 1
+  inputSource: 0
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 4393578720803864}
+  origin: {fileID: 0}
+  updatePose: 0
+  onlySetRotations: 0
+  skeletonBlend: 1
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  mirroring: 0
+  fallbackPoser: {fileID: 0}
+  fallbackCurlAction:
+    actionPath: 
+    needsReinit: 1
+  agnosticSkeletonRoot: {fileID: 4393578720803864}
+  agnosticOrigin: {fileID: 0}
+  agnosticActionPath: /actions/default/in/SkeletonLeftHand
+  agnosticIsLeft: 1
   thumbSkeletonBlend: 0
   indexSkeletonBlend: 0
   middleSkeletonBlend: 1
@@ -4675,6 +4710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  agnosticActionPath: /actions/default/in/Pose
 --- !u!114 &733970500088365879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4754,8 +4790,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8f4580c9f11c44fa352f7e08eee9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thumbSkeletonBlend: 1
-  indexSkeletonBlend: 1
+  skeletonAction:
+    actionPath: 
+    needsReinit: 1
+  inputSource: 0
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 0}
+  origin: {fileID: 0}
+  updatePose: 0
+  onlySetRotations: 0
+  skeletonBlend: 1
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  mirroring: 0
+  fallbackPoser: {fileID: 0}
+  fallbackCurlAction:
+    actionPath: 
+    needsReinit: 1
+  agnosticSkeletonRoot: {fileID: 4672290211030862}
+  agnosticOrigin: {fileID: 0}
+  agnosticActionPath: /actions/default/in/SkeletonRightHand
+  agnosticIsLeft: 0
+  thumbSkeletonBlend: 0
+  indexSkeletonBlend: 0
   middleSkeletonBlend: 1
   ringSkeletonBlend: 1
   pinkySkeletonBlend: 1

@@ -85,13 +85,13 @@ namespace HandshakeVR
 #if UNITY_STANDALONE
 			steamVRPose = poseGameObject.GetComponent<SteamVR_Behaviour_Pose>();
 			skeletonBehavior = steamVRPose.GetComponentInChildren<MaskedSteamVRSkeleton>();
-			trackpadTouch = SteamVR_Input.GetBooleanAction(trackpadTouchName);
-			aButtonTouch = SteamVR_Input.GetBooleanAction(aButtonTouchName);
-			bButtonTouch = SteamVR_Input.GetBooleanAction(bButtonTouchName);
-			triggerTouch = SteamVR_Input.GetBooleanAction(triggerTouchName);
-			triggerPull = SteamVR_Input.GetSingleAction(triggerPullName);
-			grabGrip = SteamVR_Input.GetBooleanAction(grabGripName);
-			viveThumbHoriz = SteamVR_Input.GetVector2Action(viveThumbHorizName);
+			trackpadTouch = SteamVR_Input.GetBooleanActionFromPath(trackpadTouchName);
+			aButtonTouch = SteamVR_Input.GetBooleanActionFromPath(aButtonTouchName);
+			bButtonTouch = SteamVR_Input.GetBooleanActionFromPath(bButtonTouchName);
+			triggerTouch = SteamVR_Input.GetBooleanActionFromPath(triggerTouchName);
+			triggerPull = SteamVR_Input.GetSingleActionFromPath(triggerPullName);
+			grabGrip = SteamVR_Input.GetBooleanActionFromPath(grabGripName);
+			viveThumbHoriz = SteamVR_Input.GetVector2ActionFromPath(viveThumbHorizName);
 			assistActionset = SteamVR_Input.GetActionSet(assistActionSetName);
 #endif
 

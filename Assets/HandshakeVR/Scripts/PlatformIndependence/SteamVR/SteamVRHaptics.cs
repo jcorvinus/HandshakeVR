@@ -18,7 +18,7 @@ namespace HandshakeVR
 		private void Awake()
 		{
 #if UNITY_STANDALONE
-			vibration = SteamVR_Input.GetVibrationAction(vibrationActionName);
+			vibration = SteamVR_Input.GetVibrationActionFromPath(vibrationActionName);
 #endif
 		}
 

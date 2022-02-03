@@ -17,6 +17,11 @@ namespace HandshakeVR
 		MonoBehaviour
 #endif
 	{
+		[SerializeField] Transform agnosticSkeletonRoot;
+		[SerializeField] Transform agnosticOrigin;
+		[SerializeField] string agnosticActionPath;
+		[SerializeField] bool agnosticIsLeft;
+
 		/// <summary>
 		/// How much of a blend to apply to the transform positions and rotations. 
 		/// Set to 0 for the transform orientation to be set by an animation. 
@@ -39,6 +44,16 @@ namespace HandshakeVR
 		public float pinkySkeletonBlend = 1;
 
 #if UNITY_STANDALONE
+		protected override void Awake()
+		{
+			skeletonRoot = agnosticSkeletonRoot;
+			origin = agnosticOrigin;
+			skeletonAction = SteamVR_Input.GetSkeletonActionFromPath(agnosticActionPath);
+			inputSource = agnosticIsLeft ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
+
+			base.Awake();
+		}
+
 		SteamVR_Skeleton_FingerIndexEnum GetFingerForBone(int boneID)
 		{
 			SteamVR_Skeleton_JointIndexEnum jointIndexEnum = (SteamVR_Skeleton_JointIndexEnum)boneID;

@@ -18,9 +18,6 @@ namespace HandshakeVR
 		public delegate void SwitchHandler(ProviderSwitcher sender, bool providerIsDefault);
 		public event SwitchHandler ProviderSwitched;
 
-		[SerializeField]
-        LeapServiceProvider defaultProvider;
-
         [SerializeField]
         CustomProvider customProvider;
 
@@ -57,7 +54,10 @@ namespace HandshakeVR
             interactionManager = Leap.Unity.Interaction.InteractionManager.instance;
 			if(interactionManager != null) controllerManager = interactionManager.GetComponent<PlatformControllerManager>();
 
-            if(interactionManager)
+			Hands.Provider = customProvider;
+			modelManager.leapProvider = customProvider;
+
+			if (interactionManager)
             { 
                 foreach(InteractionController controller in interactionManager.interactionControllers)
                 {
@@ -68,7 +68,7 @@ namespace HandshakeVR
                         if (hand.isLeft) leftInteractionHand = hand;
                         else rightInteractionHand = hand;
 
-						hand.leapProvider = defaultProvider;
+						hand.leapProvider = customProvider;
                     }
                 }
             }
@@ -130,32 +130,14 @@ namespace HandshakeVR
         {
             if (isDefault)
             {
-                modelManager.leapProvider = defaultProvider;
-				if (leftInteractionHand)
-                {
-                    leftInteractionHand.leapProvider = defaultProvider;
-                }
-                if (rightInteractionHand)
-                {
-                    rightInteractionHand.leapProvider = defaultProvider;
-                }
 				if (controllerManager) controllerManager.ControllersEnabled = false;
             }
             else
             {
-                modelManager.leapProvider = customProvider;
-                if (leftInteractionHand)
-                {
-                    leftInteractionHand.leapProvider = customProvider;
-                }
-                if (rightInteractionHand)
-                {
-                    rightInteractionHand.leapProvider = customProvider;
-                }
 				if (controllerManager) controllerManager.ControllersEnabled = true;
             }
 
-            Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
+            //Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
 			customProvider.IsActive = !isDefault;
 
 			if (ProviderSwitched != null)
