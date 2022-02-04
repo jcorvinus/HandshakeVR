@@ -2203,7 +2203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea79be653ce14db8969d7225d95ec6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 0}
+  leapProvider: {fileID: 114221310039567002}
   handedness: 1
   handModelPalmWidth: 0.085
   fingers:
@@ -4399,7 +4399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 0}
+  leapProvider: {fileID: 114221310039567002}
   handedness: 0
   handModelPalmWidth: 0.085
   fingers:
@@ -6510,7 +6510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea79be653ce14db8969d7225d95ec6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 0}
+  leapProvider: {fileID: 114221310039567002}
   handedness: 0
   handModelPalmWidth: 0.085
   fingers:
@@ -8486,7 +8486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 0}
+  leapProvider: {fileID: 114221310039567002}
   handedness: 1
   handModelPalmWidth: 0.085
   fingers:

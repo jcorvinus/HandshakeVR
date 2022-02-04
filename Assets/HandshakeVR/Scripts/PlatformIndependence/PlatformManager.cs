@@ -41,7 +41,10 @@ namespace HandshakeVR
 		private void Awake()
 		{
 			instance = this;
+		}
 
+		private void Start()
+		{
 			string deviceName = ""; //UnityEngine.XR.XRSettings.loadedDeviceName;
 			XRGeneralSettings xrSettings = XRGeneralSettings.Instance;
 			XRLoader activeLoader = xrSettings.Manager.activeLoader;

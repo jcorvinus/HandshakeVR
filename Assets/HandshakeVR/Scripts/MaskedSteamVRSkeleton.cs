@@ -121,6 +121,8 @@ namespace HandshakeVR
 
 		public override void UpdateSkeletonTransforms()
 		{
+			if (!skeletonAction.active) return;
+
 			Vector3[] bonePositions = GetBonePositions();
 			Quaternion[] boneRotations = GetBoneRotations();
 

@@ -52,7 +52,18 @@ namespace HandshakeVR
 			currentFrame = new Frame(0, timeStamp, 60, hands);
 			rightControllerHand.LeapProvider = this;
 			leftControllerHand.LeapProvider = this;
+
+			defaultProvider.OnUpdateFrame += (Frame obj) =>
+			{
+				if(!IsActive) DispatchUpdateFrameEvent(obj);
+			};
+
+			defaultProvider.OnFixedFrame += (Frame obj) =>
+			{
+				if (!IsActive) DispatchFixedFrameEvent(obj);
+			};
 		}
+
 
 		// Update is called once per frame
 		void Update()
