@@ -40,9 +40,16 @@ namespace HandshakeVR
 		/// how 'deeply pressed' the current activation is. Useful for 'squeeze' activators
 		/// </summary>
 		public float NormalizedPinchActivation { get { return normalizedPinchActivationValue; } }
-		public PinchDetector PinchDetector { get { return pinchDetector; } }
+		public PinchDetector PinchDetector
+		{
+			get
+			{
+				if (!pinchDetector) pinchDetector = GetComponent<PinchDetector>();
+				return pinchDetector;
+			}
+		}
 
-		private void Awake()
+		private void Start()
 		{
 			pinchDetector = GetComponent<PinchDetector>();
 		}
