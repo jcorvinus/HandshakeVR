@@ -44,11 +44,6 @@ namespace HandshakeVR
 
 #if UNITY_STANDALONE
 				sceneChangeAction = SteamVR_Input.GetBooleanAction(sceneChangeActionName);
-				sceneChangeAction.onStateDown += (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) => 
-				{
-					if (fromSource == SteamVR_Input_Sources.RightHand) NextScene();
-					else PreviousScene();
-				};
 #endif
 			}
 			else Destroy(gameObject);
@@ -60,7 +55,19 @@ namespace HandshakeVR
             Scene scene = SceneManager.GetActiveScene();
 
             currentSceneIndex = scene.buildIndex;
-        }
+
+#if UNITY_STANDALONE
+			sceneChangeAction.onStateDown += SceneChangeAction_Invoke;
+#endif
+		}
+
+#if UNITY_STANDALONE
+		void SceneChangeAction_Invoke(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+		{
+			if (fromSource == SteamVR_Input_Sources.RightHand) NextScene();
+			else PreviousScene();
+		}
+#endif
 
 		void NextScene()
 		{

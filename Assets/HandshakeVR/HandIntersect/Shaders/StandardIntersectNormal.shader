@@ -6,7 +6,6 @@
 		_NormalTex("Normal Texture", 2D) = "black" {}
 		_Glossiness("Smoothness", Range(0, 1)) = 0.5
 		_Metallic("Metallic", Range(0, 1)) = 0.0
-		[MaterialToggle] _isLeftHand("Is Left Hand?", Int) = 0
 
 		// intersect variables
 		[HDR]
@@ -33,15 +32,10 @@
 
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows vertex:vert
+		#pragma surface surf Standard fullforwardshadows
 		#include "Assets/ThirdParty/Ultraleap/Tracking/Core/Runtime/Resources/LeapCG.cginc"
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
-
-		int _isLeftHand;
-		void vert(inout appdata_full v) {
-			v.vertex = LeapGetLateVertexPos(v.vertex, _isLeftHand);
-		}
 
 		sampler2D _MainTex;
 		sampler2D _NormalTex;
@@ -78,7 +72,6 @@
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-			#include "Assets/ThirdParty/Ultraleap/Tracking/Core/Runtime/Resources/LeapCG.cginc"
 
 			UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 					
@@ -105,11 +98,10 @@
 				float4 projPos : TEXCOORD4;
             };
  
-			int _isLeftHand;
             v2f vert(appdata_base v)
             {
                 v2f o;
-                o.pos = UnityObjectToClipPos(LeapGetLateVertexPos(v.vertex, _isLeftHand));
+                o.pos = UnityObjectToClipPos(v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 
 				o.normal = normalize(mul(float4(v.normal, 0.0), unity_WorldToObject).xyz);

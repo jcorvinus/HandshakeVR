@@ -74,7 +74,6 @@
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-			#include "Assets/ThirdParty/Ultraleap/Tracking/Core/Runtime/Resources/LeapCG.cginc"
 
 			UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 					
@@ -86,9 +85,6 @@
 
             float _IntersectionThreshold;
 			float _SilhouetteEnhancement;
-			
-			float _XSpeed;
-			float _YSpeed;
 
 			float4 _MainTex_ST;
 
@@ -105,7 +101,7 @@
             v2f vert(appdata_base v)
             {
                 v2f o;
-                o.pos = UnityObjectToClipPos(LeapGetLateVertexPos(v.vertex, _isLeftHand));
+                o.pos = UnityObjectToClipPos(v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 
 				o.normal = normalize(mul(float4(v.normal, 0.0), unity_WorldToObject).xyz);
@@ -119,7 +115,7 @@
  
             half4 frag(v2f i) : COLOR
             {
-				float2 texCoord = i.texcoord + float2(_XSpeed * _Time.x, _YSpeed * _Time.x);
+				float2 texCoord = i.texcoord;
 
 				float heightSampleCenter = tex2D(_MainTex, texCoord).r;
 				float heightSampleRight = tex2D(_MainTex, texCoord + float2(_MainTex_TexelSize.x, 0)).r;

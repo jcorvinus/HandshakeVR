@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if XR_PLUGIN_MANAGEMENT
+using UnityEngine.SpatialTracking;
+#endif
 
 #if UNITY_STANDALONE
 using Valve.VR;
@@ -49,6 +52,10 @@ namespace HandshakeVR
 		Transform rightWrist;
 		Transform rightPalm;
 
+#if XR_PLUGIN_MANAGEMENT
+		TrackedPoseDriver viewCameraDriver;
+#endif
+
 		public ProviderSwitcher ProviderSwitcher { get { return providerSwitcher; } }
 		public PlatformManager PlatformManager { get { return platformManager; } }
 		public Camera ViewCamera { get { return viewCamera; } }
@@ -64,6 +71,11 @@ namespace HandshakeVR
 		private void Awake()
 		{
 			instance = this;
+
+#if XR_PLUGIN_MANAGEMENT
+			viewCameraDriver = viewCamera.transform.GetComponent<TrackedPoseDriver>();
+			viewCameraDriver.enabled = true;
+#endif
 
 			UserHand[] hands = GetComponentsInChildren<UserHand>(true);
 
@@ -186,10 +198,10 @@ Quaternion GetShoulderBasis(Vector3 headForward)
 					userPresence = OVRManager.isHmdPresent;
 					break;
 				case PlatformID.SteamVR:
-					#if UNITY_STANDALONE
+#if UNITY_STANDALONE
 					SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("headsetonhead");
 					userPresence = headsetOnHead.GetState(SteamVR_Input_Sources.Head);
-					#endif
+#endif
 					break;
 				default:
 					break;

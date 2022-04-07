@@ -12,7 +12,7 @@ namespace HandshakeVR
 {
 	public class CustomProvider : LeapProvider
 	{
-		[SerializeField] LeapServiceProvider defaultProvider;
+		[SerializeField] LeapXRServiceProvider defaultProvider;
 
 		public override Frame CurrentFixedFrame
 		{
@@ -52,6 +52,16 @@ namespace HandshakeVR
 			currentFrame = new Frame(0, timeStamp, 60, hands);
 			rightControllerHand.LeapProvider = this;
 			leftControllerHand.LeapProvider = this;
+
+#if XR_PLUGIN_MANAGEMENT
+			defaultProvider.updateHandInPrecull = true; // note this might cause problems
+				// if there is no tracked pose driver. In fact, it might cause problems in general,
+				// but I'm pretty sure the reason we turned it on in the first place was to account
+				// for the presence of a tracked pose driver
+#endif
+
+			/*UserRig userRig = GetComponentInParent<UserRig>();
+			defaultProvider.mainCamera = userRig.ViewCamera;*/
 
 			defaultProvider.OnUpdateFrame += (Frame obj) =>
 			{

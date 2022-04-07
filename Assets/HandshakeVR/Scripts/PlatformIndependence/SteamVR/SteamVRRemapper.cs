@@ -122,6 +122,8 @@ namespace HandshakeVR
 		public override HandTrackingType TrackingType()
 		{
 #if UNITY_STANDALONE
+			if (!skeletonBehavior.skeletonAction.active) return HandTrackingType.None;
+
 			switch (skeletonBehavior.skeletalTrackingLevel)
 			{
 				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Estimated:
@@ -196,6 +198,8 @@ namespace HandshakeVR
 #if UNITY_STANDALONE
 			SteamVR_Input_Sources inputSource = (controllerHand.IsLeft) ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
 			if (!assistActionset.IsActive()) assistActionset.Activate(inputSource);
+
+			if (!skeletonBehavior.skeletonAction.active) return;
 
 			animator.SetBool(isGrabbedHash, grabGrip.GetState(inputSource));
 

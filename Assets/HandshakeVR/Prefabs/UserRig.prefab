@@ -2203,7 +2203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea79be653ce14db8969d7225d95ec6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 114221310039567002}
+  _leapProvider: {fileID: 0}
   handedness: 1
   handModelPalmWidth: 0.085
   fingers:
@@ -4399,7 +4399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 114221310039567002}
+  _leapProvider: {fileID: 0}
   handedness: 0
   handModelPalmWidth: 0.085
   fingers:
@@ -4963,7 +4963,9 @@ MonoBehaviour:
   _frameOptimization: 0
   _physicsExtrapolation: 1
   _physicsExtrapolationTime: 0.011111111
-  _trackingOptimization: 0
+  _multipleDeviceMode: 0
+  _specificSerialNumber: 
+  _trackingOptimization: 2
   _preventInitializingTrackingMode: 0
   _workerThreadProfiling: 0
   _serverNameSpace: Leap Service
@@ -4972,7 +4974,7 @@ MonoBehaviour:
   _deviceOffsetZAxis: 0.12
   _deviceTiltXAxis: 5
   _deviceOrigin: {fileID: 0}
-  _mainCamera: {fileID: 0}
+  _mainCamera: {fileID: 20034780686463196}
   _temporalWarpingMode: 0
   _customWarpAdjustment: 17
   _updateHandInPrecull: 0
@@ -4983,7 +4985,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520490014071238}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
   m_Name: 
@@ -6510,7 +6512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea79be653ce14db8969d7225d95ec6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 114221310039567002}
+  _leapProvider: {fileID: 0}
   handedness: 0
   handModelPalmWidth: 0.085
   fingers:
@@ -8486,7 +8488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e3418c2a5124e8e74ec543ac41ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 114221310039567002}
+  _leapProvider: {fileID: 0}
   handedness: 1
   handModelPalmWidth: 0.085
   fingers:

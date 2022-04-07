@@ -50,6 +50,7 @@ namespace HandshakeVR
 			origin = agnosticOrigin;
 			skeletonAction = SteamVR_Input.GetSkeletonActionFromPath(agnosticActionPath);
 			inputSource = agnosticIsLeft ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
+			mirroring = (agnosticIsLeft) ? MirrorType.RightToLeft : MirrorType.None;
 
 			base.Awake();
 		}

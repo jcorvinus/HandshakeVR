@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if XR_PLUGIN_MANAGEMENT
 using UnityEngine.XR.Management;
+#endif
 
 namespace HandshakeVR
 {
@@ -45,6 +48,7 @@ namespace HandshakeVR
 
 		private void Start()
 		{
+#if XR_PLUGIN_MANAGEMENT
 			string deviceName = ""; //UnityEngine.XR.XRSettings.loadedDeviceName;
 			XRGeneralSettings xrSettings = XRGeneralSettings.Instance;
 			XRLoader activeLoader = xrSettings.Manager.activeLoader;
@@ -73,6 +77,26 @@ namespace HandshakeVR
 					currentPlatformID = PlatformID.None;
 					break;
 			}
+#else
+			string deviceName = UnityEngine.XR.XRSettings.loadedDeviceName;
+
+			Debug.Log(deviceName);
+
+			switch (deviceName)
+			{
+				case ("Oculus"):
+					currentPlatformID = PlatformID.Oculus;
+					break;
+
+				case ("OpenVR"):
+					currentPlatformID = PlatformID.SteamVR;
+					break;
+
+				default:
+					currentPlatformID = PlatformID.None;
+					break;
+			}
+#endif
 
 			// set up our platform properly.
 			// find our platform info
