@@ -11,6 +11,7 @@ namespace HandshakeVR
 {
 	public enum PlatformID { None = 0, SteamVR = 1, Oculus = 2, PicoXR = 3 }
 
+	[DefaultExecutionOrder(-30)]
 	public class PlatformManager : MonoBehaviour
 	{
 		// this stuff might get handled by the ProviderSwitcher instead
@@ -165,7 +166,8 @@ namespace HandshakeVR
 				}
 			}
 
-			if(haptics != null) haptics.DoHaptics(frequency, amplitude, duration);
+			if(haptics != null && 
+				GetControllerTrackingValidity(isLeftController)) haptics.DoHaptics(frequency, amplitude, duration);
 		}
 	}
 }

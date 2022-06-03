@@ -27,7 +27,7 @@ namespace HandshakeVR
 #if UNITY_STANDALONE
 			SteamVR_Input_Sources inputSource = IsLeft ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
 
-			vibration.Execute(0, duration, frequency, amplitude, inputSource);
+			if(vibration != null) vibration.Execute(0, duration, frequency, amplitude, inputSource);
 #endif
 		}
 	}

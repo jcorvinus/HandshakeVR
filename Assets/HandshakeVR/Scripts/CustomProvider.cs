@@ -46,6 +46,7 @@ namespace HandshakeVR
 
 		public bool IsActive { get { return isActive; } set { isActive = value; } }
 		public int FrameID { get { return frameID; } }
+		public bool IsDefaultProviderConnected { get { return defaultProvider.IsConnected(); } }
 
 		private void Awake()
 		{

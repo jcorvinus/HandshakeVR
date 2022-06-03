@@ -123,6 +123,7 @@ namespace HandshakeVR
 
         private bool ShouldUseControllers()
         {
+			if (customProvider.IsDefaultProviderConnected) return false;
             return GetControllerValidity(true) || GetControllerValidity(false);
         }
 
@@ -137,7 +138,6 @@ namespace HandshakeVR
 				if (controllerManager) controllerManager.ControllersEnabled = true;
             }
 
-            //Hands.Provider = (isDefault) ? defaultProvider : (LeapProvider)customProvider;
 			customProvider.IsActive = !isDefault;
 
 			if (ProviderSwitched != null)

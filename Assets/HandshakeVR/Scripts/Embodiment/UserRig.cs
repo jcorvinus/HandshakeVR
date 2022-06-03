@@ -12,6 +12,7 @@ using Valve.VR;
 
 namespace HandshakeVR
 {
+	[DefaultExecutionOrder(-40)]
 	public class UserRig : MonoBehaviour
 	{
 #region Defines
