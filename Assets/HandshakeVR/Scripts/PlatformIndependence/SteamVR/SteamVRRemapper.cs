@@ -24,6 +24,7 @@ namespace HandshakeVR
         Vector3 palmOffset;
 
 		SteamVR_ControllerType steamVRControllerType = SteamVR_ControllerType.Unknown;
+		EVRSkeletalTrackingLevel lastTrackingLevel;
 
         // 0 finger_index_meta_r
         // 1 finger_middle_meta_r
@@ -106,6 +107,11 @@ namespace HandshakeVR
         private void Start()
         {
             GetMetacarpals();
+			skeletonBehavior.onBoneTransformsUpdatedEvent += (SteamVR_Behaviour_Skeleton sender, 
+				SteamVR_Input_Sources sources) =>
+			{
+				lastTrackingLevel = skeletonBehavior.skeletalTrackingLevel;
+			};
         }
 
         void GetMetacarpals()
@@ -124,7 +130,7 @@ namespace HandshakeVR
 #if UNITY_STANDALONE
 			if (!skeletonBehavior.skeletonAction.active) return HandTrackingType.None;
 
-			switch (skeletonBehavior.skeletalTrackingLevel)
+			switch (lastTrackingLevel)
 			{
 				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Estimated:
 				case EVRSkeletalTrackingLevel.VRSkeletalTracking_Partial:
