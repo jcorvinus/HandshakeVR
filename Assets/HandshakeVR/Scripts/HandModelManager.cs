@@ -75,11 +75,15 @@ namespace HandshakeVR
 		public void AddNewGroup(ModelGroup group)
 		{
 			modelGroups.Add(group);
+			group.LeftModel.leapProvider = _leapProvider;
+			group.RightModel.leapProvider = _leapProvider;
 		}
 
 		public void RemoveGroup(ModelGroup group)
 		{
 			modelGroups.Remove(group);
+			group.LeftModel.leapProvider = null;
+			group.RightModel.leapProvider = null;
 		}
 
 		public int GetNumberOfGroups()
