@@ -25,7 +25,7 @@ namespace HandshakeVR
 		public CapsuleCollider Owner;
 		public bool HandLeft { get { return HandModel.IsLeft; } }
 		public FingerFilter finger;
-		public Vector3 TipPosition { get { return Owner.transform.TransformPoint(Owner.center) + Forward * Owner.height; } }
+		public Vector3 TipPosition { get { return Owner.transform.TransformPoint(Owner.center) + Forward * (Owner.height * 0.5f); } }
 		public Vector3 Forward { get { return (Owner.transform.forward * ((HandLeft) ? 1 : 1)); } }
 
 		public UserHand HandModel;
