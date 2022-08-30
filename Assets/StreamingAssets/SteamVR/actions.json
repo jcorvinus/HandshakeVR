@@ -73,6 +73,10 @@
     {
       "controller_type": "knuckles",
       "binding_url": "application_generated_unity_handshakevr_exe_binding_knuckles.json"
+    },
+    {
+      "controller_type": "mercury_hands",
+      "binding_url": "bindings_mercury_hands.json"
     }
   ],
   "localization": [
