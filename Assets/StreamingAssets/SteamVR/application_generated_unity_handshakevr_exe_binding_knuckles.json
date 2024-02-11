@@ -192,6 +192,7 @@
    "category" : "steamvr_input",
    "controller_type" : "knuckles",
    "description" : "Handshake VR Index Default Controls",
+   "interaction_profile" : "",
    "name" : "Handshake VR Index Default Controls",
    "options" : {},
    "simulated_actions" : []
