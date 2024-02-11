@@ -22,18 +22,19 @@ The main principle, is that Handshake ingests hand tracking and controller data 
 Data flow starts at the bottom and goes up. This is a simplified diagram, a more detailed entity component diagram is coming soon.
 
 ## Great, how do I start using it?
-This project is currently set up for Unity version 2018.4.11f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
+This project is currently set up for Unity version 2019.4.31f1. Get this version if you're having problems getting it working with your preferred version of unity. After that, The first thing you'll want to do is clone the repository. Then, get the following unity packages:
 
 SteamVR:
 https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647
 
-Leap Core Assets & Interaction Engine. Version 4.6.0:
-https://developer.leapmotion.com/unity/#5436356
+Leap Motion Unity Plugin 5.4.0 (https://github.com/ultraleap/UnityPlugin/releases/tag/com.ultraleap.tracking%2F5.4.0)
 
-Oculus Unity Integration:
+Legacy Oculus SDK:
 https://developer.oculus.com/downloads/package/unity-integration/
 
 (if it asks you to upgrade, select 'yes')
+
+Unity Deprecated Virtual Reality Supported - OpenVr / Oculus
 
 Leap Graphic Renderer (Optional):
 You can import Leap Motion's Graphic Renderer asset package. There is an example scene that shows how to create curved UI elements. You will need to add the symbol 'LeapGraphicRenderer' for the glow effect to work, but otherwise, you can just import the Graphic Renderer module.
